@@ -1,0 +1,79 @@
+@import '../../Global/Variable.scss';
+
+
+@mixin display{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-main-container {
+    @include display;
+    flex-direction: column;
+
+        height: 90vh;
+        width: 100vw;
+        background-color: $primary-color;
+        font-family: $font-family;
+        h1{
+            color: $secondary-color ;
+        }
+        .register-container{
+            height: 80%;
+            width: 30%;
+            border:2px solid $secondary-color;
+            border-radius: 40px;
+            box-shadow: $secondary-color $box-shadow;
+            background: transparent;
+            
+            .register-form{
+                height: 100%;
+                @include display;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-top: 1rem;
+                margin-left: 2rem;
+                .register-form-items{
+                    width: 40%;
+                    height: 15%;
+
+                    label{
+                        font-size: $font-size;
+                        color: $secondary-color;
+                        font-family: $font-family;
+                        margin-bottom: 2rem;
+                       
+                    }
+                    .register-field{
+                        width: 100%;
+                        min-height:32px;
+                        border-radius: 10px;
+                        border:2px solid $secondary-color ;
+                        color: $tertiary-color;
+                        padding-left:10px;
+                        outline: 0;
+                        
+                    }
+                 
+                    .register-field::placeholder{
+                        color: $tertiary-color;
+                    }
+               
+                   .register-err{
+                    color: red;
+                   }
+                }
+                .register-submit{
+                    background-color: $secondary-color;
+                    color: $quaternary-color;
+                    border: none;
+                    border-radius: 40px;
+                    height: 35px;
+                    width: 210px;
+                    margin-top: 1rem;
+                
+                }
+            }
+        }
+}

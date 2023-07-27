@@ -1,0 +1,23 @@
+@import '../../Global//Variable.scss';
+.UserTable-wrapper{
+    width: 80%;
+    .ant-table-wrapper{
+        .ant-spin-nested-loading{
+            th{
+                color:$tertiary-color;
+            }
+            tbody{
+                tr{
+
+                    td{
+                        a{
+
+                            color:$quaternary-color;
+                        }
+        
+                    }
+                }
+            }
+        }
+    }
+}

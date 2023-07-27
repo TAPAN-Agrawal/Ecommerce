@@ -1,0 +1,63 @@
+@import "../../Global/Variable.scss";
+
+@mixin display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-main-container {
+  @include display;
+  justify-content: space-around;
+  height: 7vh;
+  width: 100vw;
+  background-color: $primary-color;
+  font-family: $font-family;
+  color: $tertiary-color;
+  .nav-logo {
+    @include display;
+    justify-content: space-between;
+    // border: $border;
+    .nav-img {
+      height: 60px;
+    }
+  }
+  .nav-search-bar {
+    // border: $border;
+
+    width: 30%;
+
+    .ant-input-group-wrapper {
+      align-items: center;
+      .ant-input-wrapper {
+        input {
+          color: $tertiary-color;
+        }
+        input:focus {
+          border-color: $tertiary-color;
+        }
+        .ant-input-group-addon {
+          .ant-btn {
+            background: $secondary-color;
+          }
+        }
+      }
+    }
+  }
+  .nav-nav-items {
+    // border: $border;
+    @include display;
+    justify-content: space-evenly;
+    width: 20%;
+    .nav-nav-items-child {
+      @include display;
+      margin: 0.3rem;
+      .nav-nav-item-logo {
+        margin: 0.5rem;
+      }
+    }
+  }
+  .nav-cred {
+    // border: $border;
+  }
+}

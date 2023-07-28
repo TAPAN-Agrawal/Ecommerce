@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminPanel.scss";
 import {
   ShoppingOutlined,
@@ -6,8 +6,32 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import UserTable from "../UserTable/UserTable";
+import { Button } from "antd";
+import { Routes,Route, useNavigate, useLocation } from "react-router-dom";
+import ProductTable from "../ProductTable/ProductTable";
+import AddAdmin from "../AddAdmin/AddAdmin";
 
 function AdminPanel() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname.split("/")[2];
+
+  
+
+  const userHandler = () => {
+    navigate('/adminpanel/user')
+
+  };
+
+  const productHandler = () => {
+    navigate('/adminpanel/product')
+  };
+  const addAdminHandler=()=>{
+    navigate('/adminpanel/addAdmin')
+  }
+
+
+
   return (
     <div className="admin-wrapper-container">
       <div className="admin-left-wrapper">
@@ -15,28 +39,32 @@ function AdminPanel() {
           <div className="admin-logo">
             <h1>Admin-Panel</h1>
           </div>
-          <div className="admin-items">
+          <Button className={currentPath === 'user' ? "admin-items-active":"admin-items"} onClick={userHandler}>
             <UserOutlined />
             <h3>User</h3>
-          </div>
+          </Button>
           <hr />
-          <div className="admin-items">
+          <Button className={currentPath === 'product' ? "admin-items-active":"admin-items"} onClick={productHandler}>
             <ShoppingOutlined />
             <h3>Product</h3>
-          </div>
+          </Button>
           <hr />
 
-          <div className="admin-items">
+          <Button className={currentPath === 'addAdmin' ? "admin-items-active":"admin-items"} onClick={addAdminHandler}>
             <UserAddOutlined />
             <h3>Add-Admin</h3>
-          </div>
+          </Button>
         </div>
-        <div className="admin-logout">
+        <Button className="admin-logout">
           <h2>Logout</h2>
-        </div>
+        </Button>
       </div>
       <div className="admin-right-wrapper">
-        <UserTable/>
+      <Routes>
+          <Route path="user" element={<UserTable />} />
+          <Route path="product" element={<ProductTable />} />
+          <Route path="addAdmin" element={<AddAdmin/>}/>
+        </Routes>
       </div>
     </div>
   );

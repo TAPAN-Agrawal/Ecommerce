@@ -1,0 +1,65 @@
+@import '../../Global/Variable.scss';
+
+@mixin display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-wrapper {
+    @include display;
+    flex-direction: column;
+    height: 1400px;
+    width: 100vw;
+    background: $primary-color;
+
+    .home-slider {
+        // border: 2px solid yellow;
+        margin-top: 1.5rem;
+        width: 50%;
+        height: 500px;
+
+        .home-img {
+            height: 400px;
+            width: 100%
+        }
+    }
+
+    .home-wrapper-child {
+        @include display;
+        height: 95%;
+        width: 95%;
+        border: $border;
+
+        .home-combine-section {
+            height: 100%;
+            width: 70%;
+
+            .home-men-section {
+                height: 500px;
+                overflow-y: auto;
+                border: 2px solid purple;
+               
+           
+               
+            }
+            .home-men-section::-webkit-scrollbar{
+                display: none;
+              }
+
+            .home-women-section {
+                height: 500px;
+
+                border: 2px solid green;
+
+            }
+        }
+
+        .home-children-section {
+            height: 100%;
+            width: 30%;
+            border: 2px solid violet;
+
+        }
+    }
+}

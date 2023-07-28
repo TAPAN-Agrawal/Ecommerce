@@ -41,6 +41,27 @@
                 color: $tertiary-color;
                 padding-left: 10px;
                 scale: 1;
+                width: 100%;
+                border: none;
+                background: none;
+                h3{
+                    margin-left: 1rem;
+                }
+            }
+            .admin-items-active{
+                @include display;
+                justify-content: flex-start;
+                border-radius: 10px;
+                height: 40px;
+                color: white;
+                transform: scale(1.03);
+
+                padding-left: 10px;
+                scale: 1;
+                width: 100%;
+                border: none;
+                background-color: $tertiary-color;
+
                 h3{
                     margin-left: 1rem;
                 }
@@ -51,10 +72,12 @@
                 transform: scale(1.03);
             }
         }
-        .admin-logout{
+        Button{
             @include display;
             color: $tertiary-color;
             width: 90%;
+            border: none;
+                background: none;
             // background-color: blue;
         }
         .admin-logout:hover{
@@ -65,9 +88,10 @@
         }
     }
     .admin-right-wrapper{
+        @include display;
         height: 100%;
-        width: 80%;
+        width: 95%;
         // border: $border;
-        background:$secondary-color;
+        background:white;
     }
 }

@@ -1,30 +1,28 @@
 import React from "react";
-import { Space, Table, Tag } from 'antd';
+import { Button, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import './UserTable.scss'
 
 interface DataType {
     key: string;
+    serialno?:string,
     name: string;
-    age: number;
-    address: string;
-    tags: string[];
+    email:string;
+    items:number;
+    billamount:number;
+ 
   }
 
   const columns: ColumnsType<DataType> = [
-    {
-        title:'Sr',
-        dataIndex:'serialno',
-        key: 'serialno',
-    },
+  
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      // render: (text) => <>{text}</>,
     },
     {
-      title: 'Eamil',
+      title: 'Email',
       dataIndex: 'email',
       key: 'email',
     },
@@ -34,48 +32,59 @@ interface DataType {
       key: 'items',
     },
   {
-    title: 'Avatar',
-    dataIndex: 'avatar',
-    key: 'avatar',
+    title: 'BillAmount',
+    dataIndex: 'billamount',
+    key: 'billamount',
   },
     {
       title: 'Action',
       key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
+      render: ( record) => (
+        <Button onClick={()=>{console.log("hello",record)}}>Delete</Button>
       ),
     },
   ];
   
   const data: DataType[] = [
     {
+      
       key: '1',
       name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
+      email:"John@gmail.com",
+      items:5,
+      billamount:200,
     },
     {
       key: '2',
       name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
+      email:"John@gmail.com",
+      items:5,
+      billamount:200,
+
+    
     },
     {
       key: '3',
       name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
+      email:"John@gmail.com",
+      items:5,
+      billamount:200,
+
+    
+    },
+    {
+      key: '4',
+      name: 'Joe Black',
+      email:"John@gmail.com",
+      items:5,
+      billamount:200,
+
+     
     },
   ];
 function UserTable() {
   return <div className="UserTable-wrapper">
-<Table columns={columns} dataSource={data} />
+<Table columns={columns} dataSource={data}  />
   </div>;
 }
 

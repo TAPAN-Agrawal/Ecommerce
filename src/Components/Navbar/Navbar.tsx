@@ -15,7 +15,7 @@ function Navbar() {
   return (
     <div className='nav-main-container'>
       <div className='nav-logo'>
-        <img src={logo} alt="company-logo" className='nav-img' />
+        {/* <img src={logo} alt="company-logo" className='nav-img' /> */}
         <p>Buy Online!</p>
       </div>
       <div className='nav-search-bar'>

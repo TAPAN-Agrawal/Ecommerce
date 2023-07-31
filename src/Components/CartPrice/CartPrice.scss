@@ -1,0 +1,23 @@
+@mixin display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CartPrice-wrapper{
+    margin-top: 5rem;
+    .CartPrice-Card{
+        height: 210px;
+        width: 90%;
+        margin: 0.5rem auto;
+        h3{
+            span{
+                margin: 0.5rem;
+            }
+        }
+        Button{
+            margin-left: 15rem;
+            margin-top: 2rem;
+            
+        }
+    }
+}

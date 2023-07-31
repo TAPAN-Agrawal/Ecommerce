@@ -7,73 +7,29 @@
     justify-content: center;
 }
 
-.register-main-container {
+.register-wrapper{
     @include display;
-    flex-direction: column;
-
-        height: 90vh;
+        height: 100vh;
         width: 100vw;
-        background-color: $primary-color;
-        font-family: $font-family;
-        h1{
-            color: $secondary-color ;
-        }
-        .register-container{
-            height: 80%;
-            width: 30%;
-            border:2px solid $secondary-color;
-            border-radius: 40px;
-            box-shadow: $secondary-color $box-shadow;
-            background: transparent;
-            
+background-image: url('https://img.freepik.com/free-photo/sales-with-paper-bags-concept-with-copy-space_23-2148305932.jpg?w=1480&t=st=1690810820~exp=1690811420~hmac=191f20efe6ed0af3fc697adab8adc32e6fcefa449f4da6083710bd462d3299c2');
+        // border: 2px solid green;
+        background-repeat: no-repeat;
+background-size: cover;
+        .register-form-wrapper{
+            // background: transparent;
+            @include display;
+            padding-top: 15px;
+            height: 750px;
+            width: 900px;
+            box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+            img{
+                height: 100%;
+                width: 50%;
+            }
             .register-form{
                 height: 100%;
-                @include display;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                margin-top: 1rem;
-                margin-left: 2rem;
-                .register-form-items{
-                    width: 40%;
-                    height: 15%;
-
-                    label{
-                        font-size: $font-size;
-                        color: $secondary-color;
-                        font-family: $font-family;
-                        margin-bottom: 2rem;
-                       
-                    }
-                    .register-field{
-                        width: 100%;
-                        min-height:32px;
-                        border-radius: 10px;
-                        border:2px solid $secondary-color ;
-                        color: $tertiary-color;
-                        padding-left:10px;
-                        outline: 0;
-                        
-                    }
-                 
-                    .register-field::placeholder{
-                        color: $tertiary-color;
-                    }
-               
-                   .register-err{
-                    color: red;
-                   }
-                }
-                .register-submit{
-                    background-color: $secondary-color;
-                    color: $quaternary-color;
-                    border: none;
-                    border-radius: 40px;
-                    height: 35px;
-                    width: 210px;
-                    margin-top: 1rem;
-                
-                }
+                width: 50%;
+                // border: 2px solid purple;
             }
         }
 }

@@ -11,12 +11,13 @@
     flex-direction: column;
     height: 100%;
     width: 100vw;
-    background: $secondary-color;
+    background: $background;
 
     .home-slider {
         // border: 2px solid yellow;
         margin-top: 1.5rem;
-        width: 50%;
+        margin-left: -11rem;
+        width: 55%;
         height: 500px;
 
         .home-img {
@@ -27,6 +28,7 @@
 
     .home-wrapper-child {
         @include display;
+        flex-direction: column;
         height: 95%;
         width: 95%;
         // border: $border;
@@ -37,28 +39,28 @@
             h1{
                 margin-left: 0.5rem;
                 }
+                .Link{
+                    margin-left: 60rem;
+                    text-decoration: none;
+                }
             .home-men-section {
                 @include display;
                 justify-content: flex-start;
                 flex-wrap: wrap;
                 height: 700px;
-                overflow-y: auto;
                 // border: 2px solid purple;
                 padding-top: 20px;
                 padding-left: 10px;
 
                 .home-card {
                     height: 300px;
-                    // border: 2px solid red;
                     margin: 0.3rem;
                 }
 
 
             }
 
-            .home-men-section::-webkit-scrollbar {
-                display: none;
-            }
+   
 
             .home-women-section {
                 height: 500px;
@@ -67,14 +69,12 @@
                 justify-content: flex-start;
                 flex-wrap: wrap;
                 height: 700px;
-                overflow-y: auto;
-                // border: 2px solid purple;
+
                 padding-top: 20px;
                 padding-left: 10px;
 
                 .home-card {
                     height: 300px;
-                    // border: 2px solid red;
                     margin: 0.3rem;
                 }
 
@@ -82,33 +82,10 @@
 
             }
 
-            .home-women-section::-webkit-scrollbar {
-                display: none;
-            }
+          
         }
 
-        .home-children-section {
-            height: 100%;
-            width: 30%;
-            // border: 2px solid violet;
-            @include display;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            height: 700px;
-            overflow-y: auto;
-            // border: 2px solid purple;
-            padding-top: 20px;
-            padding-left: 10px;
-
-            .home-card {
-                height: 300px;
-                // border: 2px solid red;
-                margin: 0.3rem;
-            }
-            
-        }
-        .home-children-section::-webkit-scrollbar {
-            display: none;
-        }
+      
+       
     }
 }

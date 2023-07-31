@@ -1,0 +1,39 @@
+@mixin display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CartCard-wrapper{
+    padding: 5px;
+    .CartCard{
+        height: 200px;
+        width: 100%;
+        // border: 2px solid rgb(214, 11, 45);
+        border: none;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
+        .ant-card-body{
+            @include display;
+
+            .CartCart-left{
+                height: 150px;
+                width: 15%;
+                // border: 2px solid pink;
+                .CartCard-img{
+                    height: 150px;
+                }
+            }
+            .CartCart-right{
+                margin-left: 2rem;
+                height: 150px;
+                width: 85%;
+                // border: 2px solid yellowgreen;
+    
+            }
+        }
+        .delete{
+            margin-left: 60rem;
+            color: red;
+        }
+
+    }
+}

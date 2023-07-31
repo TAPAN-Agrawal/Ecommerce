@@ -12,6 +12,8 @@ import Detail from './Components/Detail/Detail';
 import UserTable from './Components/UserTable/UserTable';
 import AddAdmin from './Components/AddAdmin/AddAdmin';
 import ProductTable from './Components/ProductTable/ProductTable';
+import Cart from './Components/Cart/Cart';
+import Purchased from './Components/Purchased/Purchased';
 function App() {
   return (
     <>
@@ -22,9 +24,9 @@ function App() {
   <Route path="register" element={<Register/>}/>
   <Route path="login" element={<Login/>}/>
   <Route path="adminpanel/*" element={<AdminPanel />} />
-
-
   <Route path='detail' element={<Detail/>}/>
+<Route path='/cart' element={<Cart/>}/>
+<Route path='/purchased' element={<Purchased/>}/>
   <Route path='*' element={<Notfound/>}/>
 
 </Routes>

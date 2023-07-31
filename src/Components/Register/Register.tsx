@@ -1,99 +1,86 @@
 import React from "react";
+import { Button, DatePicker, Form, Input, Radio } from "antd";
 import "./Register.scss";
-import { Field, Form, Formik, ErrorMessage } from "formik";
-import * as yup from "yup";
+import img from "../../Assets/Images/register.png";
+import TextArea from "antd/es/input/TextArea";
 
 function Register() {
-  const initialValue = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+  const nameValidate = [
+    { required: true, message: "Please input your username!" },
+    { min: 2, message: "must be at least 3 characters" },
+  ];
+  const emailValidate: any = [
+    { required: true, message: "Please input your email" },
+    { type: "email", message: "Please enter your valid email" },
+  ];
+  const passwordValidate = [
+    { required: true, message: "Please input your password!" },
+    { min: 8, message: "minimum length is 8 characters" },
+  ];
+
+  const confirmPassword =[
+    { required: true, message: "Please enter confirmation password"}
+  ]
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
   };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required("name required"),
-    email: yup.string().required("email required"),
-    password: yup.string().required("password required"),
-    confirmPassword: yup.string().required("confirm password required"),
-  });
-  const submitHandler = (values: any) => {
-    console.log(values);
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
   };
   return (
-    <div className="register-main-container">
-      <h1>Register</h1>
-      <div className="register-container">
+    <div className="register-wrapper">
+      <div className="register-form-wrapper">
+        <img src={img} />
+        <div className="register-form">
+          <Form
+            name="basic"
+            layout="vertical"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            className="addAdmin-Form"
+          >
+            <Form.Item label="Username" name="username" rules={nameValidate}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="Email" name="email" rules={emailValidate}>
+              <Input />
+            </Form.Item>
 
-        <Formik
-          initialValues={initialValue}
-          validationSchema={validationSchema}
-          onSubmit={submitHandler}
-        >
-          <Form className="register-form">
-            <div className="register-form-items">
-              <label>Name</label>
-              <br />
-              <Field
-                type="text"
-                name="name"
-                placeholder="enter name"
-                className="register-field"
-              />
-              <br />
-              <div className="register-err">
-                <ErrorMessage name="name" />
-              </div>
-            </div>
-
-            <div className="register-form-items">
-              <label>Email</label>
-              <br />
-              <Field
-                type="text"
-                name="email"
-                placeholder="enter email"
-                className="register-field"
-              />
-              <br />
-              <div className="register-err">
-                <ErrorMessage name="email" />
-              </div>
-            </div>
-
-            <div className="register-form-items">
-              <label>password</label>
-              <br />
-
-              <Field
-                type="password"
-                name="password"
-                placeholder="enter password"
-                className="register-field"
-              />
-              <br />
-              <div className="register-err">
-                <ErrorMessage name="password" />
-              </div>
-            </div>
-            <div className="register-form-items">
-              <label>confirmPassword</label>
-              <br />
-
-              <Field
-                type="password"
-                name="confirmPassword"
-                placeholder="enter confirmPassword"
-                className="register-field"
-              />
-              <br />
-              <div className="register-err">
-                <ErrorMessage name="confirmPassword" />
-              </div>
-            </div>
-
-            <button type="submit" className="register-submit">Submit</button>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={passwordValidate}
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item label="ConfirmPassword" name="confirmPassword" rules={confirmPassword}>
+              <Input.Password />
+            </Form.Item>
+            <Form.Item label="Gender">
+          <Radio.Group>
+            <Radio value="male"> Male </Radio>
+            <Radio value="female"> Female </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Birthday">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item label="Address">
+          <TextArea rows={4} />
+        </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
           </Form>
-        </Formik>
+        </div>
       </div>
     </div>
   );

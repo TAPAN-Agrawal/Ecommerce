@@ -14,8 +14,8 @@ function ProductCard(Props:any) {
       >
         <Meta title={Props.title} description={Props.price} />
         <div className="product-card-sub">
-            <Button>Buy</Button>
-            <ShoppingCartOutlined />
+            {/* <Button>Buy</Button> */}
+            <ShoppingCartOutlined className="cart-icon" />
         </div>
 
       </Card>

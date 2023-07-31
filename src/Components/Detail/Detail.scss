@@ -1,0 +1,79 @@
+@import '../../Global//Variable.scss';
+@mixin display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.parentd{
+
+
+.detail-parent-wrapper {
+    @include display;
+
+    .detail-wrapper {
+        @include display;
+        height: 500px;
+        width: 1000px;
+
+        .detail-product-image {
+            @include display;
+            // border: 2px solid green;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
+            height: 500px;
+            width: 50%;
+            
+
+            .detail-image {
+                height: 80%;
+                width: 80%;
+            }
+        }
+
+        .detail-product-details {
+            @include display;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            // border: 2px solid red;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
+            height: 500px;
+            width: 50%;
+            padding-left: 15px;
+            h3{
+                color: $tertiary-color;
+            }
+        }
+
+        p {
+            font-size: 20px;
+            // margin: 1rem;
+        }
+    }
+}
+h1{
+    // text-align: center;
+    margin-left: 30rem;
+}
+.home-men-section {
+    @include display;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 300px;
+    overflow-y: auto;
+    // border: 2px solid purple;
+    padding-top: 20px;
+    padding-left: 10px;
+
+    .home-card {
+        height: 300px;
+        // border: 2px solid red;
+        margin: 0.3rem;
+    }
+
+
+}
+
+.home-men-section::-webkit-scrollbar {
+    display: none;
+}
+}

@@ -10,14 +10,15 @@ import { Button } from "antd";
 import { Routes,Route, useNavigate, useLocation } from "react-router-dom";
 import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
+import Notfound from "../Notfound/Notfound";
 
 function AdminPanel() {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname.split("/")[2];
 
-  
 
+ 
   const userHandler = () => {
     navigate('/adminpanel/user')
 
@@ -39,7 +40,7 @@ function AdminPanel() {
           <div className="admin-logo">
             <h1>Admin-Panel</h1>
           </div>
-          <Button className={currentPath === 'user' ? "admin-items-active":"admin-items"} onClick={userHandler}>
+          <Button className={currentPath === ('user') || currentPath === ''  ? "admin-items-active":"admin-items"} onClick={userHandler}>
             <UserOutlined />
             <h3>User</h3>
           </Button>
@@ -61,10 +62,14 @@ function AdminPanel() {
       </div>
       <div className="admin-right-wrapper">
       <Routes>
-          <Route path="user" element={<UserTable />} />
+      <Route path="/" element={<UserTable />} />
+          <Route  path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
           <Route path="addAdmin" element={<AddAdmin/>}/>
+          <Route path="*" element={<h2>Not Found</h2>}/>
+
         </Routes>
+       
       </div>
     </div>
   );

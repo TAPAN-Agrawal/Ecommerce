@@ -19,6 +19,10 @@
     @include display;
     justify-content: space-between;
     padding-top: 1.5rem;
+    .cart-icon{
+      margin-left: 8rem;
+      font-size: 24px;
+    }
   }
 }
 }

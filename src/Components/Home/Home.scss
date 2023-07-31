@@ -9,9 +9,9 @@
 .home-wrapper {
     @include display;
     flex-direction: column;
-    height: 1400px;
+    height: 100%;
     width: 100vw;
-    background: $primary-color;
+    background: $secondary-color;
 
     .home-slider {
         // border: 2px solid yellow;
@@ -29,37 +29,86 @@
         @include display;
         height: 95%;
         width: 95%;
-        border: $border;
+        // border: $border;
 
         .home-combine-section {
             height: 100%;
             width: 70%;
-
+            h1{
+                margin-left: 0.5rem;
+                }
             .home-men-section {
-                height: 500px;
+                @include display;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                height: 700px;
                 overflow-y: auto;
-                border: 2px solid purple;
-               
-           
-               
+                // border: 2px solid purple;
+                padding-top: 20px;
+                padding-left: 10px;
+
+                .home-card {
+                    height: 300px;
+                    // border: 2px solid red;
+                    margin: 0.3rem;
+                }
+
+
             }
-            .home-men-section::-webkit-scrollbar{
+
+            .home-men-section::-webkit-scrollbar {
                 display: none;
-              }
+            }
 
             .home-women-section {
                 height: 500px;
+                // border: 2px solid green;
+                @include display;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                height: 700px;
+                overflow-y: auto;
+                // border: 2px solid purple;
+                padding-top: 20px;
+                padding-left: 10px;
 
-                border: 2px solid green;
+                .home-card {
+                    height: 300px;
+                    // border: 2px solid red;
+                    margin: 0.3rem;
+                }
 
+
+
+            }
+
+            .home-women-section::-webkit-scrollbar {
+                display: none;
             }
         }
 
         .home-children-section {
             height: 100%;
             width: 30%;
-            border: 2px solid violet;
+            // border: 2px solid violet;
+            @include display;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            height: 700px;
+            overflow-y: auto;
+            // border: 2px solid purple;
+            padding-top: 20px;
+            padding-left: 10px;
 
+            .home-card {
+                height: 300px;
+                // border: 2px solid red;
+                margin: 0.3rem;
+            }
+            
+        }
+        .home-children-section::-webkit-scrollbar {
+            display: none;
         }
     }
 }

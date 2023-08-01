@@ -18,8 +18,11 @@ function Register() {
     { min: 8, message: "minimum length is 8 characters" },
   ];
 
-  const confirmPassword =[
-    { required: true, message: "Please enter confirmation password"}
+  const confirmPassword = [
+    { required: true, message: "Please enter confirmation password" },
+  ];
+  const combine=[
+    {required: true, message: "Please  fill required field"}
   ]
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -59,21 +62,25 @@ function Register() {
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item label="ConfirmPassword" name="confirmPassword" rules={confirmPassword}>
+            <Form.Item
+              label="ConfirmPassword"
+              name="confirmPassword"
+              rules={confirmPassword}
+            >
               <Input.Password />
             </Form.Item>
-            <Form.Item label="Gender">
-          <Radio.Group>
-            <Radio value="male"> Male </Radio>
-            <Radio value="female"> Female </Radio>
-          </Radio.Group>
-        </Form.Item>
-        <Form.Item label="Birthday">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="Address">
-          <TextArea rows={4} />
-        </Form.Item>
+            <Form.Item label="Gender" rules={[{ required: true, message: "Please select your gender" }]}>
+              <Radio.Group>
+                <Radio value="male"> Male </Radio>
+                <Radio value="female"> Female </Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item label="Birthday" rules={combine}>
+              <DatePicker />
+            </Form.Item>
+            <Form.Item label="Address" rules={combine}>
+              <TextArea rows={4} />
+            </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button type="primary" htmlType="submit">
                 Submit

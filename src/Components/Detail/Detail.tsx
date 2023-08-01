@@ -17,20 +17,27 @@ import img7 from "../../Assets//Images//Products/image.png";
 import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
 import { Rate } from "antd";
 function Detail() {
-  const quantity = [
-    { value: 1, label: "1" },
-    { value: 2, label: "2" },
-    { value: 3, label: "3" },
-    { value: 4, label: "4" },
-    { value: 5, label: "5" },
-    { value: 6, label: "6" },
-    { value: 7, label: "7" },
-    { value: 8, label: "8" },
-    { value: 9, label: "9" },
-    { value: 10, label: "10" },
-  ];
   const desc = ["terrible", "bad", "normal", "good", "wonderful"];
   const [value, setValue] = useState(3);
+
+
+
+
+
+
+
+  const [count, setCount] = useState<number>(0);
+
+  const increment = () => {
+    let temp = count + 1;
+    setCount(temp);
+  };
+
+  const decrement = () => {
+    let temp = count - 1;
+
+    setCount(temp);
+  };
 
   const handleChange = (value: any) => {
     console.log("value", value);
@@ -48,24 +55,14 @@ function Detail() {
               Sports Modes, 240 * 240 PX High Res with SpO2, Heart Rate
               Monitoring & IP67 Rating (Black)
             </p>
-            <span>
-              <Rate tooltips={desc} onChange={setValue} value={value} />
-              {value ? (
-                <span className="ant-rate-text">{desc[value - 1]}</span>
-              ) : (
-                ""
-              )}
-            </span>
+
             <h3>120$</h3>
 
-            <Space wrap>
-              <Select
-                defaultValue={0}
-                style={{ width: 120 }}
-                onChange={handleChange}
-                options={quantity}
-              />
-            </Space>
+            <div>
+              <Button onClick={decrement}>-</Button>
+              {count}
+              <Button onClick={increment}>+</Button>
+            </div>
 
             <Button icon={<ShoppingCartOutlined />}>Add to cart</Button>
             <br />

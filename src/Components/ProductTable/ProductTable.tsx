@@ -1,8 +1,9 @@
-import React from "react";
-import { Button, Space, Table, Tag } from 'antd';
+import React, { useState } from "react";
+import { Button, FloatButton, Modal, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import img from '../../Assets/Images/logo-color.png'
 import './ProductTable.scss'
+import { PlusOutlined } from "@ant-design/icons";
 
 interface DataType {
     key: string;
@@ -92,10 +93,14 @@ interface DataType {
      
     },
   ];
-function UserTable() {
-  return <div className="UserTable-wrapper">
+
+  function ProductTable() {
+
+  return <div className="ProductTable-wrapper">
+
+ <FloatButton icon={<PlusOutlined />} />
 <Table columns={columns} dataSource={data} />
   </div>;
 }
 
-export default UserTable;
+export default ProductTable;

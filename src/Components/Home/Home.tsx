@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Carousel } from "antd";
+import React, { useEffect } from "react";
+import { Button, Card, Carousel } from "antd";
 import "./Home.scss";
 import img from "../../Assets/Images/skin-care-banner-concept-with-lotion.jpg";
 import img1 from "../../Assets/Images/728.jpg";
@@ -12,8 +12,12 @@ import img7 from "../../Assets//Images//Products/image.png";
 import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { increment, setProducts } from "../../Redux/Action/Action";
 
 function Home() {
+
   const contentStyle: React.CSSProperties = {
     height: "400px",
     color: "#fff",
@@ -21,6 +25,15 @@ function Home() {
     textAlign: "center",
     background: "#364d79",
   };
+
+  const dispatch = useDispatch()
+
+
+
+
+  useEffect(()=>{
+    dispatch(setProducts())
+  },[])
   return (
     <div className="home-wrapper">
       <div className="home-slider">
@@ -39,6 +52,7 @@ function Home() {
           </div>
         </Carousel>
       </div>
+      
       <div className="home-wrapper-child">
         <div className="home-combine-section">
           <h1>Men</h1>

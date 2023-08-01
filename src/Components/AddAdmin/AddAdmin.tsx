@@ -37,8 +37,9 @@ function AddAdmin() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         className="addAdmin-Form"
+        size="large"
       >
-       
+       <h1>AddAdmin</h1>
        <Form.Item label="Username" name="username" rules={nameValidate} >
           <Input />
         </Form.Item>

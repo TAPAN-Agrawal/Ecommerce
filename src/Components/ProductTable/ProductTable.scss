@@ -1,51 +1,16 @@
 @import '../../Global//Variable.scss';
-.UserTable-wrapper{
-    // height: 100%;
+.ProductTable-wrapper{
     width: 95%;
-    .ant-table-wrapper{
-        .ant-table-container{
-            height: 90vh;
+    height: 100%;
+    .ProductTable-wrapper-child{
+        height: 40px;
+        width: 100%;
+        margin-top: 1.5rem;
+        Button{
+            margin-left: 85rem;
         }
-        .ant-spin-nested-loading{
-            th{
-                color:$tertiary-color;
-            }
-            tbody{
-                tr{
-
-                    td{
-                       
-
-                            color:$quaternary-color;
-                       Button{
-                        color:$quaternary-color;
-
-                       }
-                       Button:hover{
-                        color:$quaternary-color;
-                        border-color: $quaternary-color;
-
-                       }
-        
-                    }
-                }
-            }
-            .ant-pagination{
-                // background-color: blue;
-             li{
-                 border-color: $quaternary-color;
-                 button{
-                    color:$quaternary-color;
-
-                 }
-                 a{
-                    color:$quaternary-color;
-
-                }
-
-             }
-            }
+        .ant-table-wrapper{
+            // height: 900px;
         }
-
     }
 }

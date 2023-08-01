@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, DatePicker, Form, Input, Radio } from "antd";
 import "./Register.scss";
 import img from "../../Assets/Images/register.png";
 import TextArea from "antd/es/input/TextArea";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { register } from "../../Redux/Action/Action";
 
 function Register() {
+  const dispatch = useDispatch()
   const nameValidate = [
     { required: true, message: "Please input your username!" },
     { min: 2, message: "must be at least 3 characters" },
@@ -21,16 +25,18 @@ function Register() {
   const confirmPassword = [
     { required: true, message: "Please enter confirmation password" },
   ];
-  const combine=[
-    {required: true, message: "Please  fill required field"}
-  ]
+  const combine = [{ required: true, message: "Please  fill required field" }];
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    dispatch(register(values))
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+  useEffect(()=>{
+    // toast.success("Success")
+  },[])
   return (
     <div className="register-wrapper">
       <div className="register-form-wrapper">
@@ -69,7 +75,10 @@ function Register() {
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item label="Gender" rules={[{ required: true, message: "Please select your gender" }]}>
+            <Form.Item
+              label="Gender"
+              rules={[{ required: true, message: "Please select your gender" }]}
+            >
               <Radio.Group>
                 <Radio value="male"> Male </Radio>
                 <Radio value="female"> Female </Radio>

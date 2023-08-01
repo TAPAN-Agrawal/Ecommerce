@@ -6,7 +6,7 @@
 }
 .cart-wrapper{
     @include display;
-    background: $background;
+    background:$quaternary-color;
     .cart-wrapper-child{
         @include display;
         height: 100vh;

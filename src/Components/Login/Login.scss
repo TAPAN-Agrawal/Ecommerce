@@ -1,79 +1,66 @@
-@import '../../Global/Variable.scss';
-
-
-@mixin display{
+@mixin display {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.login-main-container {
+.login-wrapper {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://img.freepik.com/free-photo/gray-abstract-wireframe-technology-background_53876-101941.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.1.1517963016.1688116260&semt=sph');
+    background-repeat: no-repeat;
+    background-size: cover;
     @include display;
-    flex-direction: column;
 
-        height: 90vh;
-        width: 100vw;
-        background-color: $primary-color;
-        font-family: $font-family;
-        h1{
-            color: $secondary-color ;
+    .login-box {
+        @include display;
+        height: 450px;
+        width: 500px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 1px;
+        border-radius: 10px;
+        background: transparent;
+        backdrop-filter: blur(20px);
+        .image-section{
+            width: 50%;
+            img{
+                height: 320px;
+            }
         }
-        .login-container{
-            height: 80%;
-            width: 30%;
-            border:2px solid $secondary-color;
-            border-radius: 40px;
-            box-shadow: $secondary-color $box-shadow;
-            background: transparent;
-            
-            .login-form{
-                height: 100%;
-                @include display;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                margin-top: 1rem;
-                margin-left: 2rem;
-                .login-form-items{
-                    width: 40%;
-                    height: 15%;
+        .form-container{
+            height: 100%;
+            width: 50%;
 
-                    label{
-                        font-size: $font-size;
-                        color: $secondary-color;
-                        font-family: $font-family;
-                        margin-bottom: 2rem;
-                       
-                    }
-                    .login-field{
-                        width: 100%;
-                        min-height:32px;
-                        border-radius: 10px;
-                        border:2px solid $secondary-color ;
-                        color: $tertiary-color;
-                        padding-left:10px;
-                        outline: 0;
+            // border: 2px solid red;
+            .login-Form{
+                .ant-form-item-control-input{
+                    width: 230px;
+                    .ant-input{
                         
+                        background: transparent;
                     }
-                 
-                    .login-field::placeholder{
-                        color: $tertiary-color;
+                    .ant-input-affix-wrapper{
+                        background: transparent;
+
                     }
-               
-                   .login-err{
-                    color: red;
-                   }
                 }
-                .login-submit{
-                    background-color: $secondary-color;
-                    color: $quaternary-color;
-                    border: none;
-                    border-radius: 40px;
-                    height: 35px;
-                    width: 210px;
-                    margin-top: 1rem;
-                
+                Button{
+                    width: 100%;
+                    margin-left: -5rem;
+                    // margin-top: 3rem;
+                }
+                .logos{
+                    @include display;
+                    justify-content: space-evenly;
+                    .logo{
+                        font-size: 30px;
+                        color:rgb(83, 132, 223)
+                    }
+                }
+                .link{
+                    margin-left: 4rem;
                 }
             }
         }
+    }
+
 }

@@ -1,51 +1,6 @@
 @import '../../Global//Variable.scss';
 .UserTable-wrapper{
-    // height: 100%;
     width: 95%;
-    .ant-table-wrapper{
-        .ant-table-container{
-            height: 90vh;
-        }
-        .ant-spin-nested-loading{
-            th{
-                color:$tertiary-color;
-            }
-            tbody{
-                tr{
+    height: 100%;
 
-                    td{
-                       
-
-                            color:$quaternary-color;
-                       Button{
-                        color:$quaternary-color;
-
-                       }
-                       Button:hover{
-                        color:$quaternary-color;
-                        border-color: $quaternary-color;
-
-                       }
-        
-                    }
-                }
-            }
-            .ant-pagination{
-                // background-color: blue;
-             li{
-                 border-color: $quaternary-color;
-                 button{
-                    color:$quaternary-color;
-
-                 }
-                 a{
-                    color:$quaternary-color;
-
-                }
-
-             }
-            }
-        }
-
-    }
 }

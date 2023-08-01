@@ -11,6 +11,7 @@ import { Routes,Route, useNavigate, useLocation } from "react-router-dom";
 import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
 import Notfound from "../Notfound/Notfound";
+import AddProduct from '../AddProduct/AddProduct';
 
 function AdminPanel() {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ function AdminPanel() {
       <Route path="/" element={<UserTable />} />
           <Route  path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
+          <Route path="/addproduct" element={<AddProduct/>}/>
           <Route path="addAdmin" element={<AddAdmin/>}/>
           <Route path="*" element={<h2>Not Found</h2>}/>
 

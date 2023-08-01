@@ -84,6 +84,7 @@ interface DataType {
   ];
 function UserTable() {
   return <div className="UserTable-wrapper">
+    
 <Table columns={columns} dataSource={data}  />
   </div>;
 }

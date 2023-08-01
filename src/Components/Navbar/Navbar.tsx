@@ -1,7 +1,7 @@
 import React from "react";
 // import classes from "./Navbar.module.scss";
 import logo from '../../Assets/Icons/eject.png';
-import { Input } from "antd";
+import { Badge, Input } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import './Navbar.scss';
 
@@ -31,7 +31,10 @@ function Navbar() {
           <p>Home</p>
         </div>
         <div className='nav-nav-items-child'>
+          <Badge count={5}  size="small" color="gold" className="badge">
+
           <ShoppingCartOutlined className='nav-nav-item-logo' />
+          </Badge>
           <p>Cart</p>
         </div>
       </div>

@@ -12,7 +12,8 @@ function ProductCard(Props:any) {
         cover={<img alt="example" src={Props.img} height={140} />}
         className="product-card"
       >
-        <Meta title={Props.title} description={Props.price} />
+        <Meta title={Props.title}  />
+        <h3>{Props.price}</h3>
         <div className="product-card-sub">
             {/* <Button>Buy</Button> */}
             <ShoppingCartOutlined className="cart-icon" />

@@ -1,5 +1,6 @@
 const initialState:any ={
-    count:0
+    count:0,
+    products:[]
 }
 
 export const ecommerce = (state:any=initialState,action:any)=>{
@@ -9,6 +10,12 @@ export const ecommerce = (state:any=initialState,action:any)=>{
                 ...state,
              count:state.count +action.payload
             }
+
+            case 'SET_ALL_PRODUCTS':
+                return{
+                        ...state,
+                        products:action.payload
+                }
             
             
     

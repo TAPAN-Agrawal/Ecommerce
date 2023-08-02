@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./AddProduct.scss";
 import {
   Button,
@@ -10,23 +10,33 @@ import {
   Upload,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {  message} from 'antd';
-// const props = {
-//     headers: {
-//       authorization: 'authorization-text',
-//     },
-//     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-//     name: 'file',
-//   };
+import { message } from "antd";
+import { addProduct, getSingleProduct } from "../../Redux/Action/Action";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddProduct() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // console.log("location", location.state.id);
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    dispatch(addProduct(values));
+    navigate("/adminpanel/product");
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
+    // toast.warning("errorInfo")
   };
+
+  // useEffect(() => {
+  //   if (location.state.id) {
+  //     dispatch(getSingleProduct(location.state.id));
+  //   }
+  // }, []);
 
   return (
     <div className="addProduct-wrapper">
@@ -42,41 +52,27 @@ function AddProduct() {
         autoComplete="off"
         className="addAdmin-Form"
       >
-        <Form.Item label="Title" name="title">
+        <h1>AddProduct</h1>
+        <Form.Item label="Title" name="title" className="item">
           <Input />
         </Form.Item>
-        <Form.Item label="TextArea">
+        <Form.Item label="Description" name="description" className="item">
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item label="Price">
+        <Form.Item label="Price" name="price" className="item">
           <Input />
         </Form.Item>
-        <Form.Item label="Quantity">
+        <Form.Item label="Quantity" name="quantity" className="item">
           <InputNumber min={1} defaultValue={0} />
         </Form.Item>
-        <Form.Item label="Category">
+        <Form.Item label="Category" name="category" className="item">
           <Radio.Group>
-            <Radio value="Men"> Men </Radio>
-            <Radio value="Women"> Women </Radio>
+            <Radio value={0}> Men </Radio>
+            <Radio value={1}> Women </Radio>
           </Radio.Group>
         </Form.Item>
-        {/* <Upload {...props}
-          onChange={(response) => {
-            if (response.file.status !== 'uploading') {
-              console.log(response.file, response.fileList);
-            }
-            if (response.file.status === 'done') {
-              message.success(`${response.file.name} 
-                               file uploaded successfully`);
-            } else if (response.file.status === 'error') {
-              message.error(`${response.file.name} 
-                             file upload failed.`);
-            }
-          }}
-        >
-          <Button>Upload File</Button>
-        </Upload> */}
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <input type="file"/>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">
           <Button type="primary" htmlType="submit">
             Submit
           </Button>

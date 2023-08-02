@@ -2,13 +2,7 @@ export interface Value {
 
 }
 
-export const increment = (n:any) =>{
-   return{
 
-       type: 'INCREMENT',
-       payload:n
-   } 
-}
 
 export const register = (data:any)=>{
         return {
@@ -24,8 +18,37 @@ export const login =(data:any)=>{
     }
 }
 
-export const setProducts = ()=>{
+export const googlelogin=()=>{
     return{
-        type: 'SET_PRODUCTS',
+        type: 'GOOGLE_LOGIN',
     }
 }
+
+export const getAllProducts = ()=>{
+    return{
+        type:'GET_ALL_PRODUCTS',
+    }
+}
+
+export const getSingleProduct = (id:any)=>{
+    return{
+        type:'GET_SINGLE_PRODUCT',
+        payload:id
+    }
+}
+
+export const addProduct = (data:any)=>{
+    return{
+        type:'ADD_PRODUCT',
+        payload:data
+    }
+}
+
+export const deleteProduct = (data:any)=>{
+    return{
+        type: 'DELETE_PRODUCT',
+        payload:data
+    }
+}
+
+

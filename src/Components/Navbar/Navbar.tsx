@@ -4,9 +4,11 @@ import logo from '../../Assets/Icons/eject.png';
 import { Badge, Input } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import './Navbar.scss';
+import { Link, useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 function Navbar() {
+  const navigate=useNavigate()
   const handleSearch = (value: any) => {
     // Your search logic here
     console.log("Searching for:", value);
@@ -28,7 +30,7 @@ function Navbar() {
       <div className='nav-nav-items'>
         <div className='nav-nav-items-child'>
           <HomeOutlined className='nav-nav-item-logo' />
-          <p>Home</p>
+          <Link to="/home">Home</Link>
         </div>
         <div className='nav-nav-items-child'>
           <Badge count={5}  size="small" color="gold" className="badge">

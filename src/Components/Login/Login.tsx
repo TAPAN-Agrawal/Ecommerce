@@ -11,7 +11,7 @@ import {
   LinkedinFilled,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { login } from "../../Redux/Action/Action";
+import { googlelogin, login } from "../../Redux/Action/Action";
 
 function Login() {
 
@@ -33,6 +33,11 @@ function Login() {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+
+  const googleHandler = ()=>{
+    dispatch(googlelogin())
+  }
   return (
     <div className="login-wrapper">
       <div className="login-box">
@@ -72,7 +77,7 @@ function Login() {
             </Form.Item>
             <Divider>or login with</Divider>
             <div className="logos">
-              <GoogleCircleFilled className="logo" />
+              <GoogleCircleFilled className="logo" onClick={googleHandler}/>
               <FacebookFilled className="logo" />
               <LinkedinFilled className="logo" />
             </div>

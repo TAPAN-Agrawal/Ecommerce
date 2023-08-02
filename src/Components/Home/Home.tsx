@@ -14,7 +14,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { increment, setProducts } from "../../Redux/Action/Action";
+// import { increment, setProducts } from "../../Redux/Action/Action";
 
 function Home() {
 
@@ -32,7 +32,7 @@ function Home() {
 
 
   useEffect(()=>{
-    dispatch(setProducts())
+    // dispatch(setProducts())
   },[])
   return (
     <div className="home-wrapper">

@@ -7,5 +7,17 @@
     @include display;
     height: 100%;
     width: 100%;
-    border: 2px solid lemonchiffon;
+    .addAdmin-Form{
+        @include display;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        border: 2px solid rgb(1, 9, 19);
+        width: 300px;
+        .item{
+            // @include display;
+            border:2px solid pink
+        }
+
+    }
 }

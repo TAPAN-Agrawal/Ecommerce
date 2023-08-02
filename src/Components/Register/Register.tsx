@@ -27,7 +27,7 @@ function Register() {
   ];
   const combine = [{ required: true, message: "Please  fill required field" }];
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     dispatch(register(values))
   };
 
@@ -77,17 +77,19 @@ function Register() {
             </Form.Item>
             <Form.Item
               label="Gender"
+              name="gender"
               rules={[{ required: true, message: "Please select your gender" }]}
             >
-              <Radio.Group>
+              <Radio.Group 
+              >
                 <Radio value="male"> Male </Radio>
                 <Radio value="female"> Female </Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item label="Birthday" rules={combine}>
+            <Form.Item label="Birthday" name="birthday" rules={combine}>
               <DatePicker />
             </Form.Item>
-            <Form.Item label="Address" rules={combine}>
+            <Form.Item label="Address" name="address" rules={combine}>
               <TextArea rows={4} />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

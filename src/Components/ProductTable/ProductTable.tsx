@@ -31,6 +31,7 @@ function ProductTable() {
   const deleteHandler=(id:number)=>{
     dispatch(deleteProduct(id));
   }
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Name",
@@ -42,7 +43,8 @@ function ProductTable() {
       dataIndex: "product_img",
       key: "coverPhoto",
       render: (coverPhoto: string) => (
-        <img src={coverPhoto} alt="Cover" style={{ width: 50, height: 50 }} />
+        
+        <img src={`http://192.168.1.69:8000/${coverPhoto}`} alt="Cover" style={{ width: 50, height: 50 }} />
       ),
     },
     {
@@ -64,7 +66,7 @@ function ProductTable() {
           <Button
             onClick={() => {
               console.log("update product", record.id);
-              navigate('/adminpanel/addproduct',{
+              navigate('/adminpanel/updateproduct',{
                 state:{
                   id: record.id,
                 }
@@ -93,7 +95,7 @@ function ProductTable() {
     },
   ];
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getAllProducts(1,5));
   }, []);
   return (
     <div className="ProductTable-wrapper">

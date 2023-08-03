@@ -1,6 +1,7 @@
 const initialState:any ={
-    count:0,
-    products:[]
+    products:[],
+    singleProduct:[]
+
 }
 
 export const ecommerce = (state:any=initialState,action:any)=>{
@@ -12,10 +13,24 @@ export const ecommerce = (state:any=initialState,action:any)=>{
             }
 
             case 'SET_ALL_PRODUCTS':
+    //   const updatedProducts = action.payload.map((product: any) => ({
+    //     ...product,
+    //     product_img: product.product_img.replace('uploads/', ''),
+    //   }));
+
+      return {
+        ...state,
+        products: action.payload,
+      };
+
+
+
+             case 'SET_SINGLE_PRODUCTS':
                 return{
-                        ...state,
-                        products:action.payload
-                }
+                    ...state,
+                    singleProduct:action.payload
+
+                }   
             
             
     

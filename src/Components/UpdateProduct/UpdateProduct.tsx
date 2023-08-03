@@ -1,0 +1,172 @@
+import React, { useEffect, useState } from "react";
+import "./UpdateProduct.scss";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Spin,
+  Upload,
+} from "antd";
+import TextArea from "antd/es/input/TextArea";
+import { message } from "antd";
+import {
+  addProduct,
+  updateProduct,
+  getSingleProduct,
+} from "../../Redux/Action/Action";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
+function AddProduct() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
+  const singleProducts = useSelector(
+    (state: any) => state.ecommerce.singleProduct
+  );
+  const [selectedFile, setSelectedFile] = useState<any>(null);
+const[product,setProduct]=useState<any>({
+    product_name:"t",
+    description:"t",
+    quantity:"t",
+    price:"t",
+    category:0,
+    product_img:""
+})
+
+  console.log("single product IN update", singleProducts);
+  console.log("here product",product)
+
+  // console.log("location", location.state.id);
+
+  const validationErr = [{ required: true, message: "required" }];
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values.id);
+          
+          
+    const updatedValues = {
+      ...values,
+     
+      file: selectedFile,
+      id: singleProducts.id,
+    };
+    dispatch(updateProduct(updatedValues));
+    // dispatch(addProduct(values));
+    navigate("/adminpanel/product");
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+    // toast.warning("errorInfo")
+  };
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0]; // Get the first selected file (you can handle multiple files too if needed)
+    setSelectedFile(file); // Step 4: Update the state with the selected file
+  };
+  useEffect(() => {
+    console.log("idsss", location.state.id);
+    if (location.state.id) {
+      dispatch(getSingleProduct(location.state.id));
+    }
+    
+  }, []);
+  useEffect(()=>{
+setProduct(singleProducts)
+  },[singleProducts])
+
+
+  return (
+    <div className="updateProduct-wrapper">
+   
+        <Form
+          name="basic"
+          layout="vertical"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          // initialValues={product.product_name}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          className="addAdmin-Form"
+        >
+          <h1>UpdateProduct</h1>
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={validationErr}
+            initialValue={product.product_name}
+
+            className="item"
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Description"
+            name="description"
+            initialValue={product.description}
+            rules={validationErr}
+            className="item"
+          >
+            <TextArea rows={4} />
+          </Form.Item>
+          <Form.Item
+            label="Price"
+            name="price"
+            initialValue={product.price}
+            rules={validationErr}
+            className="item"
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Quantity"
+            name="quantity"
+            initialValue={product.quantity}
+            rules={validationErr}
+            className="item"
+          >
+            <InputNumber min={1} defaultValue={0} />
+          </Form.Item>
+          <Form.Item
+            label="Category"
+            name="category"
+            initialValue={product.category}
+            rules={validationErr}
+            className="item"
+          >
+            <Radio.Group>
+              <Radio value={0}> Men </Radio>
+              <Radio value={1}> Women </Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            label="Image"
+            name="image"
+            rules={validationErr}
+            className="item"
+          >
+            <input type="file" 
+            onChange={handleFileChange} 
+            />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+     
+    </div>
+  );
+}
+
+export default AddProduct;

@@ -24,9 +24,10 @@ export const googlelogin=()=>{
     }
 }
 
-export const getAllProducts = ()=>{
+export const getAllProducts = (page:any,limit:any)=>{
     return{
         type:'GET_ALL_PRODUCTS',
+        payload:{page,limit}
     }
 }
 
@@ -40,6 +41,13 @@ export const getSingleProduct = (id:any)=>{
 export const addProduct = (data:any)=>{
     return{
         type:'ADD_PRODUCT',
+        payload:data
+    }
+}
+
+export const updateProduct =(data:any)=>{
+    return {
+        type:'UPDATE_PRODUCT',
         payload:data
     }
 }

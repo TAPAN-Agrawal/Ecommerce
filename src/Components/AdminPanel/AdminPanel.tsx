@@ -12,6 +12,7 @@ import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
 import Notfound from "../Notfound/Notfound";
 import AddProduct from '../AddProduct/AddProduct';
+import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
 function AdminPanel() {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ function AdminPanel() {
           <Route  path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
           <Route path="/addproduct" element={<AddProduct/>}/>
+          <Route path="/updateproduct" element={<UpdateProduct/>}/>
           <Route path="addAdmin" element={<AddAdmin/>}/>
           <Route path="*" element={<h2>Not Found</h2>}/>
 

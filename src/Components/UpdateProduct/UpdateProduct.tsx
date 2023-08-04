@@ -16,9 +16,10 @@ import {
   addProduct,
   updateProduct,
   getSingleProduct,
+  cleanSingleProduct,
 } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
@@ -26,23 +27,22 @@ function AddProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-
+// const history = useHistory();
   const singleProducts = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
   const [selectedFile, setSelectedFile] = useState<any>(null);
-const[product,setProduct]=useState<any>({
-    product_name:"t",
-    description:"t",
-    quantity:"t",
-    price:"t",
-    category:0,
-    product_img:""
-})
+  const [product, setProduct] = useState<any>({
+    product_name: "t",
+    description: "t",
+    quantity: "t",
+    price: "t",
+    category: 0,
+    product_img: "",
+  });
 
   console.log("single product IN update", singleProducts);
-  console.log("here product",product)
+  console.log("here product", product);
 
   // console.log("location", location.state.id);
 
@@ -50,11 +50,10 @@ const[product,setProduct]=useState<any>({
 
   const onFinish = (values: any) => {
     console.log("Success:", values.id);
-          
-          
+    dispatch(cleanSingleProduct())
     const updatedValues = {
       ...values,
-     
+
       file: selectedFile,
       id: singleProducts.id,
     };
@@ -72,20 +71,22 @@ const[product,setProduct]=useState<any>({
     setSelectedFile(file); // Step 4: Update the state with the selected file
   };
   useEffect(() => {
-    console.log("idsss", location.state.id);
+    dispatch(cleanSingleProduct())
+    // console.log("idsss", location.state.id);
+
     if (location.state.id) {
       dispatch(getSingleProduct(location.state.id));
     }
-    
   }, []);
-  useEffect(()=>{
-setProduct(singleProducts)
-  },[singleProducts])
-
+  useEffect(() => {
+    setProduct(singleProducts);
+  
+    
+  }, [singleProducts]);
 
   return (
     <div className="updateProduct-wrapper">
-   
+      {singleProducts.id ? (
         <Form
           name="basic"
           layout="vertical"
@@ -103,8 +104,7 @@ setProduct(singleProducts)
             label="Name"
             name="name"
             rules={validationErr}
-            initialValue={product.product_name}
-
+            initialValue={singleProducts.product_name}
             className="item"
           >
             <Input />
@@ -112,7 +112,7 @@ setProduct(singleProducts)
           <Form.Item
             label="Description"
             name="description"
-            initialValue={product.description}
+            initialValue={singleProducts.description}
             rules={validationErr}
             className="item"
           >
@@ -121,7 +121,7 @@ setProduct(singleProducts)
           <Form.Item
             label="Price"
             name="price"
-            initialValue={product.price}
+            initialValue={singleProducts.price}
             rules={validationErr}
             className="item"
           >
@@ -130,7 +130,7 @@ setProduct(singleProducts)
           <Form.Item
             label="Quantity"
             name="quantity"
-            initialValue={product.quantity}
+            initialValue={singleProducts.quantity}
             rules={validationErr}
             className="item"
           >
@@ -139,7 +139,7 @@ setProduct(singleProducts)
           <Form.Item
             label="Category"
             name="category"
-            initialValue={product.category}
+            initialValue={singleProducts.category}
             rules={validationErr}
             className="item"
           >
@@ -154,9 +154,7 @@ setProduct(singleProducts)
             rules={validationErr}
             className="item"
           >
-            <input type="file" 
-            onChange={handleFileChange} 
-            />
+            <input type="file" onChange={handleFileChange} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">
             <Button type="primary" htmlType="submit">
@@ -164,7 +162,9 @@ setProduct(singleProducts)
             </Button>
           </Form.Item>
         </Form>
-     
+      ):<Spin tip='loading..'>
+        
+        </Spin>}
     </div>
   );
 }

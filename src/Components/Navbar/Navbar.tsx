@@ -5,12 +5,15 @@ import { Badge, Input } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import './Navbar.scss';
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { searchProduct } from "../../Redux/Action/Action";
 
 const { Search } = Input;
 function Navbar() {
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const handleSearch = (value: any) => {
-    // Your search logic here
+    dispatch(searchProduct(value,1,5))
     console.log("Searching for:", value);
   };
 

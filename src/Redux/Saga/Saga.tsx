@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { message } from 'antd';
 import { updateProduct } from "../Action/Action";
+import axiosInstance from "../../Service/Service";
+
 
 
 export function* register (action:any){
@@ -14,19 +16,17 @@ export function* register (action:any){
         }
         try {
             const response: AxiosResponse<any> = yield call(
-                axios.post,
-                'http://192.168.1.69:8000/auth/register',
-                temp
+              axiosInstance.post,
+              '/auth/register',
+              temp
+               
               );
-              console.log("response",response.data.data);
-              console.log(typeof(response.status))
-            //   console.log(response.data.message)
+             
               if(response) {
                   toast.success("user registered successfully")
               }
               else{
                 console.log("message")
-                // toast.error(response.message)
               }
         } catch (error:any) {
             console.log("error", error.response.data.message)
@@ -40,8 +40,8 @@ export function* login (action:any){
     console.log("first",temp);
     try {
         const response: AxiosResponse<any> = yield call(
-            axios.post,
-            'http://192.168.1.69:8000/auth/login',
+            axiosInstance.post,
+            '/auth/login',
             temp
           );    
           console.log("response",response);
@@ -58,8 +58,8 @@ export function* login (action:any){
 export function* googlelogin (action:any){
   try {
     const response: AxiosResponse<any> = yield call(
-      axios.get,
-      'http://192.168.1.69:8000/auth/google',
+      axiosInstance.get,
+      '/auth/google',
     );   
     // console.log("google", response)
   } catch (error) {
@@ -73,12 +73,11 @@ export function* getAllProducts(action:any){
     const {page,limit}=action.payload ;
 
     const response: AxiosResponse<any>= yield call(
-      axios.get,
-      `http://192.168.1.69:8000/products/all?page=${page}&limit=${limit}`
+      ()=> axiosInstance.get(`/products/all?page=${page}&limit=${limit}`)
+    
      )  
       yield put({type: 'SET_ALL_PRODUCTS',payload:response.data})
 
-     console.log("all products", response.data);
      
   } catch (error) {
     
@@ -88,12 +87,12 @@ export function* getSingleProduct(action:any){
   const id=action.payload
   try {
     const response: AxiosResponse<any>= yield call(
-      axios.get,
-      `http://192.168.1.69:8000/products/${id}`
+      axiosInstance.get,
+      `/products/${id}`
      )  
       yield put({type: 'SET_SINGLE_PRODUCTS',payload:response.data})
 
-     console.log("single products", response.data);
+    //  console.log("single products", response.data);
      
   } catch (error) {
     
@@ -127,13 +126,13 @@ formData.append("product_img", d.file);
 console.log("file",d.file);
 
       const response: AxiosResponse<any>= yield call(
-        axios.post,
-        'http://192.168.1.69:8000/products/add_product',
+        axiosInstance.post,
+        '/products/add_product',
         formData
        )  
        if(response){
         toast.success("product added successfully")
-        // yield call(getAllProducts());       
+     yield put ({type:'ADD_PRODUCT_REDUCER',payload:response.data})    
        }
       console.log("add product",response.data)
   } catch (error) {
@@ -145,23 +144,8 @@ export function* updateProducts(action:any){
   try {
     const d=action.payload;
     const id=d.id;
-   
   
 
-    console.log("specprice",action.payload.id)
-    // const product_name=d.name;
-      // const price=d.price;
-      // const quantity=d.quantity;
-      // const category=d.category;
-      // const description=d.description;
-      // const temp={
-      //   id,
-      //   product_name,
-      //   price,
-      //   quantity,
-      //   category,
-      //   description
-      // }
       const formData :any = new FormData();
       formData.append("product_name", d.name);
       formData.append("price",50);
@@ -170,14 +154,14 @@ export function* updateProducts(action:any){
       formData.append("description", d.description);
       formData.append("product_img", d.file);
       const response: AxiosResponse<any>= yield call(
-        axios.patch,
-        `http://192.168.1.69:8000/products/update_product/${id}`,
+        axiosInstance.patch,
+        `/products/update_product/${id}`,
         formData
        )  
        if(response){
         toast.success("product update successfully")
-        // yield call(getAllProducts)
-       }
+        yield put({type:'UPDATE_PRODUCT_REDUCER',payload:response.data})
+      }
       console.log("add product",response.data)
   } catch (error) {
     toast.error("product not update ")
@@ -191,12 +175,12 @@ export function* deleteProduct(action:any){
   const id = action.payload
   try {
     const response :AxiosResponse<any> = yield call(
-      axios.delete,
-      `http://192.168.1.69:8000/products/delete_product/${id}`
+      axiosInstance.delete,
+      `/products/delete_product/${id}`
     )
 
     if(response){
-      // yield put({ type: 'GET_ALL_PRODUCTS', payload: { page: 1, limit: 5 } });
+      yield put({ type: 'DELETE_PRODUCT_REDUCER', payload:id});
     }
 
   } catch (error) {
@@ -205,8 +189,37 @@ export function* deleteProduct(action:any){
 }
 
 
+export function* searchProduct(action:any){
+  const {search,page,limit}=action.payload;
+  try {
+    const response :AxiosResponse<any> = yield call(
+      axiosInstance.get,
+      `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
+    )
+    if(response){
+      yield put({ type: 'SEARCH_PRODUCT_REDUCER', payload:response.data});
+    }
+  } catch (error) {
+    
+  }
+}
 
 
+export function* addAdmin(action:any){
+  const temp=action.payload
+  try {
+    const response :AxiosResponse<any> = yield call(
+      axiosInstance.post,
+      `/auth/add_admin`,
+      temp
+    )
+    if(response){
+      toast.success("admin added successfully")
+    }
+  } catch (error) {
+    
+  }
+}
 
 
 export  function* watcher(){
@@ -219,6 +232,10 @@ export  function* watcher(){
         yield takeLatest("ADD_PRODUCT",addProduct)
         yield takeLatest("UPDATE_PRODUCT",updateProducts)
         yield takeLatest("DELETE_PRODUCT",deleteProduct)
+
+        yield takeLatest('ADD_ADMIN',addAdmin)
+
+        yield takeLatest('SEARCH_PRODUCT',searchProduct)
 
 
 } 

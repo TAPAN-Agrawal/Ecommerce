@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button, FloatButton, Popconfirm, Table,} from "antd";
+  Button, FloatButton, Popconfirm, Spin, Table,} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import img from "../../Assets/Images/logo-color.png";
 import "./ProductTable.scss";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { deleteProduct, getAllProducts } from "../../Redux/Action/Action";
+import { cleanAllProduct, cleanSingleProduct, deleteProduct, getAllProducts } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -94,14 +94,23 @@ function ProductTable() {
       ),
     },
   ];
+  useEffect(()=>{
+dispatch(cleanAllProduct())
+  },[])
   useEffect(() => {
-    dispatch(getAllProducts(1,5));
+
+    dispatch(getAllProducts(1,8));
   }, []);
   return (
+    <>
+    {datas.length !== 0 ?
     <div className="ProductTable-wrapper">
-      <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
+     <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
       <Table columns={columns} dataSource={datas} />
-    </div>
+      </div>
+      :<Spin tip="loading..." size="large">  <div className="content" /></Spin>
+    }
+      </>
   );
 }
 

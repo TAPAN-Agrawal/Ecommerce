@@ -9,14 +9,14 @@ function ProductCard(Props:any) {
     <div className="product-card-wrapper">
       <Card
         hoverable
-        cover={<img alt="example" src={Props.img} height={140} />}
+        cover={<img alt="example" src={`http://192.168.1.69:8000/${Props.img}`} height={140} />}
         className="product-card"
       >
         <Meta title={Props.title}  />
         <h3>{Props.price}</h3>
         <div className="product-card-sub">
             {/* <Button>Buy</Button> */}
-            <ShoppingCartOutlined className="cart-icon" />
+           {/* <div > <ShoppingCartOutlined className="cart-icon"  onClick={()=>console.log("hello cart react")}/></div> */}
         </div>
 
       </Card>

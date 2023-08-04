@@ -58,5 +58,32 @@ export const deleteProduct = (data:any)=>{
         payload:data
     }
 }
+export const cleanAllProduct =()=>{
+    return{
+        type: 'CLEAN_ALL_PRODUCT',
+    }
+}
+
+export const cleanSingleProduct = ()=>{
+    return{
+        type: 'CLEAN_PRODUCT',
+        
+    }
+}
+
+export const searchProduct = (search:any,page:any,limit:any)=>{
+    return{
+        type: 'SEARCH_PRODUCT',
+        payload:{search,page,limit}
+    }
+}
+
+export const addAdmin=(data:any)=>{
+    return{
+        type: 'ADD_ADMIN',
+        payload:data
+    }
+}
+
 
 

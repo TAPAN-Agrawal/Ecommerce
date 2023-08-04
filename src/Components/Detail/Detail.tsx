@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Detail.scss";
 import img from "../../Assets/Images/free-photo-beauty-product-bottle-mockup-image-with-background.jpg";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { DownOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Typography } from "antd";
@@ -16,15 +16,22 @@ import img6 from "../../Assets//Images//Products/3207188-removebg-preview.png";
 import img7 from "../../Assets//Images//Products/image.png";
 import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
 import { Rate } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { cleanSingleProduct, getSingleProduct } from "../../Redux/Action/Action";
+
+
 function Detail() {
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const singleProduct = useSelector(
+    (state: any) => state.ecommerce.singleProduct
+  );
+ 
+  const [detailProduct,setDetailProduct]=useState<any>([])
+  
   const desc = ["terrible", "bad", "normal", "good", "wonderful"];
   const [value, setValue] = useState(3);
-
-
-
-
-
-
 
   const [count, setCount] = useState<number>(0);
 
@@ -40,52 +47,69 @@ function Detail() {
   };
 
   const handleChange = (value: any) => {
-    console.log("value", value);
+    console.log("value", value);  
   };
+
+  useEffect(()=>{
+      dispatch(cleanSingleProduct())
+
+    console.log("location",location.state.id);
+    dispatch(getSingleProduct(location.state.id));
+    setDetailProduct(singleProduct)
+  
+  },[])
+  
   return (
-    <div className="parentd">
-      <div className="detail-parent-wrapper">
-        <div className="detail-wrapper">
-          <div className="detail-product-image">
-            <img src={img} className="detail-image" />
-          </div>
-          <div className="detail-product-details">
-            <p>
-              Fire-Boltt Phoenix Smart Watch with Bluetooth Calling 1.3",120+
-              Sports Modes, 240 * 240 PX High Res with SpO2, Heart Rate
-              Monitoring & IP67 Rating (Black)
-            </p>
+    <>
+      {singleProduct.id ? (
+        <div className="parentd">
+          <div className="detail-parent-wrapper">
+            <div className="detail-wrapper">
+              <div className="detail-product-image">
+                <img src={`http://192.168.1.69:8000/${singleProduct.product_img}`} className="detail-image" />
+              </div>
+              <div className="detail-product-details">
+                <h2>{singleProduct.product_name}</h2>
+                <p>
+                  {singleProduct.description}
+                </p>
 
-            <h3>120$</h3>
+                <h3>{singleProduct.price}$</h3>
 
-            <div>
-              <Button onClick={decrement}>-</Button>
-              {count}
-              <Button onClick={increment}>+</Button>
+                <div>
+                  <Button onClick={decrement}>-</Button>
+                  {count}
+                  <Button onClick={increment}>+</Button>
+                </div>
+
+                <Button icon={<ShoppingCartOutlined />}>Add to cart</Button>
+                <br />
+                <Button size="large">Buy Now </Button>
+              </div>
             </div>
-
-            <Button icon={<ShoppingCartOutlined />}>Add to cart</Button>
-            <br />
-            <Button size="large">Buy Now </Button>
+          </div>
+          <h1>Suggested</h1>
+          <div className="home-men-section">
+            <div className="home-card">
+              <ProductCard img={img5} title="Wireless Earpods" price="150$" />
+            </div>
+            <div className="home-card">
+              <ProductCard img={img6} title="Wireless Earpods" price="150$" />
+            </div>
+            <div className="home-card">
+              <ProductCard img={img7} title="Wireless Earpods" price="150$" />
+            </div>
+            <div className="home-card">
+              <ProductCard img={img8} title="Wireless Earpods" price="150$" />
+            </div>
           </div>
         </div>
-      </div>
-      <h1>Suggested</h1>
-      <div className="home-men-section">
-        <div className="home-card">
-          <ProductCard img={img5} title="Wireless Earpods" price="150$" />
-        </div>
-        <div className="home-card">
-          <ProductCard img={img6} title="Wireless Earpods" price="150$" />
-        </div>
-        <div className="home-card">
-          <ProductCard img={img7} title="Wireless Earpods" price="150$" />
-        </div>
-        <div className="home-card">
-          <ProductCard img={img8} title="Wireless Earpods" price="150$" />
-        </div>
-      </div>
-    </div>
+      ) : (
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      )}
+    </>
   );
 }
 

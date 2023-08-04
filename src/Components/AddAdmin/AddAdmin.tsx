@@ -1,21 +1,28 @@
 import React from "react";
 import "./AddAdmin.scss";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, DatePicker, Form, Input, Radio } from "antd";
+import TextArea from "antd/es/input/TextArea";
+import { addAdmin } from "../../Redux/Action/Action";
+import { useDispatch } from "react-redux";
 
 function AddAdmin() {
+  const dispatch = useDispatch()
   const nameValidate = [
-    { required: true, message: "Please input your username!" },
-    { min: 2, message: "must be at least 3 characters" },
+    { required: true, message: " username required" },
+    { min: 2, message: " at least 3 characters" },
   ];
  const emailValidate :any= [
-    { required: true, message: "Please input your email" },
-    { type: "email", message: "Please enter your valid email" },
+    { required: true, message: " email required" },
+    { type: "email", message: " enter  valid email" },
   ]
   const passwordValidate = [
-    { required: true, message: "Please input your password!" },
-    { min: 8, message: "minimum length is 8 characters" },
+    { required: true, message: "password required" },
+    { min: 8, message: "minimum 8 characters" },
   ];
+  const combine = [{ required: true, message: "Please  fill required field" }];
+
   const onFinish = (values: any) => {
+    dispatch(addAdmin(values))
     console.log("Success:", values);
   };
 
@@ -50,7 +57,23 @@ function AddAdmin() {
         <Form.Item label="Password" name="password" rules={passwordValidate}>
           <Input.Password />
         </Form.Item>
-
+        <Form.Item
+              label="Gender"
+              name="gender"
+              rules={[{ required: true, message: "Please select your gender" }]}
+            >
+              <Radio.Group 
+              >
+                <Radio value="male"> Male </Radio>
+                <Radio value="female"> Female </Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item label="Birthday" name="dob" rules={combine}>
+              <DatePicker />
+            </Form.Item>
+            <Form.Item label="Address" name="address" rules={combine}>
+              <TextArea rows={4} />
+            </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit

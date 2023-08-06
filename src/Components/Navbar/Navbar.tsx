@@ -1,10 +1,9 @@
 import React from "react";
-// import classes from "./Navbar.module.scss";
-import logo from '../../Assets/Icons/eject.png';
+import logo from '../../Assets/Images/shopping-bag-cart-ecommerce-icon-bubble-speech-chat-3d-rendering-removebg-preview (1).png';
 import { Badge, Input } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import './Navbar.scss';
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink,  useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { searchProduct } from "../../Redux/Action/Action";
 
@@ -18,9 +17,10 @@ function Navbar() {
   };
 
   return (
-    <div className='nav-main-container'>
+    <div className="nav-wrapper">
+        <div className='nav-main-container'>
       <div className='nav-logo'>
-        {/* <img src={logo} alt="company-logo" className='nav-img' /> */}
+        <img src={logo} alt="company-logo" className='nav-img' />
         <p>Buy Online!</p>
       </div>
       <div className='nav-search-bar'>
@@ -33,18 +33,22 @@ function Navbar() {
       <div className='nav-nav-items'>
         <div className='nav-nav-items-child'>
           <HomeOutlined className='nav-nav-item-logo' />
-          <Link to="/home">Home</Link>
+          <NavLink to="/home" className='item-link'>Home</NavLink>
         </div>
         <div className='nav-nav-items-child'>
           <Badge count={5}  size="small" color="gold" className="badge">
 
           <ShoppingCartOutlined className='nav-nav-item-logo' />
           </Badge>
-          <p>Cart</p>
+          <NavLink to='/cart' className='item-link'>Cart</NavLink>
         </div>
       </div>
-      <div className='nav-cred'>Login/Register</div>
+        <div className='nav-cred'>
+          <NavLink to='/login' className='link'>Login</NavLink>
+          /<NavLink to='/register' className='link'>Register</NavLink>
+        </div>
     </div>
+  </div>
   );
 }
 

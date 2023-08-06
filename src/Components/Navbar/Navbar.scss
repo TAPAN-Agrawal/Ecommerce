@@ -6,63 +6,86 @@
   align-items: center;
 }
 
-.nav-main-container {
-  @include display;
-  justify-content: space-around;
-  height: 7vh;
-  width: 100vw;
-  background-color: $primary-color;
-  font-family: $font-family;
-  color: $tertiary-color;
-  .nav-logo {
+.nav-wrapper{
+  background-image: url('https://img.freepik.com/premium-photo/abstract-gradient-blur-background-wallpaper_792836-7970.jpg?size=626&ext=jpg&ga=GA1.2.1358364715.1689869568&semt=sph');
+  .nav-main-container {
     @include display;
-    justify-content: space-between;
-    // border: $border;
-    .nav-img {
-      height: 60px;
+    justify-content: space-around;
+    height: 7vh;
+    width: 100vw;
+    // background-color: $primary-color;
+    background: transparent;
+    backdrop-filter: blur(50px);
+    font-family: $font-family;
+    color: $tertiary-color;
+    .nav-logo {
+      @include display;
+      // justify-content: space-between;
+      // border: $border;
+      p{
+        color: black;
+        font-size: $font-size;
+        font-family: cursive;
+      }
+      .nav-img {
+        height: 80px;
+      }
     }
-  }
-  .nav-search-bar {
-    // border: $border;
-
-    width: 30%;
-
-    .ant-input-group-wrapper {
-      align-items: center;
-      .ant-input-wrapper {
-        input {
-          color: $tertiary-color;
+    .nav-search-bar {
+      // border: $border;
+  
+      width: 30%;
+  
+      // .ant-input-group-wrapper {
+      //   align-items: center;
+      //   .ant-input-wrapper {
+      //     input {
+      //       // color: $tertiary-color;
+      //     }
+      //     input:focus {
+      //       // border-color: $tertiary-color;
+      //     }
+      //     .ant-input-group-addon {
+      //       .ant-btn {
+      //         background: transparent;
+      //         backdrop-filter: blur(20px)
+      //       }
+      //     }
+      //   }
+      // }
+    }
+    .nav-nav-items {
+      // border: $border;
+      @include display;
+      justify-content: space-evenly;
+      width: 20%;
+      .nav-nav-items-child {
+        @include display;
+        margin: 0.3rem;
+        .item-link{
+          // color: black;
+          text-decoration: none;
+          margin-left: 0.4rem;
+          font-family:$font-family ;
         }
-        input:focus {
-          border-color: $tertiary-color;
+        .nav-nav-item-logo{
+          color: black;
         }
-        .ant-input-group-addon {
-          .ant-btn {
-            background: $secondary-color;
+        .badge{
+  
+          .nav-nav-item-logo {
+            margin: 0.5rem;
+            color:black;
+            font-size: $font-size;
           }
         }
       }
     }
-  }
-  .nav-nav-items {
-    // border: $border;
-    @include display;
-    justify-content: space-evenly;
-    width: 20%;
-    .nav-nav-items-child {
-      @include display;
-      margin: 0.3rem;
-      .badge{
-
-        .nav-nav-item-logo {
-          margin: 0.5rem;
-          color: $tertiary-color;
-          font-size: $font-size;
-        }
+    .nav-cred {
+      // border: $border;
+      .link{
+        text-decoration: none;
       }
     }
-  }
-  .nav-cred {
-    // border: $border;
   }
 }

@@ -13,6 +13,7 @@ import AddAdmin from "../AddAdmin/AddAdmin";
 import Notfound from "../Notfound/Notfound";
 import AddProduct from '../AddProduct/AddProduct';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
+import Sidebar from "../Sidebar/Sidebar";
 
 function AdminPanel() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function AdminPanel() {
 
   return (
     <div className="admin-wrapper-container">
-      <div className="admin-left-wrapper">
+      {/* <div className="admin-left-wrapper">
         <div className="admin-left-top">
           <div className="admin-logo">
             <h1>Admin-Panel</h1>
@@ -61,7 +62,10 @@ function AdminPanel() {
         <Button className="admin-logout">
           <h2>Logout</h2>
         </Button>
-      </div>
+      </div> */}
+
+      <Sidebar/>
+   
       <div className="admin-right-wrapper">
       <Routes>
       <Route path="/" element={<UserTable />} />

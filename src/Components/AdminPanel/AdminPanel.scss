@@ -11,6 +11,7 @@
     height: 99vh;
     width:100vw;
     font-family: $font-family;
+
     .admin-left-wrapper{
         @include display;
         flex-direction: column;

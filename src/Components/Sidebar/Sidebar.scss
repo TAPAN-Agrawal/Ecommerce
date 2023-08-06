@@ -1,0 +1,56 @@
+@import '../../Global/Variable.scss';
+
+.sidebar-wrapper{
+    width: 15%;
+    .menu{
+        font-family:$font-family;
+        .icons{
+            font-size: $font-size;
+            font-weight: 500;
+       }
+    }
+    .ant-menu-item{
+        position: relative;
+       
+
+    }
+  
+    .line1{
+        
+        position: absolute;
+        height: 31px;
+        width: 5px;
+        background-color: blue;
+        /* right: 84px; */
+        left: 197px;
+        top: 309px;
+    }
+    .line2{
+        
+        position: absolute;
+        height: 31px;
+        width: 5px;
+        background-color: blue;
+        /* right: 84px; */
+        left: 197px;
+        top: 350px;
+    } .line3{
+        
+        position: absolute;
+        height: 31px;
+        width: 5px;
+        background-color: blue;
+        /* right: 84px; */
+        left: 197px;
+        top: 390px;
+    } .line4{
+        
+        position: absolute;
+        height: 31px;
+        width: 5px;
+        background-color: blue;
+        /* right: 84px; */
+        left: 197px;
+        top: 429px;
+    }
+}

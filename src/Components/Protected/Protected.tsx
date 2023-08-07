@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Protected() {
+function Protected({Component}:any) {
     const navigate = useNavigate()
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -10,6 +10,7 @@ function Protected() {
         }
     },[])
   return <>
+        <Component/>
   </>;
 }
 

@@ -85,5 +85,32 @@ export const addAdmin=(data:any)=>{
     }
 }
 
+export const getAllUsers = ()=>{
+    return{
+        type:'GET_ALL_USERS'
+    }
+}
+
+export const addToCart = (data:any)=>{
+    return{
+        type:'ADD_TO_CART',
+        payload:data
+    }
+}
+
+export const getProductsInCart = () =>{
+    return{
+        type:'GET_PRODUCTS_IN_CART',
+        
+    }
+}
+
+export const deleteUser=(data:any)=>{
+    return{
+        type:'DELETE_USER',
+        payload:data
+    }
+}
+
 
 

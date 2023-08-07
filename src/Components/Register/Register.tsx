@@ -86,7 +86,7 @@ function Register() {
                 <Radio value="female"> Female </Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item label="Birthday" name="birthday" rules={combine}>
+            <Form.Item label="Birthday" name="dob" rules={combine}>
               <DatePicker />
             </Form.Item>
             <Form.Item label="Address" name="address" rules={combine}>

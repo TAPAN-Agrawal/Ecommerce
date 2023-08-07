@@ -38,37 +38,13 @@ function AdminPanel() {
 
   return (
     <div className="admin-wrapper-container">
-      {/* <div className="admin-left-wrapper">
-        <div className="admin-left-top">
-          <div className="admin-logo">
-            <h1>Admin-Panel</h1>
-          </div>
-          <Button className={currentPath === ('user') || currentPath === ''  ? "admin-items-active":"admin-items"} onClick={userHandler}>
-            <UserOutlined />
-            <h3>User</h3>
-          </Button>
-          <hr />
-          <Button className={currentPath === 'product' ? "admin-items-active":"admin-items"} onClick={productHandler}>
-            <ShoppingOutlined />
-            <h3>Product</h3>
-          </Button>
-          <hr />
-
-          <Button className={currentPath === 'addAdmin' ? "admin-items-active":"admin-items"} onClick={addAdminHandler}>
-            <UserAddOutlined />
-            <h3>Add-Admin</h3>
-          </Button>
-        </div>
-        <Button className="admin-logout">
-          <h2>Logout</h2>
-        </Button>
-      </div> */}
+ 
 
       <Sidebar/>
    
       <div className="admin-right-wrapper">
       <Routes>
-      <Route path="/" element={<UserTable />} />
+          <Route path="/" element={<UserTable />} />
           <Route  path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
           <Route path="/addproduct" element={<AddProduct/>}/>

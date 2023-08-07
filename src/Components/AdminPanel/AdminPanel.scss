@@ -8,6 +8,7 @@
 
 .admin-wrapper-container{
     @include display;
+    align-items: flex-start;
     height: 99vh;
     width:100vw;
     font-family: $font-family;

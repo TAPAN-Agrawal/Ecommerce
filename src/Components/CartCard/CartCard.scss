@@ -4,7 +4,7 @@
     align-items: center;
 }
 .CartCard-wrapper{
-    padding: 5px;
+    padding: 22px;
     .CartCard{
         height: 200px;
         width: 100%;
@@ -14,23 +14,37 @@
         .ant-card-body{
             @include display;
 
-            .CartCart-left{
+            .CartCart-left {
                 height: 150px;
                 width: 15%;
                 // border: 2px solid pink;
-                .CartCard-img{
-                    height: 150px;
-                }
+                // border-radius: 30px;
+                box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 5px 0px, rgba(0, 0, 0, 0.1) 2px 2px 1px 0px;
+                position: relative; 
+            
+            
+            .CartCard-img {
+                height: 100%;
+                width: 100%; 
+                object-fit: cover;
+                position: absolute; 
+                top: 0;
+                left: 0;
             }
+        }
             .CartCart-right{
                 margin-left: 2rem;
                 height: 150px;
                 width: 85%;
                 // border: 2px solid yellowgreen;
+                h3{
+                    margin-top: 0rem;
+                }
     
             }
         }
         .delete{
+            margin-top: -1.5rem;
             margin-left: 60rem;
             color: red;
         }

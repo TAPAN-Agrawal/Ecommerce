@@ -2,12 +2,19 @@
 
 .sidebar-wrapper{
     width: 15%;
+    Button{
+        // margin-top: 0.5rem;
+    }
     .menu{
         font-family:$font-family;
         .icons{
             font-size: $font-size;
             font-weight: 500;
        }
+    //    .ant-menu-item:hover{
+    //     background-color: black;
+    //     // color: pink;
+    //    }
     }
     .ant-menu-item{
         position: relative;
@@ -23,7 +30,7 @@
         background-color: blue;
         /* right: 84px; */
         left: 197px;
-        top: 309px;
+        top: 409px;
     }
     .line2{
         

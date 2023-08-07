@@ -18,7 +18,7 @@ import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
 import { Rate } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { cleanSingleProduct, getSingleProduct } from "../../Redux/Action/Action";
+import { addToCart, cleanSingleProduct, getSingleProduct } from "../../Redux/Action/Action";
 
 
 function Detail() {
@@ -42,13 +42,24 @@ function Detail() {
 
   const decrement = () => {
     let temp = count - 1;
-
+    if(temp < 1){
+      temp=1;
+    }
     setCount(temp);
   };
 
   const handleChange = (value: any) => {
     console.log("value", value);  
   };
+
+  const cartHandler = ()=>{
+    console.log("cart ",location.state.id,count);
+    let data ={
+      id:location.state.id,
+      quantity:count
+    }
+    dispatch(addToCart(data))
+  }
 
   useEffect(()=>{
       dispatch(cleanSingleProduct())
@@ -82,7 +93,7 @@ function Detail() {
                   <Button onClick={increment}>+</Button>
                 </div>
 
-                <Button icon={<ShoppingCartOutlined />}>Add to cart</Button>
+                <Button icon={<ShoppingCartOutlined />} onClick={cartHandler}>Add to cart</Button>
                 <br />
                 <Button size="large">Buy Now </Button>
               </div>

@@ -6,6 +6,7 @@ import {
   LogoutOutlined,
   MailOutlined,
   MenuFoldOutlined,
+  MenuOutlined,
   MenuUnfoldOutlined,
   PieChartOutlined,
   ShoppingOutlined,
@@ -68,8 +69,8 @@ function Sidebar() {
     }
   return (
     <div className={collapsed === false ? 'sidebar-wrapper': ''}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      <Button  onClick={toggleCollapsed} >
+        {collapsed ? <MenuOutlined /> : <MenuOutlined />}
       </Button>
       <Menu
         defaultSelectedKeys={['user']}

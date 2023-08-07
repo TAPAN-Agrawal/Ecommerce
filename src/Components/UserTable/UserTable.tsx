@@ -1,7 +1,10 @@
-import React from "react";
-import { Button, Space, Table, Tag } from 'antd';
+import React, { useEffect } from "react";
+import { Button, Popconfirm, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import './UserTable.scss'
+import { deleteUser, getAllUsers } from "../../Redux/Action/Action";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 interface DataType {
     key: string;
@@ -13,11 +16,17 @@ interface DataType {
  
   }
 
+ 
+  
+
+function UserTable() {
+  const users = useSelector((state:any)=>state.ecommerce.users)
+  const dispatch = useDispatch()
   const columns: ColumnsType<DataType> = [
   
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'username',
       key: 'name',
       // render: (text) => <>{text}</>,
     },
@@ -40,52 +49,33 @@ interface DataType {
       title: 'Action',
       key: 'action',
       render: ( record) => (
-        <Button onClick={()=>{console.log("hello",record)}}>Delete</Button>
+        <Popconfirm
+        title="Delete user"
+        description="Are you sure to delete this user?"
+        onConfirm={()=>deleteHandler(record.id)}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button
+        >
+          Delete
+        </Button>
+      </Popconfirm>
       ),
     },
   ];
-  
-  const data: DataType[] = [
-    {
-      
-      key: '1',
-      name: 'John Brown',
-      email:"John@gmail.com",
-      items:5,
-      billamount:200,
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      email:"John@gmail.com",
-      items:5,
-      billamount:200,
 
-    
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      email:"John@gmail.com",
-      items:5,
-      billamount:200,
 
-    
-    },
-    {
-      key: '4',
-      name: 'Joe Black',
-      email:"John@gmail.com",
-      items:5,
-      billamount:200,
+  const deleteHandler=(id:any)=>{
+    dispatch(deleteUser(id))
+  }
+useEffect(()=>{
+    dispatch(getAllUsers())
+},[])
 
-     
-    },
-  ];
-function UserTable() {
   return <div className="UserTable-wrapper">
     
-<Table columns={columns} dataSource={data}  />
+<Table columns={columns} dataSource={users} />
   </div>;
 }
 

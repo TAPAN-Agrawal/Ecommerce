@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Carousel, Spin } from "antd";
+import { Button, Card, Carousel, Pagination, Spin } from "antd";
 import "./Home.scss";
-import img from "../../Assets/Images/skin-care-banner-concept-with-lotion.jpg";
-import img1 from "../../Assets/Images/728.jpg";
-import img2 from "../../Assets/Images/collection-beauty-products-with-copy-space.jpg";
-import img3 from "../../Assets/Images/cosmetic-containers-with-orange.jpg";
-import img4 from "../../Assets/Images/free-photo-beauty-product-bottle-mockup-image-with-background.jpg";
+import img from "../../Assets/Images/CD4323_Inventory-Management_Apr-2022_V2_Header.jpg";
+import img1 from "../../Assets/Images/CD4323_Inventory-Management_Apr-2022_V2_Header.jpg";
+import img2 from "../../Assets/Images/CD4323_Inventory-Management_Apr-2022_V2_Header.jpg";
+import img3 from "../../Assets/Images/2slider.jpeg";
+import img4 from "../../Assets/Images/4slider.jpg";
 import img5 from "../../Assets/Images/Products/2112.i211.002.S.m012.c13.headphones wireless realistic composition 5.jpg";
 import img6 from "../../Assets//Images//Products/3207188-removebg-preview.png";
 import img7 from "../../Assets//Images//Products/image.png";
@@ -27,81 +27,164 @@ function Home() {
     textAlign: "center",
     background: "#364d79",
   };
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.ecommerce.products);
+  const searchProduct = useSelector((state: any) => state.ecommerce.searchResults[0])
+  // console.log('object',searchProduct.length);
   const [products, setProducts] = useState([]);
-  // console.log("first product",data);
+  const [category, setCategory] = useState([]);
+  const [page, setPage] = useState(1);
+  const [selectedButton, setSelectedButton] = useState<any>(null);
 
-  const singleProductHandler =(id:any)=>{
+  console.log("all product", data);
+
+  const singleProductHandler = (id: any) => {
     dispatch(getSingleProduct(id));
-     navigate('/detail',{
-      state:{
+    navigate("/detail", {
+      state: {
         id: id,
-      }
-    })
-  }
+      },
+    });
+  };
+  const menHandler = () => {
+    setSelectedButton(0);
+    const menProducts = products.filter(
+      (product: any) => product.category === 0
+    );
+    setCategory(menProducts);
+    console.log("men products", menProducts);
+  };
+  const womenHandler = () => {
+    setSelectedButton(1);
 
-  const mapProducts = products.map((product: any, key) => {
+    const womenProducts = products.filter(
+      (product: any) => product.category === 1
+    );
+    setCategory(womenProducts);
+    console.log("woman products", womenProducts);
+  };
+  const allHandler = () => {
+    setSelectedButton(null);
+
+    setCategory(products);
+  };
+
+  const pageHandler = (e: number) => {
+    setPage(e);
+  };
+  const mapProducts = category.map((product: any, key) => {
     return (
       <div
         className="home-card"
         key={product.id}
-        onClick={()=>singleProductHandler(product.id)}
-       
+        onClick={() => singleProductHandler(product.id)}
       >
         <ProductCard
           img={product.product_img}
           title={product.product_name}
           price={product.price}
+          description={product.description}
         />
       </div>
     );
   });
+
+// const searchMap =
+
   useEffect(() => {
-    dispatch(getAllProducts(1, 7));
-    // setProducts(data)
-  }, []);
+    dispatch(getAllProducts(page, 10, selectedButton));
+  }, [page, selectedButton]);
 
   useEffect(() => {
     setProducts(data);
+    setCategory(data);
   }, [data]);
   return (
     <>
       {products ? (
         <div className="home-wrapper">
+         {/* {
+          searchProduct.length !== 0 &&  
+          searchProduct.map((product: any, key:any)=>{
+  return (
+    <div
+      className="home-card"
+      key={product.id}
+      onClick={() => singleProductHandler(product.id)}
+    >
+      <ProductCard
+        img={product.product_img}
+        title={product.product_name}
+        price={product.price}
+        description={product.description}
+      />
+    </div>
+  );
+})
+         } */}
+        {/* {searchProduct !== null && searchProduct.length !== 0 ? (
+  <div>
+    helo
+  </div>
+) : null} */}
+
           <div className="home-slider">
             <Carousel autoplay>
               <div>
-                <img src={img} className="home-img" />
+                <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg' className="home-img" />
               </div>
               <div>
-                <img src={img2} className="home-img" />
+              <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg' className="home-img" />
+
               </div>
               <div>
-                <img src={img3} className="home-img" />
+              <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg' className="home-img" />
+
               </div>
               <div>
-                <img src={img4} className="home-img" />
+              <img src='https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg' className="home-img" />
+
               </div>
             </Carousel>
           </div>
 
           <div className="home-wrapper-child">
+            {/* <div>
+              <iframe
+                width="260"
+                height="500"
+                src="https://www.youtube.com/embed/I-t2mwrYc6s"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              ></iframe>
+            </div> */}
             <div className="home-combine-section">
-              <h1>Men</h1>
+              <h1>Top Offers</h1>
+              <div className="category">
+                <Button
+                  onClick={menHandler}
+                  className={selectedButton === 0 ? "selected" : ""}
+                >
+                  Men
+                </Button>
+                <Button
+                  onClick={womenHandler}
+                  className={selectedButton === 1 ? "selected" : ""}
+                >
+                  Women
+                </Button>
+                <Button onClick={allHandler}
+                  className={selectedButton === null ? "selected" : ""}
+                  >All</Button>
+              </div>
               <div className="home-men-section">{mapProducts}</div>
-              <Link to="/" className="Link">
-                more items..
-              </Link>
-              <h1>Women</h1>
-
-              <div className="home-women-section">{mapProducts}</div>
-              <Link to="/" className="Link">
-                more items..
-              </Link>
             </div>
+            {/* <div>
+            <iframe width="10" height="700" src="https://www.youtube.com/embed/6Ij9PiehENA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+            </div> */}
           </div>
+          <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
         </div>
       ) : (
         <Spin size="large" />

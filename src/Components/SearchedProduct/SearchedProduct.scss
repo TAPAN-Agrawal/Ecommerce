@@ -1,0 +1,16 @@
+@import '../../Global/Variable.scss';
+
+@mixin display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-wrapper{
+    @include display;
+   
+    .search{
+        height: 100vh;
+        width: 90vw;
+        background-color: lightblue;
+    }
+}

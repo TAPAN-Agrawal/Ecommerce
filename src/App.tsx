@@ -18,6 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Protected from "./Components/Protected/Protected";
 import RoleProtected from "./Components/RoleProtected/RoleProtected";
+import SearchedProduct from "./Components/SearchedProduct/SearchedProduct";
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="/search" element={<SearchedProduct/>}/>
         <Route path="adminpanel/*" element={<RoleProtected Component={AdminPanel}/>} />
         <Route path="detail" element={<Detail />} />
         <Route path="/cart" element={<Protected Component={Cart}/>} />

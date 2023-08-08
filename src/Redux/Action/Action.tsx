@@ -1,6 +1,4 @@
-export interface Value {
 
-}
 
 
 
@@ -24,14 +22,14 @@ export const googlelogin=()=>{
     }
 }
 
-export const getAllProducts = (page:any,limit:any)=>{
+export const getAllProducts = (page:any,limit:any,category:any)=>{
     return{
         type:'GET_ALL_PRODUCTS',
-        payload:{page,limit}
+        payload:{page,limit,category}
     }
 }
 
-export const getSingleProduct = (id:any)=>{
+export const getSingleProduct = (id:number)=>{
     return{
         type:'GET_SINGLE_PRODUCT',
         payload:id
@@ -52,7 +50,7 @@ export const updateProduct =(data:any)=>{
     }
 }
 
-export const deleteProduct = (data:any)=>{
+export const deleteProduct = (data:number)=>{
     return{
         type: 'DELETE_PRODUCT',
         payload:data
@@ -105,7 +103,7 @@ export const getProductsInCart = () =>{
     }
 }
 
-export const deleteUser=(data:any)=>{
+export const deleteUser=(data:number)=>{
     return{
         type:'DELETE_USER',
         payload:data

@@ -18,18 +18,21 @@ import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
 import { Rate } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { addToCart, cleanSingleProduct, getSingleProduct } from "../../Redux/Action/Action";
-
+import {
+  addToCart,
+  cleanSingleProduct,
+  getSingleProduct,
+} from "../../Redux/Action/Action";
 
 function Detail() {
-  const location = useLocation()
-  const dispatch = useDispatch()
+  const location = useLocation();
+  const dispatch = useDispatch();
   const singleProduct = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
- 
-  const [detailProduct,setDetailProduct]=useState<any>([])
-  
+
+  const [detailProduct, setDetailProduct] = useState<any>([]);
+
   const desc = ["terrible", "bad", "normal", "good", "wonderful"];
   const [value, setValue] = useState(3);
 
@@ -42,34 +45,33 @@ function Detail() {
 
   const decrement = () => {
     let temp = count - 1;
-    if(temp < 1){
-      temp=1;
+    if (temp < 1) {
+      temp = 1;
     }
     setCount(temp);
   };
 
   const handleChange = (value: any) => {
-    console.log("value", value);  
+    console.log("value", value);
   };
 
-  const cartHandler = ()=>{
-    console.log("cart ",location.state.id,count);
-    let data ={
-      id:location.state.id,
-      quantity:count
-    }
-    dispatch(addToCart(data))
-  }
+  const cartHandler = () => {
+    console.log("cart ", location.state.id, count);
+    let data = {
+      id: location.state.id,
+      quantity: count,
+    };
+    dispatch(addToCart(data));
+  };
 
-  useEffect(()=>{
-      dispatch(cleanSingleProduct())
+  useEffect(() => {
+    dispatch(cleanSingleProduct());
 
-    console.log("location",location.state.id);
+    console.log("location", location.state.id);
     dispatch(getSingleProduct(location.state.id));
-    setDetailProduct(singleProduct)
-  
-  },[])
-  
+    setDetailProduct(singleProduct);
+  }, []);
+
   return (
     <>
       {singleProduct.id ? (
@@ -77,29 +79,33 @@ function Detail() {
           <div className="detail-parent-wrapper">
             <div className="detail-wrapper">
               <div className="detail-product-image">
-                <img src={`http://192.168.1.69:8000/${singleProduct.product_img}`} className="detail-image" />
+                <img
+                  src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                  className="detail-image"
+                />
               </div>
               <div className="detail-product-details">
                 <h2>{singleProduct.product_name}</h2>
-                <p>
-                  {singleProduct.description}
-                </p>
+                <p>{singleProduct.description}</p>
 
                 <h3>{singleProduct.price}$</h3>
-
+                <div className="offer-wrapper">offer</div>
+                <div className="delivery-wrapper">deliver</div>
                 <div>
                   <Button onClick={decrement}>-</Button>
                   {count}
                   <Button onClick={increment}>+</Button>
                 </div>
 
-                <Button icon={<ShoppingCartOutlined />} onClick={cartHandler}>Add to cart</Button>
+                <Button icon={<ShoppingCartOutlined />} onClick={cartHandler}>
+                  Add to cart
+                </Button>
                 <br />
                 <Button size="large">Buy Now </Button>
               </div>
             </div>
           </div>
-          <h1>Suggested</h1>
+          {/* <h1>Suggested</h1>
           <div className="home-men-section">
             <div className="home-card">
               <ProductCard img={img5} title="Wireless Earpods" price="150$" />
@@ -113,7 +119,7 @@ function Detail() {
             <div className="home-card">
               <ProductCard img={img8} title="Wireless Earpods" price="150$" />
             </div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <Spin tip="Loading" size="large">

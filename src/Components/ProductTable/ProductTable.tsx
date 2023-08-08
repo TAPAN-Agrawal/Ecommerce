@@ -99,7 +99,7 @@ dispatch(cleanAllProduct())
   },[])
   useEffect(() => {
 
-    dispatch(getAllProducts(1,8));
+    dispatch(getAllProducts(1,8,0));
   }, []);
   return (
     <>

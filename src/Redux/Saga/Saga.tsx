@@ -63,12 +63,26 @@ export function* googlelogin(action: any) {
 
 export function* getAllProducts(action: any) {
   try {
-    const { page, limit } = action.payload;
+    let { page, limit, category } = action.payload;
+    if (category === null) {
+      console.log(category);
+    }
 
-    const response: AxiosResponse<any> = yield call(() =>
-      axiosInstance.get(`/products/all?page=${page}&limit=${limit}`)
-    );
-    yield put({ type: "SET_ALL_PRODUCTS", payload: response.data });
+    const response: AxiosResponse<any> = yield call(() => {
+      if (category !== null) {
+        return axiosInstanceAuth.get(
+          `/products/all?page=${page}&limit=${limit}&category=${category}`
+        );
+      } else {
+        return axiosInstanceAuth.get(
+          `/products/all?page=${page}&limit=${limit}`
+        );
+      }
+    });
+    console.log("new", response.data);
+    if (response) {
+      yield put({ type: "SET_ALL_PRODUCTS", payload: response.data });
+    }
   } catch (error) {}
 }
 export function* getSingleProduct(action: any) {
@@ -87,20 +101,7 @@ export function* getSingleProduct(action: any) {
 export function* addProduct(action: any) {
   try {
     const d = action.payload;
-    const product_name = d.title;
-    const price = d.price;
-    const quantity = d.quantity;
-    const category = d.category;
-    const description = d.description;
-    const product_img = d.file;
-    const temp = {
-      product_name,
-      price,
-      quantity,
-      category,
-      description,
-      product_img,
-    };
+
     const formData = new FormData();
     formData.append("product_name", d.name);
     formData.append("price", d.price);
@@ -111,7 +112,7 @@ export function* addProduct(action: any) {
     console.log("file", d.file);
 
     const response: AxiosResponse<any> = yield call(
-      axiosInstance.post,
+      axiosInstanceAuth.post,
       "/products/add_product",
       formData
     );
@@ -137,7 +138,7 @@ export function* updateProducts(action: any) {
     formData.append("description", d.description);
     formData.append("product_img", d.file);
     const response: AxiosResponse<any> = yield call(
-      axiosInstance.patch,
+      axiosInstanceAuth.patch,
       `/products/update_product/${id}`,
       formData
     );
@@ -155,7 +156,7 @@ export function* deleteProduct(action: any) {
   const id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
-      axiosInstance.delete,
+      axiosInstanceAuth.delete,
       `/products/delete_product/${id}`
     );
 
@@ -173,7 +174,7 @@ export function* searchProduct(action: any) {
       `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
     );
     if (response) {
-      yield put({ type: "SEARCH_PRODUCT_REDUCER", payload: response.data });
+      yield put({ type: "SEARCH_PRODUCT_REDUCER", payload: response.data.data });
     }
   } catch (error) {}
 }
@@ -182,7 +183,7 @@ export function* addAdmin(action: any) {
   const temp = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
-      axiosInstance.post,
+      axiosInstanceAuth.post,
       `/auth/add_admin`,
       temp
     );
@@ -195,12 +196,12 @@ export function* addAdmin(action: any) {
 export function* getAllUsers() {
   try {
     const response: AxiosResponse<any> = yield call(
-      axiosInstance.get,
+      axiosInstanceAuth.get,
       `/auth/users`
     );
     if (response) {
       toast.success("users got successfully");
-       yield put({type:'ADD_USER_REDUCER',payload: response.data.users})
+      yield put({ type: "ADD_USER_REDUCER", payload: response.data.users });
     }
   } catch (error) {}
 }
@@ -209,8 +210,8 @@ export function* addToCart(action: any) {
   const id = action.payload.id;
   const quantity = action.payload.quantity;
   let temp = {
-    quantity: quantity
-  }
+    quantity: quantity,
+  };
 
   try {
     const response: AxiosResponse<any> = yield call(
@@ -227,42 +228,49 @@ export function* addToCart(action: any) {
 export function* getProductsInCarts() {
   try {
     const response: AxiosResponse<any> = yield call(
-      axiosInstanceAuth.get ,
+      axiosInstanceAuth.get,
       `/products/carts`
     );
     if (response) {
       toast.success("cart items fetched");
-      yield put({type:'SET_PRODUCTS_CART_REDUCER',payload:response.data.data})
-      console.log("cart items",response.data.data);
+      yield put({
+        type: "SET_PRODUCTS_CART_REDUCER",
+        payload: response.data.data,
+      });
+      console.log("cart items", response.data.data);
     }
   } catch (error) {}
 }
 
-export function* deleteUser(action:any){
+export function* deleteUser(action: any) {
   let id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
-      axiosInstanceAuth.delete ,
+      axiosInstanceAuth.delete,
       `/auth/remove_user/${id}`
     );
     if (response) {
       toast.success("removed user");
-      yield put({type:'DELETE_USER_REDUCER',payload:id});
+      yield put({ type: "DELETE_USER_REDUCER", payload: id });
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 
 export function* watcher() {
   yield takeLatest("REGISTER", register);
+
   yield takeLatest("LOGIN", login);
+
   yield takeLatest("GOOGLE_LOGIN", googlelogin);
 
   yield takeLatest("GET_ALL_PRODUCTS", getAllProducts);
+
   yield takeLatest("GET_SINGLE_PRODUCT", getSingleProduct);
+
   yield takeLatest("ADD_PRODUCT", addProduct);
+
   yield takeLatest("UPDATE_PRODUCT", updateProducts);
+
   yield takeLatest("DELETE_PRODUCT", deleteProduct);
 
   yield takeLatest("ADD_ADMIN", addAdmin);
@@ -275,5 +283,5 @@ export function* watcher() {
 
   yield takeLatest("GET_PRODUCTS_IN_CART", getProductsInCarts);
 
-  yield takeLatest('DELETE_USER',deleteUser);
+  yield takeLatest("DELETE_USER", deleteUser);
 }

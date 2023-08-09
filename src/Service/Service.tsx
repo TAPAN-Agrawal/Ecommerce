@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     // Do something with request error
-    console.log("error", error);
+    console.log("error", error.AxiosError);
     return Promise.reject(error);
   }
 );
@@ -52,6 +52,7 @@ axiosInstanceAuth.interceptors.response.use(
   },
   function (error) {
     // Do something with request error
+    toast.error(error.response.data.message)
     console.log("error", error);
     return Promise.reject(error);
   }

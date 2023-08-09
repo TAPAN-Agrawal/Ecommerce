@@ -6,13 +6,15 @@
 .CartPrice-wrapper{
     margin-top: 5rem;
     .CartPrice-Card{
-        height: 210px;
-        width: 90%;
+        height: 480px;
+        width: 300px;
         margin: 0.5rem auto;
         h3{
-            span{
-                margin: 0.5rem;
-            }
+           text-align: center;
+        }
+        .item{
+            @include display;
+            justify-content: space-between;
         }
         Button{
             margin-left: 15rem;

@@ -62,7 +62,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "SEARCH_PRODUCT_REDUCER":
       return {
         ...state,
-        searchResults: [action.payload],
+        searchResults: action.payload,
       };
 
     case "ADD_USER_REDUCER":
@@ -85,7 +85,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
     const updatedCart = action.payload.map((item: any) => {
       return{
         
-        id: item.products.id,
+        id: item.id,
         description: item.products.description,
         price: item.products.price,
         product_img: item.products.product_img,
@@ -100,6 +100,15 @@ export const ecommerce = (state: any = initialState, action: any) => {
           ...state,
           cartItems: updatedCart
       };
+
+      case 'DELETE_CART_ITEM_REDUCER':
+        let updatedCarts = state.cartItems.filter((item: any) => {
+          return item.id !== action.payload
+        })
+        return{
+          ...state,
+          cartItems: updatedCarts
+        }
 
     default:
       return state;

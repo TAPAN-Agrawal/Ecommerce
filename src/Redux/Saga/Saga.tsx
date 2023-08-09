@@ -7,6 +7,7 @@ import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
 
 export function* register(action: any) {
   const { username, password, email, dob, gender, address } = action.payload;
+  
   const temp = {
     username: username,
     email: email,
@@ -46,7 +47,7 @@ export function* login(action: any) {
     if (response) {
       toast.success("user logged in  successfully");
       // console.log('token', response.data.data.token)
-      localStorage.setItem("token", response.data.data.token);
+      localStorage.setItem("token", response.data.data.tokenResponse.token);
     }
   } catch (error: any) {}
 }
@@ -65,7 +66,7 @@ export function* getAllProducts(action: any) {
   try {
     let { page, limit, category } = action.payload;
     if (category === null) {
-      console.log(category);
+      // console.log(category);
     }
 
     const response: AxiosResponse<any> = yield call(() => {
@@ -79,7 +80,7 @@ export function* getAllProducts(action: any) {
         );
       }
     });
-    console.log("new", response.data);
+    // console.log("new", response.data);
     if (response) {
       yield put({ type: "SET_ALL_PRODUCTS", payload: response.data });
     }
@@ -174,6 +175,7 @@ export function* searchProduct(action: any) {
       `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
     );
     if (response) {
+      console.log('search saga',response.data.data)
       yield put({ type: "SEARCH_PRODUCT_REDUCER", payload: response.data.data });
     }
   } catch (error) {}
@@ -201,7 +203,7 @@ export function* getAllUsers() {
     );
     if (response) {
       toast.success("users got successfully");
-      yield put({ type: "ADD_USER_REDUCER", payload: response.data.users });
+      yield put({ type: "ADD_USER_REDUCER", payload: response.data.data });
     }
   } catch (error) {}
 }
@@ -256,6 +258,22 @@ export function* deleteUser(action: any) {
   } catch (error) {}
 }
 
+
+export function* deleteCartItem(action: any) {
+    let id = action.payload;
+  try{
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.delete,
+      `/products/remove_from_cart/${id}`
+    );
+    if (response) {
+      toast.success("item removed from cart");
+      yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
+    }
+  }
+  catch (error) {}
+}
+
 export function* watcher() {
   yield takeLatest("REGISTER", register);
 
@@ -284,4 +302,6 @@ export function* watcher() {
   yield takeLatest("GET_PRODUCTS_IN_CART", getProductsInCarts);
 
   yield takeLatest("DELETE_USER", deleteUser);
+
+  yield takeLatest('DELETE_CART_ITEMS',deleteCartItem)
 }

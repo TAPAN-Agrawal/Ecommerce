@@ -1,18 +1,47 @@
 import React from "react";
 import './CartPrice.scss'
-import { Button, Card } from "antd";
+import { Button, Card, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 
 function CartPrice() {
   const navigate = useNavigate()
     const purchased = ()=>{
-      navigate('/purchased')
+      navigate('/checkout')
+      // navigate('/purchased')
     }
   return <div className="CartPrice-wrapper">
     <Card className="CartPrice-Card">
-    <h3>Total items:<span>7</span></h3>
-    <h3>Total amount:<span>670$</span></h3>
-    <Button size="large" onClick={purchased}>Buy</Button>
+    <div>
+      <img src='https://cdn.pixabay.com/photo/2020/05/21/11/13/shopping-5200288_640.jpg' height='150px' width='250'/>
+    </div>
+
+      <h3>Order Summary</h3>
+       <div className="item">
+       <div>
+    Subscription
+        </div>
+        <div>+10$ </div>
+       </div>
+       <div className="item">
+       <div>
+    Coupan:Free 20
+        </div>
+        <div>-10$ </div>
+       </div>
+       <Divider/>
+       <div className="item">
+       <div>
+   Total:items
+        </div>
+        <div>5 </div>
+       </div> 
+       <Divider/>
+      <div className="item">
+      <h2>Total Amount</h2>
+       <h2>700$</h2>
+      </div>
+   
+    {/* <Button size="large" onClick={purchased}>Buy</Button> */}
     </Card>
   </div>;
 }

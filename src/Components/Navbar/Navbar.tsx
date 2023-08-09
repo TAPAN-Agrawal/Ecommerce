@@ -12,8 +12,14 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSearch = (value: any) => {
-    dispatch(searchProduct(value, 1, 5));
-    // navigate('/search')
+    // dispatch(searchProduct(value, 1, 5));
+    navigate('/search',
+       {
+        state:{
+          searchKey:value
+        }
+       }
+    )
     console.log("Searching for:", value);
   };
 

@@ -110,5 +110,11 @@ export const deleteUser=(data:number)=>{
     }
 }
 
+export const deleteCartItems=(id:any)=>{
+    return{
+        type:'DELETE_CART_ITEMS',
+        payload:id
+    }
+}
 
 

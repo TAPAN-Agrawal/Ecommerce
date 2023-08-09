@@ -9,7 +9,8 @@
     background:$quaternary-color;
     .cart-wrapper-child{
         @include display;
-        height: 100vh;
+        align-items: flex-start;
+        height: 100%;
         width: 90vw;
         .left-child{
             height: 100%;
@@ -20,6 +21,16 @@
             height: 100%;
             width: 30%;
             // border: 2px solid yellow;
+            Button{
+                font-family: $font-family;
+                background-color:yellow;
+                color: black;
+                border: none;
+                width: 300px;
+                display: block;
+                margin:0 auto;
+
+            }
         }
 
     }

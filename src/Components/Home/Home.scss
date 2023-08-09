@@ -47,7 +47,9 @@
                 align-items: flex-start;
                 width: 15%;
                 .selected{
-                    background-color: #b7d7d4;
+                    // background-color: #b7d7d4;
+                    color: rgb(73, 73, 243);
+                    border-color: rgb(73, 73, 243);
                 }
             }
 

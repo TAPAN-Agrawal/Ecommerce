@@ -40,8 +40,10 @@ function getItem(
 
 
 function Sidebar() {
+  // const navigate = useNavigate()
   const logout =()=>{
     localStorage.removeItem("token");
+    navigate('/home');
 
   }
   const items: MenuItem[] = [
@@ -81,8 +83,8 @@ function Sidebar() {
     }
     if (e.key === "logout") {
       <Popconfirm
-      title="Delete the task"
-      description="Are you sure to delete this task?"
+      title="Logout Admin Panel"
+      description="Are you sure to Logout"
       onConfirm={()=>logout()}
       // onCancel={cancel}
       okText="Yes"

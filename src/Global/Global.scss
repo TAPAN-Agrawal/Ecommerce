@@ -12,3 +12,46 @@
 // //border
 // $border:2px solid black;
 
+// modal
+@mixin display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ant-modal{
+ 
+    .ant-modal-content{
+        width: 1000px;
+        .ant-modal-header{}
+        .ant-modal-body{
+            @include display;
+            height: 500px;
+            width: 900px;
+            border: 2px solid navy;
+            .left{
+                @include display;
+                flex-direction: column;
+                justify-content: flex-start;
+                margin-top: 1rem;
+                height: 100%;
+                width: 50%;
+                .left-top{
+                    @include display;
+                    justify-content: space-around;
+                }
+                .left-bottom{
+                    @include display;
+                    justify-content: space-around;
+                }
+            }
+            .right{
+                height: 100%;
+                width: 50%;
+            }
+        }
+        .ant-modal-footer{
+
+        }
+    }
+}
+

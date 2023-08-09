@@ -30,14 +30,14 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.ecommerce.products);
-  const searchProduct = useSelector((state: any) => state.ecommerce.searchResults[0])
+  // const searchProduct = useSelector((state: any) => state.ecommerce.searchResults[0])
   // console.log('object',searchProduct.length);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [page, setPage] = useState(1);
   const [selectedButton, setSelectedButton] = useState<any>(null);
 
-  console.log("all product", data);
+  // console.log("all product", data);
 
   const singleProductHandler = (id: any) => {
     dispatch(getSingleProduct(id));
@@ -90,10 +90,9 @@ function Home() {
     );
   });
 
-// const searchMap =
 
   useEffect(() => {
-    dispatch(getAllProducts(page, 10, selectedButton));
+    dispatch(getAllProducts(page, 8, selectedButton));
   }, [page, selectedButton]);
 
   useEffect(() => {
@@ -104,30 +103,7 @@ function Home() {
     <>
       {products ? (
         <div className="home-wrapper">
-         {/* {
-          searchProduct.length !== 0 &&  
-          searchProduct.map((product: any, key:any)=>{
-  return (
-    <div
-      className="home-card"
-      key={product.id}
-      onClick={() => singleProductHandler(product.id)}
-    >
-      <ProductCard
-        img={product.product_img}
-        title={product.product_name}
-        price={product.price}
-        description={product.description}
-      />
-    </div>
-  );
-})
-         } */}
-        {/* {searchProduct !== null && searchProduct.length !== 0 ? (
-  <div>
-    helo
-  </div>
-) : null} */}
+         
 
           <div className="home-slider">
             <Carousel autoplay>
@@ -150,15 +126,7 @@ function Home() {
           </div>
 
           <div className="home-wrapper-child">
-            {/* <div>
-              <iframe
-                width="260"
-                height="500"
-                src="https://www.youtube.com/embed/I-t2mwrYc6s"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
-            </div> */}
+           
             <div className="home-combine-section">
               <h1>Top Offers</h1>
               <div className="category">
@@ -180,9 +148,7 @@ function Home() {
               </div>
               <div className="home-men-section">{mapProducts}</div>
             </div>
-            {/* <div>
-            <iframe width="10" height="700" src="https://www.youtube.com/embed/6Ij9PiehENA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
-            </div> */}
+           
           </div>
           <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
         </div>

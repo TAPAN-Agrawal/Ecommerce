@@ -1,5 +1,5 @@
 import React from "react";
-
+import './Global/Global.scss';
 import Navbar from "./Components/Navbar/Navbar";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Protected from "./Components/Protected/Protected";
 import RoleProtected from "./Components/RoleProtected/RoleProtected";
 import SearchedProduct from "./Components/SearchedProduct/SearchedProduct";
+import Checkout from "./Components/Checkout/Checkout";
 function App() {
   return (
     <>
@@ -44,6 +45,7 @@ function App() {
         <Route path="adminpanel/*" element={<RoleProtected Component={AdminPanel}/>} />
         <Route path="detail" element={<Detail />} />
         <Route path="/cart" element={<Protected Component={Cart}/>} />
+        <Route path="/checkout" element={<Protected Component ={Checkout}/>}/>
         <Route path="/purchased" element={<Purchased />} />
         <Route path="*" element={<Notfound />} />
       </Routes>

@@ -54,10 +54,9 @@ function Sidebar() {
       "Logout",
       "logout",
       <Popconfirm
-        title="Delete the task"
-        description="Are you sure to delete this task?"
+        title="Logout Admin Panel"
+        description="Are you sure to Logout"
         onConfirm={()=>logout()}
-        // onCancel={cancel}
         okText="Yes"
         cancelText="No"
       >
@@ -86,13 +85,11 @@ function Sidebar() {
       title="Logout Admin Panel"
       description="Are you sure to Logout"
       onConfirm={()=>logout()}
-      // onCancel={cancel}
       okText="Yes"
       cancelText="No"
       >
 
       </Popconfirm>
-      // localStorage.removeItem("token");
     }
   
   };
@@ -111,9 +108,7 @@ function Sidebar() {
         onClick={clickHandler}
       />
      
-      {/* <div className='line'>2</div>
-      <div className='line'>3</div>
-      <div className='line'>4</div> */}
+     
     </div>
   );
 }

@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../Assets/Images/shopping-bag-cart-ecommerce-icon-bubble-speech-chat-3d-rendering-removebg-preview (1).png";
 import { Badge, Button, Input } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { searchProduct } from "../../Redux/Action/Action";
+import { loginSetter, logoutSetter, searchProduct } from "../../Redux/Action/Action";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const { Search } = Input;
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+const isLogin = useSelector((state:any)=>state.ecommerce.login)
+const cartItem = useSelector((state:any)=>state.ecommerce.cartItems)
+
+const logoutHandler=()=>{
+  localStorage.removeItem('token')
+  toast.success('Logout Successfully')
+  navigate('/home')
+  dispatch(logoutSetter())
+}
+
   const handleSearch = (value: any) => {
-    // dispatch(searchProduct(value, 1, 5));
     navigate('/search',
        {
         state:{
@@ -22,6 +33,12 @@ function Navbar() {
     )
     console.log("Searching for:", value);
   };
+  useEffect(()=>{
+      const token = localStorage.getItem('token');
+      if (token) {
+          dispatch(loginSetter())        
+      }
+  },[])
 
   return (
     <div className="nav-wrapper">
@@ -33,11 +50,7 @@ function Navbar() {
             </span></p>
         </div>
         <div className="nav-search-bar">
-          {/* <Search
-            placeholder="Enter your search query"
-            onSearch={handleSearch}
-            enterButton
-          /> */}
+    
            <Search placeholder="Enter your search query" onSearch={handleSearch}  />
         </div>
         <div className="nav-nav-items">
@@ -48,24 +61,24 @@ function Navbar() {
             </NavLink>
           </div>
           <div className="nav-nav-items-child">
-            <Badge count={5} size="small" color="gold" className="badge">
+            {/* <Badge count={cartItem.length} size="small" color="gold" className="badge"> */}
               <ShoppingCartOutlined className="nav-nav-item-logo" />
-            </Badge>
+            {/* </Badge> */}
             <NavLink to="/cart" className="item-link">
               Cart
             </NavLink>
           </div>
         </div>
         <div className="nav-cred">
-          <NavLink to="/login" className="link">
+          {isLogin === false && <NavLink to="/login" className="link">
           <Button>Login</Button>
-          </NavLink>
+          </NavLink>}
           
-          <NavLink to="/register" className="link">
-          <Button>Register</Button>
-
+          {isLogin  === false && <NavLink to="/register" className="link">
             
-          </NavLink>
+            <Button>Register</Button>      
+            </NavLink>}
+           {isLogin === true &&  <Button onClick={logoutHandler}>Logout</Button>}
         </div>
       </div>
     </div>

@@ -4,15 +4,21 @@ const initialState: any = {
   searchResults: [],
   users: [],
   cartItems: [],
+  login:false
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
   switch (action.type) {
-    case "INCREMENT":
+    case "LOGIN_REDUCER":
       return {
         ...state,
-        count: state.count + action.payload,
+        login: true
       };
+      case 'LOGOUT_REDUCER':
+        return{
+          ...state,
+          login: false
+        }
 
     case "SET_ALL_PRODUCTS":
       return {
@@ -64,6 +70,11 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         searchResults: action.payload,
       };
+      case 'CLEAR_SEARCH_PRODUCT_REDUCER':
+        return{
+          ...state,
+          searchResults: [],
+        }
 
     case "ADD_USER_REDUCER":
       return {

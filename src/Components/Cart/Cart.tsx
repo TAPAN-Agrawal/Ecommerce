@@ -18,8 +18,33 @@ function Cart() {
     <CartCard id={item.id} img={item.product_img} description={item.description} title={item.product_name} price={item.price} quantity={item.quantity}/>
    
   ))
+
+const price = cartItem.map((item:any)=>{
+  return {
+      item:item.product_name,
+      price:item.price * item.quantity,
+      quantity:item.quantity
+  }
+}
+)
+
+
+
+
+
+
+
+
+console.log(price)
+
   const ckeckoutHandler =()=>{
-    navigate('/checkout')
+    navigate('/checkout',
+    {
+      state:{
+        p:price
+      }
+    }
+    )
   }
 
   useEffect(()=>{
@@ -37,7 +62,7 @@ function Cart() {
           </Card>
         </div>
         <div className="right-child">
-          <CartPrice />
+          <CartPrice priceList={price} />
           <Button onClick={ckeckoutHandler}>Checkout</Button>
         </div>
       </div>

@@ -15,6 +15,16 @@ export const login =(data:any)=>{
         payload:data
     }
 }
+export const loginSetter =()=>{
+    return{
+        type:'LOGIN_REDUCER'
+    }
+}
+export const logoutSetter=()=>{
+    return{
+        type:'LOGOUT_REDUCER'
+    }
+}
 
 export const googlelogin=()=>{
     return{
@@ -22,10 +32,10 @@ export const googlelogin=()=>{
     }
 }
 
-export const getAllProducts = (page:any,limit:any,category:any)=>{
+export const getAllProducts = (page:any,limit:any,category:any,sort:any)=>{
     return{
         type:'GET_ALL_PRODUCTS',
-        payload:{page,limit,category}
+        payload:{page,limit,category,sort}
     }
 }
 
@@ -83,9 +93,10 @@ export const addAdmin=(data:any)=>{
     }
 }
 
-export const getAllUsers = ()=>{
+export const getAllUsers = (page:number,limit:number)=>{
     return{
-        type:'GET_ALL_USERS'
+        type:'GET_ALL_USERS',
+        payload:{page,limit}
     }
 }
 

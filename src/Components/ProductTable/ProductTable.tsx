@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button, FloatButton, Popconfirm, Spin, Table,} from "antd";
+import { Button, FloatButton, Pagination, Popconfirm, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import img from "../../Assets/Images/logo-color.png";
 import "./ProductTable.scss";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { cleanAllProduct, cleanSingleProduct, deleteProduct, getAllProducts } from "../../Redux/Action/Action";
+import {
+  cleanAllProduct,
+  cleanSingleProduct,
+  deleteProduct,
+  getAllProducts,
+} from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -22,14 +26,18 @@ function ProductTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const datas = useSelector((state: any) => state.ecommerce.products);
-  console.log("product table", datas);
+  const [page,setPage]=useState<number>(1)
+
 
   const addHandler = () => {
     navigate("/adminpanel/addproduct");
   };
 
-  const deleteHandler=(id:number)=>{
+  const deleteHandler = (id: number) => {
     dispatch(deleteProduct(id));
+  };
+  const pageHandler=(e:number)=>{
+    setPage(e)
   }
 
   const columns: ColumnsType<DataType> = [
@@ -43,8 +51,11 @@ function ProductTable() {
       dataIndex: "product_img",
       key: "coverPhoto",
       render: (coverPhoto: string) => (
-        
-        <img src={`http://192.168.1.69:8000/${coverPhoto}`} alt="Cover" style={{ width: 50, height: 50 }} />
+        <img
+          src={`http://192.168.1.69:8000/${coverPhoto}`}
+          alt="Cover"
+          style={{ width: 50, height: 50 }}
+        />
       ),
     },
     {
@@ -66,11 +77,11 @@ function ProductTable() {
           <Button
             onClick={() => {
               console.log("update product", record.id);
-              navigate('/adminpanel/updateproduct',{
-                state:{
+              navigate("/adminpanel/updateproduct", {
+                state: {
                   id: record.id,
-                }
-              })
+                },
+              });
             }}
           >
             Update
@@ -78,14 +89,14 @@ function ProductTable() {
           <Popconfirm
             title="Delete product"
             description="Are you sure to delete this product?"
-            onConfirm={()=>deleteHandler(record.id)}
+            onConfirm={() => deleteHandler(record.id)}
             okText="Yes"
             cancelText="No"
           >
             <Button
-              // onClick={() => {
-              //   dispatch(deleteProduct(record.id));
-              // }}
+            // onClick={() => {
+            //   dispatch(deleteProduct(record.id));
+            // }}
             >
               Delete
             </Button>
@@ -94,23 +105,28 @@ function ProductTable() {
       ),
     },
   ];
-  useEffect(()=>{
-dispatch(cleanAllProduct())
-  },[])
   useEffect(() => {
-
-    dispatch(getAllProducts(1,8,0));
+    dispatch(cleanAllProduct());
   }, []);
+  useEffect(() => {
+    dispatch(getAllProducts(page, 8, 0,null));
+  }, [page]);
   return (
     <>
-    {datas.length !== 0 ?
-    <div className="ProductTable-wrapper">
-     <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
-      <Table columns={columns} dataSource={datas} />
-      </div>
-      :<Spin tip="loading..." size="large">  <div className="content" /></Spin>
-    }
-      </>
+      {datas.length !== 0 ? (
+        <div className="ProductTable-wrapper">
+          <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
+          <Table columns={columns} dataSource={datas} pagination={false}/>
+      <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
+
+        </div>
+      ) : (
+        <Spin tip="loading..." size="large">
+          {" "}
+          <div className="content" />
+        </Spin>
+      )}
+    </>
   );
 }
 

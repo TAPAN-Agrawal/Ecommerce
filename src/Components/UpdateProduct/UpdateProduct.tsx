@@ -19,7 +19,7 @@ import {
   cleanSingleProduct,
 } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
@@ -27,7 +27,7 @@ function AddProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-// const history = useHistory();
+  // const history = useHistory();
   const singleProducts = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
@@ -50,7 +50,7 @@ function AddProduct() {
 
   const onFinish = (values: any) => {
     console.log("Success:", values.id);
-    dispatch(cleanSingleProduct())
+    dispatch(cleanSingleProduct());
     const updatedValues = {
       ...values,
 
@@ -71,7 +71,7 @@ function AddProduct() {
     setSelectedFile(file); // Step 4: Update the state with the selected file
   };
   useEffect(() => {
-    dispatch(cleanSingleProduct())
+    dispatch(cleanSingleProduct());
     // console.log("idsss", location.state.id);
 
     if (location.state.id) {
@@ -80,8 +80,6 @@ function AddProduct() {
   }, []);
   useEffect(() => {
     setProduct(singleProducts);
-  
-    
   }, [singleProducts]);
 
   return (
@@ -162,9 +160,9 @@ function AddProduct() {
             </Button>
           </Form.Item>
         </Form>
-      ):<Spin tip='loading..'>
-        
-        </Spin>}
+      ) : (
+        <Spin tip="loading.."></Spin>
+      )}
     </div>
   );
 }

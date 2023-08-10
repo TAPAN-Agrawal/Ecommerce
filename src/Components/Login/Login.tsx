@@ -77,7 +77,10 @@ function Login() {
             </Form.Item>
             <Divider>or login with</Divider>
             <div className="logos">
-              <GoogleCircleFilled className="logo" onClick={googleHandler}/>
+             <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}> 
+             <GoogleCircleFilled className="logo"
+              // onClick={googleHandler}
+              /></a>
               <FacebookFilled className="logo" />
               <LinkedinFilled className="logo" />
             </div>

@@ -4,25 +4,44 @@ import "./CartCard.scss";
 import { Button, Card, Popconfirm, Select, Space } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { deleteCartItems, getProductsInCart } from "../../Redux/Action/Action";
+import {
+  deleteCartItems,
+  getProductsInCart,
+  updateQuantityCart,
+} from "../../Redux/Action/Action";
+import { toast } from "react-toastify";
 
 function CartCard(Props: any) {
   const dispatch = useDispatch();
   const desc = ["terrible", "bad", "normal", "good", "wonderful"];
   const [value, setValue] = useState(3);
   const [count, setCount] = useState<number>(Props.quantity || 0);
+  const [totalconst,settotalConst]=useState(Props.totalQuantity)
+
+// const fix = Props.totalQuantity
+
 
   const increment = () => {
     let temp = count + 1;
-    setCount(temp);
+
+    if (totalconst-1 >= 1) {
+      setCount(temp);
+      settotalConst((prev:any)=>prev-1)
+    } else {
+      toast.error("Oops!, not enough quantity");
+    }
   };
 
   const decrement = () => {
     let temp = count - 1;
-    if (temp < 1) {
-      temp = 1;
+
+    if (temp >= 0) {
+      setCount(temp);
+      settotalConst((prev:any)=>prev+1)
+
+    } else {
+      dispatch(deleteCartItems(Props.id));
     }
-    setCount(temp);
   };
 
   const handleChange = (value: any) => {
@@ -36,12 +55,25 @@ function CartCard(Props: any) {
     console.log(e);
   };
 
+  useEffect(() => {
+    console.log("total quantity",totalconst);
+
+
+
+    let temp = {
+      id: Props.id,
+      count: count,
+    };
+    dispatch(updateQuantityCart(temp));
+  }, [count]);
+
   return (
     <div className="CartCard-wrapper">
       <Card className="CartCard">
         <div className="CartCart-left">
           <img
             src={`${process.env.REACT_APP_BASEURL}/${Props.img}`}
+            alt=""
             className="CartCard-img"
           />
         </div>

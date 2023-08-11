@@ -33,37 +33,16 @@ function AdminPanel() {
     navigate("/adminpanel/addAdmin");
   };
 
-  const TokenDecoder = (token: any) => {
-    try {
-      const decodedToken: any = jwtDecode(token);
-
-      if (decodedToken) {
-        // 'decodedToken' contains the decoded information
-        if (decodedToken.roles === 2) {
-          navigate("/home");
-          toast.error('you are not authorized to view adminpanel')
-        }
-        if (decodedToken.roles === 1) {
-          toast.success('you have view only right')
-        }
-
-      } 
-      else {
-        console.log("Invalid token");
-      }
-    } catch (error: any) {
-      console.error("Error decoding token:", error.message);
-    }
-  };
+ 
   useEffect(() => {
-    let token = localStorage.getItem("token");
-    console.log("token", token);
-    if(token){
+    let role = localStorage.getItem("role");
+    if(role === '0' || role === '1'){
 
-      TokenDecoder(token);
+     
     }
     else{
-      navigate('/home')
+      navigate('/login')
+      toast.error('you are not authorized to view this panel')
     }
   }, []);
 
@@ -73,7 +52,7 @@ function AdminPanel() {
 
       <div className="admin-right-wrapper">
         <Routes>
-          <Route path="/" element={<UserTable />} />
+          <Route  path="/" element={<UserTable />} />
           <Route path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
           <Route path="/addproduct" element={<AddProduct />} />

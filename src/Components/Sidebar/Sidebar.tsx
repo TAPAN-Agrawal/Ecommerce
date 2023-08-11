@@ -50,19 +50,7 @@ function Sidebar() {
     getItem("User", "user", <UserOutlined className="icons" />),
     getItem("Products", "product", <TbShoppingBag className="icons" />),
     getItem("AddAdmin", "addAdmin", <UserAddOutlined className="icons" />),
-    getItem(
-      "Logout",
-      "logout",
-      <Popconfirm
-        title="Logout Admin Panel"
-        description="Are you sure to Logout"
-        onConfirm={()=>logout()}
-        okText="Yes"
-        cancelText="No"
-      >
-        <LogoutOutlined className="icons" />
-      </Popconfirm>
-    ),
+    
   ];
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
@@ -80,17 +68,7 @@ function Sidebar() {
     if (e.key === "addAdmin") {
       navigate("/adminpanel/addAdmin");
     }
-    if (e.key === "logout") {
-      <Popconfirm
-      title="Logout Admin Panel"
-      description="Are you sure to Logout"
-      onConfirm={()=>logout()}
-      okText="Yes"
-      cancelText="No"
-      >
-
-      </Popconfirm>
-    }
+    
   
   };
   return (

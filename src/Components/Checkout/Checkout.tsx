@@ -4,15 +4,33 @@ import "./Checkout.scss";
 import CartPrice from "../CartPrice/CartPrice";
 import * as yup from "yup";
 import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { completePurchase } from "../../Redux/Action/Action";
+
+
+export interface CheckoutInterface{
+  address_line1: string,
+address_line2: string,
+city: string,
+country:  string,
+email:  string,
+first_name:  string,
+last_name:  string,
+zip_postal:  string,
+zip_code:  string,
+
+}
 
 function Checkout() {
+  const dispatch = useDispatch()
   const {state} = useLocation()
   const required = [{ required: true, message: " required field" }];
  
   const email:any = [{ required: true, message: " required field"},
 {type: "email", message: "enter valid email"}]
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: CheckoutInterface) => {
+dispatch(completePurchase(values))
     console.log("Success:", values);
     // dispatch(login(values))
   };
@@ -28,7 +46,7 @@ function Checkout() {
                 <h2>Personal Section</h2>
                 <div className="personal-section-child1">
                   <Form.Item
-                    name="firstName"
+                    name="first_name"
                     label="First Name"
                     rules={required}
                     className="item"
@@ -36,7 +54,7 @@ function Checkout() {
                     <Input placeholder="First Name" />
                   </Form.Item>
                   <Form.Item
-                    name="lastName"
+                    name="last_name"
                     label="Last Name"
                     rules={required}
                     className="item"
@@ -59,7 +77,7 @@ function Checkout() {
                 <h2>Shipping Detail</h2>
                 <div className="shipping-section-child1">
                   <Form.Item
-                    name="address1"
+                    name="address_line1"
                     label="Address Line:1"
                     rules={required}
                     className="item"
@@ -67,7 +85,7 @@ function Checkout() {
                     <Input placeholder="Address" />
                   </Form.Item>
                   <Form.Item
-                    name="address2"
+                    name="address_line2"
                     label="Address Line:2"
                     rules={required}
                     className="item"
@@ -85,7 +103,7 @@ function Checkout() {
                     <Input placeholder="City" />
                   </Form.Item>
                   <Form.Item
-                    name="zip/postal"
+                    name="zip_postal"
                     label="Zip/Postal"
                     rules={required}
                     className="item"
@@ -103,7 +121,7 @@ function Checkout() {
                     <Input placeholder="Country" />
                   </Form.Item>
                   <Form.Item
-                    name="zipcode"
+                    name="zip_code"
                     label="Zip Code"
                     rules={required}
                     className="item"

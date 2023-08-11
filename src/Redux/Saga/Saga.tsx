@@ -4,8 +4,51 @@ import { toast } from "react-toastify";
 import { message } from "antd";
 import { getProductsInCart, updateProduct } from "../Action/Action";
 import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
+import { RegisterInterface } from "../../Components/Register/Register";
+import { LoginInterface } from "../../Components/Login/Login";
+import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
+import { CheckoutInterface } from "../../Components/Checkout/Checkout";
 
-export function* register(action: any) {
+interface RegisterActionInterface {
+  type: string;
+  payload: RegisterInterface;
+}
+
+interface LoginActionInterface {
+  type: string;
+  payload: LoginInterface;
+}
+
+interface UserActionInterface {
+  type: string;
+  payload: { page: number; limit: number };
+}
+
+interface ActionNumberInterface {
+  type: string;
+  payload: number;
+}
+
+interface ActionProductInterface {
+  type: string;
+  payload: {
+    page: number;
+    limit: number;
+    category: number;
+    sort: string | null;
+  };
+}
+interface ActionAddProductInterface{
+  type: string;
+  payload: AddProductInterface
+}
+
+interface ActionCheckoutInterface{
+  type: string;
+  payload:CheckoutInterface
+}
+
+export function* register(action: RegisterActionInterface) {
   const { username, password, email, dob, gender, address } = action.payload;
 
   const temp = {
@@ -33,7 +76,7 @@ export function* register(action: any) {
   }
 }
 
-export function* login(action: any) {
+export function* login(action: LoginActionInterface) {
   const temp = action.payload;
 
   console.log("first", temp);
@@ -46,10 +89,13 @@ export function* login(action: any) {
     console.log("response", response);
     if (response) {
       toast.success("user logged in  successfully");
-      // console.log('token', response.data.data.token)
       localStorage.setItem("token", response.data.data.tokenResponse.token);
       yield put({ type: "LOGIN_REDUCER" });
+
+    //   if(temp.email === 'superadmin@gmail.com' || temp.email === 'admin@gmail.com') {
+    //     localStorage.setItem('role',0)
     }
+    
   } catch (error: any) {}
 }
 
@@ -63,46 +109,31 @@ export function* googlelogin(action: any) {
   } catch (error) {}
 }
 
-export function* getAllProducts(action: any) {
+export function* getAllProducts(action: ActionProductInterface) {
   try {
     let { page, limit, category, sort } = action.payload;
-   
 
     const response: AxiosResponse<any> = yield call(() => {
       if (category !== null) {
-
-            if(sort !== null) {
-              return axiosInstanceAuth.get(
-                `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
-              );
-            }
-            else{
-
-              return axiosInstanceAuth.get(
-                `/products/all?page=${page}&limit=${limit}&category=${category}`
-              );
-            }
-
-
-
-
-
-      } 
-      else {
-        if(sort !== null) {
+        if (sort !== null) {
+          return axiosInstanceAuth.get(
+            `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
+          );
+        } else {
+          return axiosInstanceAuth.get(
+            `/products/all?page=${page}&limit=${limit}&category=${category}`
+          );
+        }
+      } else {
+        if (sort !== null) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&sortOrder=${sort}`
           );
+        } else {
+          return axiosInstanceAuth.get(
+            `/products/all?page=${page}&limit=${limit}`
+          );
         }
-            else{
-
-              return axiosInstanceAuth.get(
-                `/products/all?page=${page}&limit=${limit}`
-              );
-            }
-
-
-
       }
     });
 
@@ -112,7 +143,7 @@ export function* getAllProducts(action: any) {
     }
   } catch (error) {}
 }
-export function* getSingleProduct(action: any) {
+export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -121,11 +152,10 @@ export function* getSingleProduct(action: any) {
     );
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
 
-    //  console.log("single products", response.data);
   } catch (error) {}
 }
 
-export function* addProduct(action: any) {
+export function* addProduct(action: ActionAddProductInterface) {
   try {
     const d = action.payload;
 
@@ -152,7 +182,7 @@ export function* addProduct(action: any) {
     toast.error("product not added successfully");
   }
 }
-export function* updateProducts(action: any) {
+export function* updateProducts(action: ActionAddProductInterface) {
   try {
     const d = action.payload;
     const id = d.id;
@@ -179,7 +209,7 @@ export function* updateProducts(action: any) {
   }
 }
 
-export function* deleteProduct(action: any) {
+export function* deleteProduct(action: ActionNumberInterface) {
   const id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -230,7 +260,7 @@ export function* addAdmin(action: any) {
   } catch (error) {}
 }
 
-export function* getAllUsers(action: any) {
+export function* getAllUsers(action: UserActionInterface) {
   const { page, limit } = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -269,17 +299,19 @@ export function* getProductsInCarts() {
       `/products/carts`
     );
     if (response) {
+      // console.log('cart',response.data.data);
+      
       toast.success("cart items fetched");
       yield put({
         type: "SET_PRODUCTS_CART_REDUCER",
         payload: response.data.data,
       });
-      console.log("cart items", response.data.data);
+      // console.log("cart items", response.data.data);
     }
   } catch (error) {}
 }
 
-export function* deleteUser(action: any) {
+export function* deleteUser(action: ActionNumberInterface) {
   let id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -293,7 +325,7 @@ export function* deleteUser(action: any) {
   } catch (error) {}
 }
 
-export function* deleteCartItem(action: any) {
+export function* deleteCartItem(action: ActionNumberInterface) {
   let id = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -305,6 +337,40 @@ export function* deleteCartItem(action: any) {
       yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
     }
   } catch (error) {}
+}
+
+export function* updateQuantityCart(action:any){
+  let id=action.payload.id;
+ let temp={
+  quantity: action.payload.count
+ }
+ 
+  try {
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.patch,
+      `/products/update_quantity/${id}`,
+      temp
+    );
+    if (response) {
+      // toast.success("item removed from cart");
+      // yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
+    }
+  } catch (error) {}
+
+}
+
+export function* completePurchase(action:ActionCheckoutInterface){
+try {
+  let temp =action.payload;
+  const response: AxiosResponse<any> = yield call(
+    axiosInstanceAuth.post,
+    `/products/shipping_details`,
+    temp
+  );
+} catch (error:any) {
+  // toast.error(.message)
+}
+
 }
 
 export function* watcher() {
@@ -337,4 +403,8 @@ export function* watcher() {
   yield takeLatest("DELETE_USER", deleteUser);
 
   yield takeLatest("DELETE_CART_ITEMS", deleteCartItem);
+
+  yield takeLatest('UPDATE_Quantity_CART', updateQuantityCart)
+
+  yield takeLatest('COMPLETE_PURCHASE', completePurchase)
 }

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.scss";
 import { Button, Checkbox, Divider, Form, Input } from "antd";
 
 import img from "../../Assets/Images/login.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FacebookFilled,
   GoogleCircleFilled,
@@ -12,10 +12,24 @@ import {
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { googlelogin, login } from "../../Redux/Action/Action";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
+
+
+
+export interface LoginInterface{
+  email: string;
+  password: string;
+}
 
 function Login() {
 
+  // let tokens = localStorage.getItem("token");
+  const IsLogin = useSelector((state:any)=>state.ecommerce.login)
+const navigate = useNavigate()
   const dispatch=useDispatch()
+  const[flag,setFlag]=useState<any>(false)
 
   const emailValidate: any = [
     { required: true, message: "email required" },
@@ -25,11 +39,11 @@ function Login() {
     { required: true, message: "password required" },
     { min: 8, message: "minimum length is 8 characters" },
   ];
-  const onFinish = (values: any) => {
+  const onFinish =  (values: LoginInterface) => {
+    setFlag(true)
     console.log("Success:", values);
-    dispatch(login(values))
+    dispatch(login(values)); // Wait for the dispatch to complete
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
@@ -38,6 +52,54 @@ function Login() {
   const googleHandler = ()=>{
     dispatch(googlelogin())
   }
+  const TokenDecoder = (token: any) => {
+    try {
+      const decodedToken: any = jwtDecode(token);
+
+      if (decodedToken) {
+        // 'decodedToken' contains the decoded information
+        if (decodedToken.roles === 2) {
+          navigate("/home");
+          localStorage.setItem('role','2')
+          // toast.error('you are not authorized to view adminpanel')
+        }
+        if (decodedToken.roles === 1) {
+          // toast.success('you have view only right')
+          localStorage.setItem('role','1')
+
+        }
+        if(decodedToken.roles === 0){
+          navigate('/adminpanel');
+          localStorage.setItem('role','0')
+        }
+
+      } 
+      else {
+        console.log("Invalid token");
+      }
+    } catch (error: any) {
+      console.error("Error decoding token:", error.message);
+    }
+  };
+  useEffect(()=>{
+   if (IsLogin) {
+    navigate("/home")
+
+    let token = localStorage.getItem("token");
+    console.log("token", token);
+    if(token){
+
+      TokenDecoder(token);
+    }
+    else{
+      navigate('/home')
+    }
+
+   }
+  }
+  ,[IsLogin])
+
+
   return (
     <div className="login-wrapper">
       <div className="login-box">

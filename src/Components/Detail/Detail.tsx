@@ -105,21 +105,7 @@ function Detail() {
               </div>
             </div>
           </div>
-          {/* <h1>Suggested</h1>
-          <div className="home-men-section">
-            <div className="home-card">
-              <ProductCard img={img5} title="Wireless Earpods" price="150$" />
-            </div>
-            <div className="home-card">
-              <ProductCard img={img6} title="Wireless Earpods" price="150$" />
-            </div>
-            <div className="home-card">
-              <ProductCard img={img7} title="Wireless Earpods" price="150$" />
-            </div>
-            <div className="home-card">
-              <ProductCard img={img8} title="Wireless Earpods" price="150$" />
-            </div>
-          </div> */}
+          
         </div>
       ) : (
         <Spin tip="Loading" size="large">

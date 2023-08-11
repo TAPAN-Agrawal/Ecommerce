@@ -58,7 +58,7 @@ function UserTable() {
     },
   ];
 
-  const deleteHandler = (id: any) => {
+  const deleteHandler = (id: number) => {
     dispatch(deleteUser(id));
   };
   const pageHandler=(e:number)=>{

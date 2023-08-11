@@ -101,12 +101,13 @@ export const ecommerce = (state: any = initialState, action: any) => {
         price: item.products.price,
         product_img: item.products.product_img,
         product_name: item.products.product_name,
-        quantity: item.quantity
+        quantity: item.quantity,
+        totalQuantity:item.products.quantity
 
       }
     }
     )
-    console.log('object',updatedCart);
+    // console.log('object',updatedCart);
       return {
           ...state,
           cartItems: updatedCart

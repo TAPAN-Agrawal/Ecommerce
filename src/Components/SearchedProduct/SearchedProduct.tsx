@@ -52,9 +52,7 @@ useEffect(()=>{
 
 
   return <div className="search-wrapper">
-    {/* <div>
-    <iframe width="260" height="715" src="https://www.youtube.com/embed/I-t2mwrYc6s" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
-    </div> */}
+   
     {searchResult.length <1 ? <div className="no-item">no item found..</div>:<div className="search">
     {searchMap}
     </div>}

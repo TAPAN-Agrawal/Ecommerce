@@ -50,11 +50,21 @@ axiosInstanceAuth.interceptors.request.use(
 );
 axiosInstanceAuth.interceptors.response.use(
   (config: any) => {
+    console.log("response", config);
     return config;
   },
   function (error) {
     // Do something with request error
-    toast.error(error.response.data.message)
+    if(error.response.data.message.length >1){
+      error.response.data.message.map((x:string)=>(
+    toast.error(x)
+
+      ))
+    }
+    else{
+
+      toast.error(error.response.data.message)
+    }
     console.log("error", error);
     return Promise.reject(error);
   }

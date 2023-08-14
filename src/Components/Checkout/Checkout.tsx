@@ -3,36 +3,37 @@ import React, { useState } from "react";
 import "./Checkout.scss";
 import CartPrice from "../CartPrice/CartPrice";
 import * as yup from "yup";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { completePurchase } from "../../Redux/Action/Action";
 
-
-export interface CheckoutInterface{
-  address_line1: string,
-address_line2: string,
-city: string,
-country:  string,
-email:  string,
-first_name:  string,
-last_name:  string,
-zip_postal:  string,
-zip_code:  string,
-
+export interface CheckoutInterface {
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  zip_postal: string;
+  zip_code: string;
 }
 
 function Checkout() {
-  const dispatch = useDispatch()
-  const {state} = useLocation()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { state } = useLocation();
   const required = [{ required: true, message: " required field" }];
- 
-  const email:any = [{ required: true, message: " required field"},
-{type: "email", message: "enter valid email"}]
+
+  const email: any = [
+    { required: true, message: " required field" },
+    { type: "email", message: "enter valid email" },
+  ];
 
   const onFinish = (values: CheckoutInterface) => {
-dispatch(completePurchase(values))
+    dispatch(completePurchase(values));
     console.log("Success:", values);
-    // dispatch(login(values))
+    navigate("/purchased");
   };
 
   return (
@@ -40,7 +41,7 @@ dispatch(completePurchase(values))
       {/* <h1>checkout</h1> */}
       <div className="checkout-wrapper">
         <Form className="form" layout="vertical" onFinish={onFinish}>
-          <div className="checkout-wrapper-child">  
+          <div className="checkout-wrapper-child">
             <div className="detail-section">
               <div className="personal-section">
                 <h2>Personal Section</h2>
@@ -132,7 +133,7 @@ dispatch(completePurchase(values))
               </div>
             </div>
             <div className="order-summary">
-              <CartPrice  priceList={state.p} />
+              <CartPrice priceList={state.p} />
               <Button type="primary" htmlType="submit">
                 COMPLETE PURCHASE
               </Button>

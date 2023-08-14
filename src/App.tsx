@@ -1,5 +1,5 @@
 import React from "react";
-import './Global/Global.scss';
+import "./Global/Global.scss";
 import Navbar from "./Components/Navbar/Navbar";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
@@ -38,15 +38,18 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="/search" element={<SearchedProduct/>}/>
-        <Route path="adminpanel/*" element={<RoleProtected Component={AdminPanel}/>} />
+        <Route path="/search" element={<SearchedProduct />} />
+        <Route
+          path="adminpanel/*"
+          element={<RoleProtected Component={AdminPanel} />}
+        />
         <Route path="detail" element={<Detail />} />
-        <Route path="/cart" element={<Protected Component={Cart}/>} />
-        <Route path="/checkout" element={<Protected Component ={Checkout}/>}/>
+        <Route path="/cart" element={<Protected Component={Cart} />} />
+        <Route path="/checkout" element={<Protected Component={Checkout} />} />
         <Route path="/purchased" element={<Purchased />} />
         <Route path="*" element={<Notfound />} />
       </Routes>

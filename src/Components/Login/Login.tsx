@@ -16,20 +16,16 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
 
-
-
-export interface LoginInterface{
+export interface LoginInterface {
   email: string;
   password: string;
 }
 
 function Login() {
-
-  // let tokens = localStorage.getItem("token");
-  const IsLogin = useSelector((state:any)=>state.ecommerce.login)
-const navigate = useNavigate()
-  const dispatch=useDispatch()
-  const[flag,setFlag]=useState<any>(false)
+  const IsLogin = useSelector((state: any) => state.ecommerce.login);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [flag, setFlag] = useState<any>(false);
 
   const emailValidate: any = [
     { required: true, message: "email required" },
@@ -39,8 +35,8 @@ const navigate = useNavigate()
     { required: true, message: "password required" },
     { min: 8, message: "minimum length is 8 characters" },
   ];
-  const onFinish =  (values: LoginInterface) => {
-    setFlag(true)
+  const onFinish = (values: LoginInterface) => {
+    setFlag(true);
     console.log("Success:", values);
     dispatch(login(values)); // Wait for the dispatch to complete
   };
@@ -48,63 +44,53 @@ const navigate = useNavigate()
     console.log("Failed:", errorInfo);
   };
 
-
-  const googleHandler = ()=>{
-    dispatch(googlelogin())
-  }
+  const googleHandler = () => {
+    dispatch(googlelogin());
+  };
   const TokenDecoder = (token: any) => {
     try {
       const decodedToken: any = jwtDecode(token);
 
       if (decodedToken) {
-        // 'decodedToken' contains the decoded information
         if (decodedToken.roles === 2) {
           navigate("/home");
-          localStorage.setItem('role','2')
-          // toast.error('you are not authorized to view adminpanel')
+          localStorage.setItem("role", "2");
         }
         if (decodedToken.roles === 1) {
-          // toast.success('you have view only right')
-          localStorage.setItem('role','1')
-
+          navigate("/adminpanel");
+          localStorage.setItem("role", "1");
         }
-        if(decodedToken.roles === 0){
-          navigate('/adminpanel');
-          localStorage.setItem('role','0')
+        if (decodedToken.roles === 0) {
+          navigate("/adminpanel");
+          localStorage.setItem("role", "0");
         }
-
-      } 
-      else {
+      } else {
         console.log("Invalid token");
       }
     } catch (error: any) {
       console.error("Error decoding token:", error.message);
     }
   };
-  useEffect(()=>{
-   if (IsLogin) {
-    navigate("/home")
+  useEffect(() => {
+    if (IsLogin) {
+      navigate("/home");
 
-    let token = localStorage.getItem("token");
-    console.log("token", token);
-    if(token){
-
-      TokenDecoder(token);
+      let token = localStorage.getItem("token");
+      console.log("token", token);
+      if (token) {
+        TokenDecoder(token);
+      } else {
+        navigate("/home");
+      }
     }
-    else{
-      navigate('/home')
-    }
-
-   }
-  }
-  ,[IsLogin])
-
+  }, [IsLogin]);
 
   return (
     <div className="login-wrapper">
+      {/* <div className="login-title">Login</div> */}
       <div className="login-box">
         <div className="image-section">
-          <img src={img} />
+          <img src={img} alt="" />
         </div>
         <div className="form-container">
           <Form
@@ -139,12 +125,16 @@ const navigate = useNavigate()
             </Form.Item>
             <Divider>or login with</Divider>
             <div className="logos">
-             <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}> 
-             <GoogleCircleFilled className="logo"
-              // onClick={googleHandler}
-              /></a>
-              <FacebookFilled className="logo" />
-              <LinkedinFilled className="logo" />
+              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
+                <GoogleCircleFilled className="logo" />
+              </a>
+              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
+                <FacebookFilled className="logo" />
+              </a>
+
+              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
+                <LinkedinFilled className="logo" />
+              </a>
             </div>
             <br />
             <Link to="/register" className="link">

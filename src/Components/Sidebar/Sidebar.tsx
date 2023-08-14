@@ -1,18 +1,5 @@
 import React, { useState } from "react";
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  LogoutOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-  ShoppingOutlined,
-  UserAddOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { MenuOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 import { TbShoppingBag } from "react-icons/tb";
 import type { MenuProps } from "antd";
 import { Button, Menu, Popconfirm } from "antd";
@@ -37,20 +24,11 @@ function getItem(
   } as MenuItem;
 }
 
-
-
 function Sidebar() {
-  // const navigate = useNavigate()
-  const logout =()=>{
-    localStorage.removeItem("token");
-    navigate('/home');
-
-  }
   const items: MenuItem[] = [
     getItem("User", "user", <UserOutlined className="icons" />),
     getItem("Products", "product", <TbShoppingBag className="icons" />),
     getItem("AddAdmin", "addAdmin", <UserAddOutlined className="icons" />),
-    
   ];
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
@@ -68,8 +46,6 @@ function Sidebar() {
     if (e.key === "addAdmin") {
       navigate("/adminpanel/addAdmin");
     }
-    
-  
   };
   return (
     <div className={collapsed === false ? "sidebar-wrapper" : ""}>
@@ -85,8 +61,6 @@ function Sidebar() {
         items={items}
         onClick={clickHandler}
       />
-     
-     
     </div>
   );
 }

@@ -18,13 +18,12 @@ interface DataType {
 function UserTable() {
   const users = useSelector((state: any) => state.ecommerce.users);
   const dispatch = useDispatch();
-  const [page,setPage]=useState<number>(1)
+  const [page, setPage] = useState<number>(1);
   const columns: ColumnsType<DataType> = [
     {
       title: "Name",
       dataIndex: "username",
       key: "name",
-      // render: (text) => <>{text}</>,
     },
     {
       title: "Email",
@@ -61,18 +60,17 @@ function UserTable() {
   const deleteHandler = (id: number) => {
     dispatch(deleteUser(id));
   };
-  const pageHandler=(e:number)=>{
-    setPage(e)
-  }
+  const pageHandler = (e: number) => {
+    setPage(e);
+  };
   useEffect(() => {
-    dispatch(getAllUsers(page,12));
+    dispatch(getAllUsers(page, 12));
   }, [page]);
 
   return (
     <div className="UserTable-wrapper">
-      <Table columns={columns} dataSource={users} pagination={false}/>
+      <Table columns={columns} dataSource={users} pagination={false} />
       <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
-
     </div>
   );
 }

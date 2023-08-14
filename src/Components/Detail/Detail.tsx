@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Detail.scss";
 import img from "../../Assets/Images/free-photo-beauty-product-bottle-mockup-image-with-background.jpg";
-import { Button, Spin } from "antd";
-import { DownOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Button, Divider, Spin } from "antd";
+import {
+  DownOutlined,
+  RocketOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Typography } from "antd";
 import { Select, Space } from "antd";
 import ProductCard from "../ProductCard/ProductCard";
-import img1 from "../../Assets/Images/728.jpg";
-import img2 from "../../Assets/Images/collection-beauty-products-with-copy-space.jpg";
-import img3 from "../../Assets/Images/cosmetic-containers-with-orange.jpg";
-import img4 from "../../Assets/Images/free-photo-beauty-product-bottle-mockup-image-with-background.jpg";
-import img5 from "../../Assets/Images/Products/2112.i211.002.S.m012.c13.headphones wireless realistic composition 5.jpg";
-import img6 from "../../Assets//Images//Products/3207188-removebg-preview.png";
-import img7 from "../../Assets//Images//Products/image.png";
-import img8 from "../../Assets/Images//Products/tijh_5r3p_210608.jpg";
+
 import { Rate } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -23,6 +20,9 @@ import {
   cleanSingleProduct,
   getSingleProduct,
 } from "../../Redux/Action/Action";
+import Offer from "../Offer/Offer";
+import OtherCard from "../OtherCard/OtherCard";
+import Other from "../Other/Other";
 
 function Detail() {
   const location = useLocation();
@@ -81,31 +81,71 @@ function Detail() {
               <div className="detail-product-image">
                 <img
                   src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                  alt=""
                   className="detail-image"
                 />
+                <div className="small-img">
+                  <img
+                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    alt=""
+                    className="detail-image"
+                  />
+                  <img
+                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    alt=""
+                    className="detail-image"
+                  />
+                  <img
+                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    alt=""
+                    className="detail-image"
+                  />
+                </div>
+                <div className="detail-buttons">
+                  <Button
+                    icon={<ShoppingCartOutlined />}
+                    onClick={cartHandler}
+                    className="detail-btn"
+                  >
+                    Add to cart
+                  </Button>
+                  <Button icon={<RocketOutlined />} className="detail-btn2">
+                    Buy Now{" "}
+                  </Button>
+                </div>
               </div>
               <div className="detail-product-details">
                 <h2>{singleProduct.product_name}</h2>
                 <p>{singleProduct.description}</p>
 
                 <h3>{singleProduct.price}$</h3>
-                <div className="offer-wrapper">offer</div>
-                <div className="delivery-wrapper">deliver</div>
                 <div>
                   <Button onClick={decrement}>-</Button>
                   {count}
                   <Button onClick={increment}>+</Button>
                 </div>
-
-                <Button icon={<ShoppingCartOutlined />} onClick={cartHandler}>
-                  Add to cart
-                </Button>
-                <br />
-                <Button size="large">Buy Now </Button>
+                <Divider />
+                <div className="offer-img">
+                  <div className="img-wrapper">
+                    <img
+                      src="https://m.media-amazon.com/images/G/31/A2I_CEPC/VSX/vsx_sprite_2x.png"
+                      alt=""
+                      height="100"
+                      className="img-scroll"
+                    />
+                  </div>
+                  <h4>Offer</h4>
+                </div>
+                <div className="offer-wrapper">
+                  <Offer />
+                </div>
+                <Divider />
+                <div className="delivery-wrapper">
+                  <Other />
+                </div>
               </div>
             </div>
           </div>
-          
         </div>
       ) : (
         <Spin tip="Loading" size="large">

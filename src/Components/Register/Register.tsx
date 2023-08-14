@@ -6,6 +6,8 @@ import TextArea from "antd/es/input/TextArea";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { register } from "../../Redux/Action/Action";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export interface RegisterInterface {
   username: string;
@@ -17,7 +19,9 @@ export interface RegisterInterface {
 }
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const registers = useSelector((state: any) => state.ecommerce.register);
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -47,7 +51,11 @@ function Register() {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (registers) {
+      navigate("/login");
+    }
+  }, [registers]);
   return (
     <div className="register-wrapper">
       <div className="register-form-wrapper">

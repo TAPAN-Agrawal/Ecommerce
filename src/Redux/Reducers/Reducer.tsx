@@ -4,7 +4,8 @@ const initialState: any = {
   searchResults: [],
   users: [],
   cartItems: [],
-  login:false
+  login: false,
+  register: false,
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
@@ -12,13 +13,18 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "LOGIN_REDUCER":
       return {
         ...state,
-        login: true
+        login: true,
       };
-      case 'LOGOUT_REDUCER':
-        return{
-          ...state,
-          login: false
-        }
+    case "LOGOUT_REDUCER":
+      return {
+        ...state,
+        login: false,
+      };
+    case "REGISTER_REDUCER":
+      return {
+        ...state,
+        register: true,
+      };
 
     case "SET_ALL_PRODUCTS":
       return {
@@ -70,11 +76,11 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         searchResults: action.payload,
       };
-      case 'CLEAR_SEARCH_PRODUCT_REDUCER':
-        return{
-          ...state,
-          searchResults: [],
-        }
+    case "CLEAR_SEARCH_PRODUCT_REDUCER":
+      return {
+        ...state,
+        searchResults: [],
+      };
 
     case "ADD_USER_REDUCER":
       return {
@@ -92,35 +98,48 @@ export const ecommerce = (state: any = initialState, action: any) => {
       };
 
     case "SET_PRODUCTS_CART_REDUCER":
-     
-    const updatedCart = action.payload.map((item: any) => {
-      return{
-        
-        id: item.id,
-        description: item.products.description,
-        price: item.products.price,
-        product_img: item.products.product_img,
-        product_name: item.products.product_name,
-        quantity: item.quantity,
-        totalQuantity:item.products.quantity
-
-      }
-    }
-    )
-    // console.log('object',updatedCart);
+      const updatedCart = action.payload.map((item: any) => {
+        return {
+          id: item.id,
+          description: item.products.description,
+          price: item.products.price,
+          product_img: item.products.product_img,
+          product_name: item.products.product_name,
+          quantity: item.quantity,
+          totalQuantity: item.products.quantity,
+        };
+      });
       return {
-          ...state,
-          cartItems: updatedCart
+        ...state,
+        cartItems: updatedCart,
       };
 
-      case 'DELETE_CART_ITEM_REDUCER':
-        let updatedCarts = state.cartItems.filter((item: any) => {
-          return item.id !== action.payload
-        })
-        return{
-          ...state,
-          cartItems: updatedCarts
+    case "DELETE_CART_ITEM_REDUCER":
+      let updatedCarts = state.cartItems.filter((item: any) => {
+        return item.id !== action.payload;
+      });
+      return {
+        ...state,
+        cartItems: updatedCarts,
+      };
+
+    case "UPDATE_QUANTITY_CART":
+      let ids = action.payload.id;
+      let qty = action.payload.quantity;
+      let updatedCartItems = state.cartItems.map((item: any) => {
+        if (item.id === ids) {
+          return {
+            ...item,
+            quantity: qty,
+          };
         }
+        return item;
+      });
+
+      return {
+        ...state,
+        cartItems: updatedCartItems,
+      };
 
     default:
       return state;

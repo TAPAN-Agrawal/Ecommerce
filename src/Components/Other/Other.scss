@@ -1,0 +1,11 @@
+@mixin display{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.other-wrapper{
+    @include display;
+    width: 110%;
+    justify-content: space-between;
+}

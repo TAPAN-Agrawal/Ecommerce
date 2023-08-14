@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./UpdateProduct.scss";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Spin,
-  Upload,
-} from "antd";
+import { Button, Form, Input, InputNumber, Radio, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { message } from "antd";
 import {
-  addProduct,
   updateProduct,
   getSingleProduct,
   cleanSingleProduct,
 } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 function AddProduct() {
@@ -41,15 +29,11 @@ function AddProduct() {
     product_img: "",
   });
 
-  console.log("single product IN update", singleProducts);
-  console.log("here product", product);
-
   // console.log("location", location.state.id);
 
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: any) => {
-    console.log("Success:", values.id);
     dispatch(cleanSingleProduct());
     const updatedValues = {
       ...values,
@@ -91,7 +75,6 @@ function AddProduct() {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
-          // initialValues={product.product_name}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -146,12 +129,7 @@ function AddProduct() {
               <Radio value={1}> Women </Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item
-            label="Image"
-            name="image"
-            rules={validationErr}
-            className="item"
-          >
+          <Form.Item label="Image" name="image" className="item">
             <input type="file" onChange={handleFileChange} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./CartCard.scss";
-// import img from "../../Assets/Images/Products/image.png";
 import { Button, Card, Popconfirm, Select, Space } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
@@ -35,7 +34,7 @@ function CartCard(Props: any) {
   const decrement = () => {
     let temp = count - 1;
 
-    if (temp >= 0) {
+    if (temp >= 1) {
       setCount(temp);
       settotalConst((prev:any)=>prev+1)
 

@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
-  // console.log("first,cartItem", cartItem);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

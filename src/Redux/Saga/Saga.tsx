@@ -38,14 +38,14 @@ interface ActionProductInterface {
     sort: string | null;
   };
 }
-interface ActionAddProductInterface{
+interface ActionAddProductInterface {
   type: string;
-  payload: AddProductInterface
+  payload: AddProductInterface;
 }
 
-interface ActionCheckoutInterface{
+interface ActionCheckoutInterface {
   type: string;
-  payload:CheckoutInterface
+  payload: CheckoutInterface;
 }
 
 export function* register(action: RegisterActionInterface) {
@@ -68,6 +68,7 @@ export function* register(action: RegisterActionInterface) {
 
     if (response) {
       toast.success("user registered successfully");
+      yield put({ type: "REGISTER_REDUCER" });
     } else {
       console.log("message");
     }
@@ -92,10 +93,9 @@ export function* login(action: LoginActionInterface) {
       localStorage.setItem("token", response.data.data.tokenResponse.token);
       yield put({ type: "LOGIN_REDUCER" });
 
-    //   if(temp.email === 'superadmin@gmail.com' || temp.email === 'admin@gmail.com') {
-    //     localStorage.setItem('role',0)
+      //   if(temp.email === 'superadmin@gmail.com' || temp.email === 'admin@gmail.com') {
+      //     localStorage.setItem('role',0)
     }
-    
   } catch (error: any) {}
 }
 
@@ -113,9 +113,12 @@ export function* getAllProducts(action: ActionProductInterface) {
   try {
     let { page, limit, category, sort } = action.payload;
 
+    // console.log("data");
     const response: AxiosResponse<any> = yield call(() => {
       if (category !== null) {
         if (sort !== null) {
+          console.log("data");
+
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
           );
@@ -138,10 +141,13 @@ export function* getAllProducts(action: ActionProductInterface) {
     });
 
     // console.log("new", response.data);
+
     if (response) {
       yield put({ type: "SET_ALL_PRODUCTS", payload: response.data });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("rea", error);
+  }
 }
 export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
@@ -151,7 +157,6 @@ export function* getSingleProduct(action: ActionNumberInterface) {
       `/products/product/${id}`
     );
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
-
   } catch (error) {}
 }
 
@@ -220,7 +225,11 @@ export function* deleteProduct(action: ActionNumberInterface) {
     if (response) {
       yield put({ type: "DELETE_PRODUCT_REDUCER", payload: id });
     }
-  } catch (error) {}
+  } catch (error: any) {
+    console.log("err", error);
+
+    // toast.error(error.response.message);
+  }
 }
 
 export function* searchProduct(action: any) {
@@ -238,7 +247,6 @@ export function* searchProduct(action: any) {
         payload: response.data.data,
       });
     } else {
-      // yield put({ type: "CLEAR_SEARCH_PRODUCT_REDUCER"});
     }
   } catch (error: any) {
     console.log("errrrrrr", error.response.status);
@@ -299,14 +307,11 @@ export function* getProductsInCarts() {
       `/products/carts`
     );
     if (response) {
-      // console.log('cart',response.data.data);
-      
       toast.success("cart items fetched");
       yield put({
         type: "SET_PRODUCTS_CART_REDUCER",
         payload: response.data.data,
       });
-      // console.log("cart items", response.data.data);
     }
   } catch (error) {}
 }
@@ -339,12 +344,12 @@ export function* deleteCartItem(action: ActionNumberInterface) {
   } catch (error) {}
 }
 
-export function* updateQuantityCart(action:any){
-  let id=action.payload.id;
- let temp={
-  quantity: action.payload.count
- }
- 
+export function* updateQuantityCart(action: any) {
+  let id = action.payload.id;
+  let temp = {
+    quantity: action.payload.count,
+  };
+
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
@@ -352,25 +357,24 @@ export function* updateQuantityCart(action:any){
       temp
     );
     if (response) {
-      // toast.success("item removed from cart");
-      // yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
+      let result = {
+        id: action.payload.id,
+        quantity: action.payload.count,
+      };
+      yield put({ type: "UPDATE_QUANTITY_CART", payload: result });
     }
   } catch (error) {}
-
 }
 
-export function* completePurchase(action:ActionCheckoutInterface){
-try {
-  let temp =action.payload;
-  const response: AxiosResponse<any> = yield call(
-    axiosInstanceAuth.post,
-    `/products/shipping_details`,
-    temp
-  );
-} catch (error:any) {
-  // toast.error(.message)
-}
-
+export function* completePurchase(action: ActionCheckoutInterface) {
+  try {
+    let temp = action.payload;
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.post,
+      `/products/shipping_details`,
+      temp
+    );
+  } catch (error: any) {}
 }
 
 export function* watcher() {
@@ -404,7 +408,7 @@ export function* watcher() {
 
   yield takeLatest("DELETE_CART_ITEMS", deleteCartItem);
 
-  yield takeLatest('UPDATE_Quantity_CART', updateQuantityCart)
+  yield takeLatest("UPDATE_Quantity_CART", updateQuantityCart);
 
-  yield takeLatest('COMPLETE_PURCHASE', completePurchase)
+  yield takeLatest("COMPLETE_PURCHASE", completePurchase);
 }

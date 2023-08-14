@@ -22,27 +22,23 @@ function AdminPanel() {
   const location = useLocation();
   const currentPath = location.pathname.split("/")[2];
 
-  const userHandler = () => {
-    navigate("/adminpanel/user");
-  };
+  // const userHandler = () => {
+  //   navigate("/adminpanel/user");
+  // };
 
-  const productHandler = () => {
-    navigate("/adminpanel/product");
-  };
-  const addAdminHandler = () => {
-    navigate("/adminpanel/addAdmin");
-  };
+  // const productHandler = () => {
+  //   navigate("/adminpanel/product");
+  // };
+  // const addAdminHandler = () => {
+  //   navigate("/adminpanel/addAdmin");
+  // };
 
- 
   useEffect(() => {
     let role = localStorage.getItem("role");
-    if(role === '0' || role === '1'){
-
-     
-    }
-    else{
-      navigate('/login')
-      toast.error('you are not authorized to view this panel')
+    if (role === "0" || role === "1") {
+    } else {
+      navigate("/login");
+      toast.error("you are not authorized to view this panel");
     }
   }, []);
 
@@ -52,13 +48,13 @@ function AdminPanel() {
 
       <div className="admin-right-wrapper">
         <Routes>
-          <Route  path="/" element={<UserTable />} />
+          <Route path="/" element={<UserTable />} />
           <Route path="/user" element={<UserTable />} />
           <Route path="product" element={<ProductTable />} />
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/updateproduct" element={<UpdateProduct />} />
           <Route path="addAdmin" element={<AddAdmin />} />
-          <Route path="*" element={<h2>Not Found</h2>} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </div>
     </div>

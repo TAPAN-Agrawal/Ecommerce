@@ -26,8 +26,7 @@ function ProductTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const datas = useSelector((state: any) => state.ecommerce.products);
-  const [page,setPage]=useState<number>(1)
-
+  const [page, setPage] = useState<number>(1);
 
   const addHandler = () => {
     navigate("/adminpanel/addproduct");
@@ -36,9 +35,9 @@ function ProductTable() {
   const deleteHandler = (id: number) => {
     dispatch(deleteProduct(id));
   };
-  const pageHandler=(e:number)=>{
-    setPage(e)
-  }
+  const pageHandler = (e: number) => {
+    setPage(e);
+  };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -93,13 +92,7 @@ function ProductTable() {
             okText="Yes"
             cancelText="No"
           >
-            <Button
-            // onClick={() => {
-            //   dispatch(deleteProduct(record.id));
-            // }}
-            >
-              Delete
-            </Button>
+            <Button>Delete</Button>
           </Popconfirm>
         </div>
       ),
@@ -109,16 +102,15 @@ function ProductTable() {
     dispatch(cleanAllProduct());
   }, []);
   useEffect(() => {
-    dispatch(getAllProducts(page, 8, 0,null));
+    dispatch(getAllProducts(page, 8, null, null));
   }, [page]);
   return (
     <>
       {datas.length !== 0 ? (
         <div className="ProductTable-wrapper">
           <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
-          <Table columns={columns} dataSource={datas} pagination={false}/>
-      <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
-
+          <Table columns={columns} dataSource={datas} pagination={false} />
+          <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
         </div>
       ) : (
         <Spin tip="loading..." size="large">

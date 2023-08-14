@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllProducts, getSingleProduct } from "../../Redux/Action/Action";
 
-
 function Home() {
   const contentStyle: React.CSSProperties = {
     height: "400px",
@@ -23,10 +22,8 @@ function Home() {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [page, setPage] = useState(1);
-  const [sort,setSort] = useState(null);
+  const [sort, setSort] = useState(null);
   const [selectedButton, setSelectedButton] = useState<any>(null);
-
-  // console.log("all product", data);
 
   const singleProductHandler = (id: any) => {
     dispatch(getSingleProduct(id));
@@ -59,9 +56,9 @@ function Home() {
     setCategory(products);
   };
 
-  const handleChange=(e:any)=>{
-    setSort(e)
-  }
+  const handleChange = (e: any) => {
+    setSort(e);
+  };
 
   const pageHandler = (e: number) => {
     setPage(e);
@@ -84,8 +81,8 @@ function Home() {
   });
 
   useEffect(() => {
-    dispatch(getAllProducts(page, 8, selectedButton,sort));
-  }, [page, selectedButton,sort]);
+    dispatch(getAllProducts(page, 8, selectedButton, sort));
+  }, [page, selectedButton, sort]);
 
   useEffect(() => {
     setProducts(data);
@@ -99,25 +96,29 @@ function Home() {
             <Carousel autoplay>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg" alt=""
-                  className="home-img" 
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg" alt=""
+                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  alt=""
                   className="home-img"
                 />
               </div>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg" alt=""
+                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  alt=""
                   className="home-img"
                 />
               </div>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg" alt=''
+                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  alt=""
+                  className="home-img"
+                />
+              </div>
+              <div>
+                <img
+                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  alt=""
                   className="home-img"
                 />
               </div>
@@ -128,38 +129,36 @@ function Home() {
             <div className="home-combine-section">
               <h1>Top Offers</h1>
               <div className="seperator">
-
-              <div className="category">
-                <Button
-                  onClick={menHandler}
-                  className={selectedButton === 0 ? "selected" : ""}
-                >
-                  Men
-                </Button>
-                <Button
-                  onClick={womenHandler}
-                  className={selectedButton === 1 ? "selected" : ""}
-                >
-                  Women
-                </Button>
-                <Button
-                  onClick={allHandler}
-                  className={selectedButton === null ? "selected" : ""}
-                >
-                  All
-                </Button>
+                <div className="category">
+                  <Button
+                    onClick={menHandler}
+                    className={selectedButton === 0 ? "selected" : ""}
+                  >
+                    Men
+                  </Button>
+                  <Button
+                    onClick={womenHandler}
+                    className={selectedButton === 1 ? "selected" : ""}
+                  >
+                    Women
+                  </Button>
+                  <Button
+                    onClick={allHandler}
+                    className={selectedButton === null ? "selected" : ""}
+                  >
+                    All
+                  </Button>
                 </div>
                 <Select
-                    placeholder='range'
-                    className="selector"
-                    allowClear
-      onChange={handleChange}
-      options={[
-        { value: 'asc', label: 'low-high' },
-        { value: 'desc', label: 'high-low' },
-        
-      ]}
-    />
+                  placeholder="range"
+                  className="selector"
+                  allowClear
+                  onChange={handleChange}
+                  options={[
+                    { value: "asc", label: "low-high" },
+                    { value: "desc", label: "high-low" },
+                  ]}
+                />
               </div>
 
               <div className="home-men-section">{mapProducts}</div>

@@ -1,7 +1,7 @@
-import {RegisterInterface} from '../../Components/Register/Register'
-import {LoginInterface} from '../../Components/Login/Login'
-import {AddProductInterface} from '../../Components/AddProduct/AddProduct'
-import { CheckoutInterface } from '../../Components/Checkout/Checkout';
+import { RegisterInterface } from "../../Components/Register/Register";
+import { LoginInterface } from "../../Components/Login/Login";
+import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
+import { CheckoutInterface } from "../../Components/Checkout/Checkout";
 
 export const register = (data: RegisterInterface) => {
   return {
@@ -36,7 +36,7 @@ export const googlelogin = () => {
 export const getAllProducts = (
   page: number,
   limit: number,
-  category: number,
+  category: number | null,
   sort: string | null
 ) => {
   return {
@@ -132,17 +132,16 @@ export const deleteCartItems = (id: number) => {
   };
 };
 
-export const updateQuantityCart =(data:any)=>{
-  return{
-    type:'UPDATE_Quantity_CART',
-    payload: data
+export const updateQuantityCart = (data: any) => {
+  return {
+    type: "UPDATE_Quantity_CART",
+    payload: data,
+  };
+};
 
-  }
-}
-
-export const completePurchase=(data:CheckoutInterface)=>{
-return {
-  type:'COMPLETE_PURCHASE',
-  payload: data
-}
-}
+export const completePurchase = (data: CheckoutInterface) => {
+  return {
+    type: "COMPLETE_PURCHASE",
+    payload: data,
+  };
+};

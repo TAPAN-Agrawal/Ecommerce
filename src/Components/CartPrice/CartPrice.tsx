@@ -3,15 +3,8 @@ import "./CartPrice.scss";
 import { Button, Card, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 
-// interface PriceList{
-//   item:string,
-//   price:number
-// }
-
-function CartPrice({priceList}:any) {
-
+function CartPrice({ priceList }: any) {
   const priceListMap = priceList.map((item: any) => (
-  
     <div className="item">
       <div>
         {item.item} x({item.quantity})
@@ -19,12 +12,11 @@ function CartPrice({priceList}:any) {
       <div>{item.price}$</div>
     </div>
   ));
-  var t = 0
-  const totalAmount = priceList.map((x:any)=>{
+  var t = 0;
+  const totalAmount = priceList.map((x: any) => {
     t += Number(x.price);
     return t;
-  })
-  
+  });
 
   const navigate = useNavigate();
   const purchased = () => {
@@ -53,7 +45,7 @@ function CartPrice({priceList}:any) {
           <div>-10$ </div>
         </div>
         <Divider />
-{priceListMap}
+        {priceListMap}
         {/* {priceListMap} */}
         <div className="item">
           <h3>TotalTtems:</h3>

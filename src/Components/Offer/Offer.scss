@@ -1,0 +1,10 @@
+@mixin display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer-wrapper{
+    @include display;
+    justify-content: space-evenly;
+    width: 100%;
+}

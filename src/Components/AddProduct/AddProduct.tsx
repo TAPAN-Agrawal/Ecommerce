@@ -17,13 +17,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export interface AddProductInterface {
-  id?:number,
+  id?: number;
   name: string;
   description: string;
   price: number | any;
   quantity: number | any;
-  category: number |any;
-  file: string |any;
+  category: number | any;
+  file: string | any;
 }
 
 function AddProduct() {

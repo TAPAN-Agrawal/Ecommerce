@@ -27,6 +27,9 @@ function Navbar() {
     navigate("/home");
     dispatch(logoutSetter());
   };
+  const logoHandler=()=>{
+    navigate('/')
+  }
 
   const handleSearch = (value: any) => {
     navigate("/search", {
@@ -46,7 +49,7 @@ function Navbar() {
   return (
     <div className="nav-wrapper">
       <div className="nav-main-container">
-        <div className="nav-logo">
+        <div className="nav-logo" onClick={logoHandler}>
           <img
             src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/flipkart-095e08.svg"
             alt="company-logo"

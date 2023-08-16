@@ -1,5 +1,27 @@
+@mixin display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .updateProduct-wrapper{
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 20px;
-    padding-top: 5px;
+ @include display;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://img.freepik.com/premium-vector/grocery-shopping-bag-cart-cashier-food-drink-icon-lineart-seamless-pattern-design_483895-29.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.2.1517963016.1688116260&semt=ais');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    .updateAdmin-Form{
+        background: transparent;
+        backdrop-filter: blur(20px);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        padding: 10px;
+        padding-left: 50px;
+        .item{
+            Button{
+                width: 100%;
+                margin-left: -5rem;
+            }
+        }
+    }
 }

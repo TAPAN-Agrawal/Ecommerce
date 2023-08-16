@@ -140,10 +140,13 @@ export function* getAllProducts(action: ActionProductInterface) {
       }
     });
 
-    // console.log("new", response.data);
 
     if (response) {
-      yield put({ type: "SET_ALL_PRODUCTS", payload: response.data });
+      let temp={
+        products:response.data.products,
+        count:response.data.totalCount
+      }
+      yield put({ type: "SET_ALL_PRODUCTS", payload: temp });
     }
   } catch (error) {
     console.log("rea", error);
@@ -276,7 +279,11 @@ export function* getAllUsers(action: UserActionInterface) {
       `/auth/users/?page=${page}&limit=${limit}`
     );
     if (response) {
-      yield put({ type: "ADD_USER_REDUCER", payload: response.data.data });
+      let temp={
+        users:response.data.data,
+        totalCount:response.data.totalCount
+      }
+      yield put({ type: "ADD_USER_REDUCER", payload:temp});
     }
   } catch (error) {}
 }

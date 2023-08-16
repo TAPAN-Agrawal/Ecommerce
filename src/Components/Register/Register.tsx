@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { register } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "antd/es/form/Form";
 
 export interface RegisterInterface {
   username: string;
@@ -22,6 +23,9 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const registers = useSelector((state: any) => state.ecommerce.register);
+  const [form] = Form.useForm()
+
+ 
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -38,11 +42,20 @@ function Register() {
     { min: 8, message: "minimum length is 8 characters" },
   ];
 
-  const confirmPassword = [
+  const confirmPassword :any= [
     { required: true, message: "Please enter confirmation password" },
+    ({ getFieldValue }:any) => ({
+      validator( _:any,value:any) {
+        if (!value || getFieldValue("password") === value) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error('password not match!'));
+      },
+    }),
   ];
 
   const combine = [{ required: true, message: "Please  fill required field" }];
+
 
   const onFinish = (values: RegisterInterface) => {
     dispatch(register(values));
@@ -72,6 +85,7 @@ function Register() {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             className="addAdmin-Form"
+            form={form}
           >
             <Form.Item label="Username" name="username" rules={nameValidate}>
               <Input />

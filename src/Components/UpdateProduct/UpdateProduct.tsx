@@ -78,7 +78,7 @@ function AddProduct() {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
-          className="addAdmin-Form"
+          className="updateAdmin-Form"
         >
           <h1>UpdateProduct</h1>
           <Form.Item

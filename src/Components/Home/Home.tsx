@@ -19,6 +19,7 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.ecommerce.products);
+  const totalCount = useSelector((state: any) => state.ecommerce.totalCount)
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [page, setPage] = useState(1);
@@ -79,9 +80,10 @@ function Home() {
       </div>
     );
   });
+  const pageCalculator =  Math.ceil(totalCount/12)*10
 
   useEffect(() => {
-    dispatch(getAllProducts(page, 8, selectedButton, sort));
+    dispatch(getAllProducts(page, 12, selectedButton, sort));
   }, [page, selectedButton, sort]);
 
   useEffect(() => {
@@ -164,7 +166,7 @@ function Home() {
               <div className="home-men-section">{mapProducts}</div>
             </div>
           </div>
-          <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
+          <Pagination defaultCurrent={1} total={pageCalculator} onChange={pageHandler} />
         </div>
       ) : (
         <Spin size="large" />

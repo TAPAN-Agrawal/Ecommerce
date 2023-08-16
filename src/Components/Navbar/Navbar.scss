@@ -7,19 +7,17 @@
 }
 
 .nav-wrapper {
-
-  // background-image: url('https://img.freepik.com/free-photo/background_53876-32170.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.2.1517963016.1688116260&semt=sph');
   .nav-main-container {
     @include display;
     justify-content: space-around;
     height: 7vh;
     width: 100vw;
-    // background-color: $primary-color;
     background: transparent;
     backdrop-filter: blur(50px);
     font-family: $font-family;
     color: $tertiary-color;
-
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    
     .nav-logo {
       @include display;
       flex-direction: column;

@@ -25,6 +25,8 @@ interface DataType {
 function ProductTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const totalCount = useSelector((state: any) => state.ecommerce.totalCount)
+
   const datas = useSelector((state: any) => state.ecommerce.products);
   const [page, setPage] = useState<number>(1);
 
@@ -74,6 +76,7 @@ function ProductTable() {
       render: (record) => (
         <div>
           <Button
+          style={{backgroundColor:"#279EFF",margin:"1rem"}}
             onClick={() => {
               console.log("update product", record.id);
               navigate("/adminpanel/updateproduct", {
@@ -98,6 +101,8 @@ function ProductTable() {
       ),
     },
   ];
+
+  const pageCalculator =  Math.ceil(totalCount/12)*10
   useEffect(() => {
     dispatch(cleanAllProduct());
   }, []);
@@ -110,7 +115,7 @@ function ProductTable() {
         <div className="ProductTable-wrapper">
           <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
           <Table columns={columns} dataSource={datas} pagination={false} />
-          <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
+          <Pagination defaultCurrent={1} total={pageCalculator} onChange={pageHandler} />
         </div>
       ) : (
         <Spin tip="loading..." size="large">

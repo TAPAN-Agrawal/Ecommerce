@@ -3,7 +3,7 @@ import "./Login.scss";
 import { Button, Checkbox, Divider, Form, Input } from "antd";
 
 import img from "../../Assets/Images/login.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FacebookFilled,
   GoogleCircleFilled,
@@ -22,8 +22,10 @@ export interface LoginInterface {
 }
 
 function Login() {
+
   const IsLogin = useSelector((state: any) => state.ecommerce.login);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const [flag, setFlag] = useState<any>(false);
 
@@ -71,6 +73,10 @@ function Login() {
       console.error("Error decoding token:", error.message);
     }
   };
+  useEffect(()=>{
+    const a:any = new URLSearchParams(location.search).toString()
+    localStorage.setItem('url',a)    
+  },[])
   useEffect(() => {
     if (IsLogin) {
       navigate("/home");

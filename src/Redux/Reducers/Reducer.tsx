@@ -4,6 +4,7 @@ const initialState: any = {
   searchResults: [],
   users: [],
   cartItems: [],
+  totalCount:'',
   login: false,
   register: false,
 };
@@ -29,7 +30,8 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "SET_ALL_PRODUCTS":
       return {
         ...state,
-        products: action.payload,
+        products: action.payload.products,
+        totalCount: action.payload.count
       };
 
     case "SET_SINGLE_PRODUCTS":
@@ -85,7 +87,8 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "ADD_USER_REDUCER":
       return {
         ...state,
-        users: action.payload,
+        users: action.payload.users,
+        totalCount: action.payload.totalCount
       };
 
     case "DELETE_USER_REDUCER":

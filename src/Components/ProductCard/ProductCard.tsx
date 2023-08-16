@@ -19,7 +19,7 @@ function ProductCard(Props: any) {
           <h3>{Props.title}</h3>
           <h4>{Props.price}$</h4>
         </div>
-        <div className="description">{Props.description}</div>
+        <div className="description">{Props.description.slice(0,60)}</div>
         <div>
           <Rate allowHalf defaultValue={2.5} />
         </div>

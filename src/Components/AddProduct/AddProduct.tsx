@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import "./AddProduct.scss";
+import "./AddProduct.scss";
 import {
   Button,
   Checkbox,

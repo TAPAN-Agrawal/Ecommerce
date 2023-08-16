@@ -44,7 +44,7 @@ function Cart() {
     dispatch(getProductsInCart());
   }, []);
   return (
-    <>
+    <div className="parent-cart">
       {cartItem.length !== 0 ? (
         <div className="cart-wrapper">
           <div className="cart-wrapper-child">
@@ -57,8 +57,8 @@ function Cart() {
             </div>
           </div>
         </div>
-      ):<div>No items in cart..</div>}
-    </>
+      ):<div className="no-item">No items in cart..</div>}
+    </div>
   );
 }
 

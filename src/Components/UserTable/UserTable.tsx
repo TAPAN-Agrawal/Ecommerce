@@ -17,6 +17,8 @@ interface DataType {
 
 function UserTable() {
   const users = useSelector((state: any) => state.ecommerce.users);
+  const totalCount = useSelector((state: any) => state.ecommerce.totalCount)
+
   const dispatch = useDispatch();
   const [page, setPage] = useState<number>(1);
   const columns: ColumnsType<DataType> = [
@@ -63,6 +65,8 @@ function UserTable() {
   const pageHandler = (e: number) => {
     setPage(e);
   };
+  const pageCalculator =  Math.ceil(totalCount/12)*10
+
   useEffect(() => {
     dispatch(getAllUsers(page, 12));
   }, [page]);
@@ -70,7 +74,7 @@ function UserTable() {
   return (
     <div className="UserTable-wrapper">
       <Table columns={columns} dataSource={users} pagination={false} />
-      <Pagination defaultCurrent={1} total={80} onChange={pageHandler} />
+      <Pagination defaultCurrent={1} total={pageCalculator} onChange={pageHandler} />
     </div>
   );
 }

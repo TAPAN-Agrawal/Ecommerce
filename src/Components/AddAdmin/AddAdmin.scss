@@ -8,10 +8,19 @@
     @include display;
     // box-shadow: $box-shadow;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 1px;
-    height: 890px;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://img.freepik.com/premium-vector/grocery-shopping-bag-cart-cashier-food-drink-icon-lineart-seamless-pattern-design_483895-29.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.2.1517963016.1688116260&semt=ais');
+    background-repeat: no-repeat;
+    background-size: cover;
     
     .addAdmin-Form{
         padding: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        background: transparent;
+        backdrop-filter: blur(20px);
         .ant-form-item-control-input{
             width: 250px;
         }

@@ -73,7 +73,7 @@ function Detail() {
   }, []);
 
   return (
-    <>
+    <div className="parent-detail">
       {singleProduct.id ? (
         <div className="parentd">
           <div className="detail-parent-wrapper">
@@ -148,11 +148,11 @@ function Detail() {
           </div>
         </div>
       ) : (
-        <Spin tip="Loading" size="large">
+        <Spin tip="Loading" size="large" className="spinner">
           <div className="content" />
         </Spin>
       )}
-    </>
+    </div>
   );
 }
 

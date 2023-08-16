@@ -6,7 +6,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import UserTable from "../UserTable/UserTable";
-import { Button } from "antd";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
@@ -14,7 +13,6 @@ import Notfound from "../Notfound/Notfound";
 import AddProduct from "../AddProduct/AddProduct";
 import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import Sidebar from "../Sidebar/Sidebar";
-import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 
 function AdminPanel() {
@@ -22,16 +20,6 @@ function AdminPanel() {
   const location = useLocation();
   const currentPath = location.pathname.split("/")[2];
 
-  // const userHandler = () => {
-  //   navigate("/adminpanel/user");
-  // };
-
-  // const productHandler = () => {
-  //   navigate("/adminpanel/product");
-  // };
-  // const addAdminHandler = () => {
-  //   navigate("/adminpanel/addAdmin");
-  // };
 
   useEffect(() => {
     let role = localStorage.getItem("role");

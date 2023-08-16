@@ -1,6 +1,27 @@
 @import '../../Global//Variable.scss';
-.UserTable-wrapper{
+
+.UserTable-wrapper {
     width: 95%;
     height: 100%;
+
+    .ant-table-container {
+
+        .ant-table-content {
+            .ant-table-tbody {
+                .ant-table-row {
+                    .ant-table-cell {
+                        .ant-btn {
+
+                            background-color: rgb(228, 70, 70);
+                            color: white;
+                            border: none;
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
 
 }

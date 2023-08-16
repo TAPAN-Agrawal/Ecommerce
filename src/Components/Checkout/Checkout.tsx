@@ -1,11 +1,13 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Checkout.scss";
 import CartPrice from "../CartPrice/CartPrice";
 import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { completePurchase } from "../../Redux/Action/Action";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export interface CheckoutInterface {
   address_line1: string;
@@ -21,6 +23,7 @@ export interface CheckoutInterface {
 
 function Checkout() {
   const navigate = useNavigate();
+  const purchased = useSelector((state:any)=>state.ecommerce.purchased)
   const dispatch = useDispatch();
   const { state } = useLocation();
   const required = [{ required: true, message: " required field" }];
@@ -30,11 +33,35 @@ function Checkout() {
     { type: "email", message: "enter valid email" },
   ];
 
-  const onFinish = (values: CheckoutInterface) => {
-    dispatch(completePurchase(values));
-    console.log("Success:", values);
-    navigate("/purchased");
+  const onFinish = (values:any) => {
+    console.log('object',state.id);
+   let temp = {
+    id: state.id,
+    values: values
+   }
+    dispatch(completePurchase(temp));
+    // console.log("Success:", values);
+    // navigate("/purchased");
   };
+  // useEffect(()=>{
+  //   let token = localStorage.getItem('token')
+  //   if(!token){
+  //     navigate('/login')
+  //     toast.error('please login ')
+      
+  //   }
+
+  // },[])
+ 
+  useEffect(()=>{
+   
+    if(purchased === true){
+      navigate("/purchased");
+    }
+
+
+
+  },[purchased])
 
   return (
     <div className="checkout-main">

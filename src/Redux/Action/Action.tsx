@@ -139,9 +139,15 @@ export const updateQuantityCart = (data: any) => {
   };
 };
 
-export const completePurchase = (data: CheckoutInterface) => {
+export const completePurchase = (data: any) => {
   return {
     type: "COMPLETE_PURCHASE",
     payload: data,
   };
 };
+
+export const purchaseRemover = ()=>{
+  return{
+    type:'PURCHASE_REMOVER',
+  }
+}

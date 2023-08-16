@@ -2,12 +2,17 @@
 .ProductTable-wrapper{
     width: 95%;
     height: 100%;
+    background:$primary-color;
+   
+    
+
     .ant-table-container {
 
         .ant-table-content {
             .ant-table-tbody {
                 .ant-table-row {
                     .ant-table-cell {
+                        font-family: $font-family;
                         .ant-btn {
 
                             background-color: rgb(228, 70, 70);

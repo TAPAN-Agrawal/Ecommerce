@@ -7,6 +7,7 @@ const initialState: any = {
   totalCount:'',
   login: false,
   register: false,
+  purchased: false
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
@@ -20,6 +21,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         login: false,
+        register:false
       };
     case "REGISTER_REDUCER":
       return {
@@ -143,6 +145,17 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         cartItems: updatedCartItems,
       };
+      case 'COMPLETE_PURCHASE_SUCCESS':
+        return {
+          ...state,
+          purchased:true
+        }
+        case'PURCHASE_REMOVER':
+        return{
+          ...state,
+          purchased:false
+        }
+
 
     default:
       return state;

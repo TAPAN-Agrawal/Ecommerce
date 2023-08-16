@@ -11,7 +11,7 @@
     align-items: flex-start;
     height: 99vh;
     width:100vw;
-    font-family: $font-family;
+    font-family: $font-family !important;
 
     .admin-left-wrapper{
         @include display;
@@ -94,7 +94,8 @@
         height: 100%;
         width: 95%;
         // border: $border;
-        background:$quaternary-color;
+        background:$primary-color;
+
         padding-top: 5px;
       
         

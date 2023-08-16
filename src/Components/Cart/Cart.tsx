@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getProductsInCart } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
@@ -41,7 +42,15 @@ function Cart() {
   };
 
   useEffect(() => {
-    dispatch(getProductsInCart());
+    let role = localStorage.getItem("role");
+    if(role !== '2'){
+      navigate('/login');
+      toast.error('you are not authorized only for uers!')
+      return
+    }
+
+      dispatch(getProductsInCart());
+   
   }, []);
   return (
     <div className="parent-cart">

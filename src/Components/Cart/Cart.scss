@@ -8,7 +8,7 @@
 
     .cart-wrapper{
         @include display;
-        background:$quaternary-color;
+        background:$primary-color;
         .cart-wrapper-child{
             @include display;
             align-items: flex-start;

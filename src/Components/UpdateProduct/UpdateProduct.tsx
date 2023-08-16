@@ -47,7 +47,7 @@ function AddProduct() {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
     // toast.warning("errorInfo")
   };
   const handleFileChange = (event: any) => {

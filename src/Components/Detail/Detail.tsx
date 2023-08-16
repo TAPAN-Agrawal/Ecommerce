@@ -14,17 +14,20 @@ import ProductCard from "../ProductCard/ProductCard";
 
 import { Rate } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   addToCart,
   cleanSingleProduct,
   getSingleProduct,
+  purchaseRemover,
 } from "../../Redux/Action/Action";
 import Offer from "../Offer/Offer";
 import OtherCard from "../OtherCard/OtherCard";
 import Other from "../Other/Other";
+import { toast } from "react-toastify";
 
 function Detail() {
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const singleProduct = useSelector(
@@ -46,28 +49,63 @@ function Detail() {
   const decrement = () => {
     let temp = count - 1;
     if (temp < 1) {
-      temp = 1;
+      temp = 0;
     }
     setCount(temp);
   };
 
   const handleChange = (value: any) => {
-    console.log("value", value);
+    // console.log("value", value);
   };
 
   const cartHandler = () => {
-    console.log("cart ", location.state.id, count);
+    let token = localStorage.getItem("token");
+
     let data = {
       id: location.state.id,
       quantity: count,
     };
-    dispatch(addToCart(data));
+    if (token) {
+      dispatch(addToCart(data));
+    } else {
+      navigate("/login");
+      toast.error("please login to add product in cart");
+    }
   };
-
+  const BuyHandler = () => {
+    if (count === 0) {
+      toast.error("Please add quantity");
+    } else {
+      let role = localStorage.getItem("role");
+    if(role !== '2'){
+      // navigate('/login');
+      toast.error('you are not authorized only for uers!')
+      return
+    }
+      dispatch(purchaseRemover())
+      let data = {
+        id: location.state.id,
+        quantity: count,
+      };
+      let price = [
+        {
+          item: singleProduct.product_name,
+          price: singleProduct.price * count,
+          quantity: count,
+        },
+      ];
+      navigate("/checkout", {
+        state: {
+          p: price,
+          // buyNow:true,
+          id:location.state.id
+        },
+      });
+    }
+  };
   useEffect(() => {
     dispatch(cleanSingleProduct());
 
-    console.log("location", location.state.id);
     dispatch(getSingleProduct(location.state.id));
     setDetailProduct(singleProduct);
   }, []);
@@ -109,8 +147,12 @@ function Detail() {
                   >
                     Add to cart
                   </Button>
-                  <Button icon={<RocketOutlined />} className="detail-btn2">
-                    Buy Now{" "}
+                  <Button
+                    icon={<RocketOutlined />}
+                    className="detail-btn2"
+                    onClick={BuyHandler}
+                  >
+                    Buy Now
                   </Button>
                 </div>
               </div>

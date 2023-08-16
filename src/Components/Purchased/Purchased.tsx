@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Result } from 'antd';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Purchased() {
-
+  const navigate = useNavigate()
+  // useEffect(()=>{
+  //   let token = localStorage.getItem('token')
+  //   if(!token){
+  //     navigate('/login')
+  //     toast.error('please login ')
+     
+  //   }
+    
+  // },[])
   return <div>
      <Result
     status="success"

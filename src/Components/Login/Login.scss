@@ -58,6 +58,10 @@
                 .logos{
                     @include display;
                     justify-content: space-evenly;
+                    Button{
+                        margin-left: -0.5rem;
+                        width: 94%;
+                    }
                     .logo{
                         font-size: 30px;
                         color:rgb(83, 132, 223)

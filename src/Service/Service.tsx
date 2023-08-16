@@ -13,26 +13,26 @@ export const axiosInstanceAuth = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: any) => {
-    console.log("here request", config);
+    // console.log("here request", config);
     return config;
   },
   function (error) {
     // Do something with request error
-    console.log("error", error);
+    // console.log("error", error);
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (config: any) => {
-    console.log("here response", config);
+    // console.log("here response", config);
     return config;
   },
   function (error) {
     // Do something with request error
     toast.error(error.response.data.message);
 
-    console.log("error", error.AxiosError);
+    // console.log("error", error.AxiosError);
     return Promise.reject(error);
   }
 );
@@ -45,7 +45,7 @@ axiosInstanceAuth.interceptors.request.use(
   },
   function (error) {
     // Do something with request error
-    console.log("error", error);
+    // console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -60,7 +60,7 @@ axiosInstanceAuth.interceptors.response.use(
   function (error) {
     toast.error(error.response.data.message);
 
-    console.log("forbidden", error);
+    // console.log("forbidden", error);
     return Promise.reject(error);
   }
 );

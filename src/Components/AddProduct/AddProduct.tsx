@@ -35,7 +35,7 @@ function AddProduct() {
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: AddProductInterface) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     const updatedValues = { ...values, file: selectedFile };
     dispatch(addProduct(updatedValues));
     navigate("/adminpanel/product");

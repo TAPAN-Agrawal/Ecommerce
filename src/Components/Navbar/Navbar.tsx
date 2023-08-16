@@ -37,7 +37,7 @@ function Navbar() {
         searchKey: value,
       },
     });
-    console.log("Searching for:", value);
+    // console.log("Searching for:", value);
   };
   useEffect(() => {
     const token = localStorage.getItem("token");

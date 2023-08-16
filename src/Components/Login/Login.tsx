@@ -22,7 +22,6 @@ export interface LoginInterface {
 }
 
 function Login() {
-
   const IsLogin = useSelector((state: any) => state.ecommerce.login);
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,11 +38,11 @@ function Login() {
   ];
   const onFinish = (values: LoginInterface) => {
     setFlag(true);
-    console.log("Success:", values);
+    // console.log("Success:", values);
     dispatch(login(values)); // Wait for the dispatch to complete
   };
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   const googleHandler = () => {
@@ -67,22 +66,33 @@ function Login() {
           localStorage.setItem("role", "0");
         }
       } else {
-        console.log("Invalid token");
+        // console.log("Invalid token");
       }
     } catch (error: any) {
-      console.error("Error decoding token:", error.message);
+      // console.error("Error decoding token:", error.message);
     }
   };
-  useEffect(()=>{
-    const a:any = new URLSearchParams(location.search).toString()
-    localStorage.setItem('url',a)    
-  },[])
+
+  // useEffect(() => {
+  //   // Get the URLSearchParams object from the location search
+  //   const searchParams = new URLSearchParams(location.search);
+
+  //   // Get a specific parameter value by name
+  //   const paramValue = searchParams.get("query");
+
+  //   console.log("Parameter Value:", paramValue);
+
+  //   // Iterate through all parameters
+  //   // for (const [key, value] of searchParams) {
+  //   //   console.log(`Parameter ${key}: ${value}`);
+  //   // }
+  // }, [location.search]);
   useEffect(() => {
     if (IsLogin) {
       navigate("/home");
 
       let token = localStorage.getItem("token");
-      console.log("token", token);
+      // console.log("token", token);
       if (token) {
         TokenDecoder(token);
       } else {
@@ -125,22 +135,26 @@ function Login() {
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
+              <Button type="primary" htmlType="submit" size="large">
+               Login
               </Button>
             </Form.Item>
             <Divider>or login with</Divider>
             <div className="logos">
-              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
-                <GoogleCircleFilled className="logo" />
-              </a>
+              {/* <Button type="primary" onClick={googleHandler}>
+                google login
+              </Button> */}
               <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
                 <FacebookFilled className="logo" />
+              </a>
+              {/* 
+              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
+               
               </a>
 
               <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
                 <LinkedinFilled className="logo" />
-              </a>
+              </a> */}
             </div>
             <br />
             <Link to="/register" className="link">

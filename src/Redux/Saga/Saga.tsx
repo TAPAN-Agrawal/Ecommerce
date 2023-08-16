@@ -70,24 +70,24 @@ export function* register(action: RegisterActionInterface) {
       toast.success("user registered successfully");
       yield put({ type: "REGISTER_REDUCER" });
     } else {
-      console.log("message");
+      // console.log("message");
     }
   } catch (error: any) {
-    console.log("error", error.response.data.message);
+    // console.log("error", error.response.data.message);
   }
 }
 
 export function* login(action: LoginActionInterface) {
   const temp = action.payload;
 
-  console.log("first", temp);
+  // console.log("first", temp);
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
       "/auth/login",
       temp
     );
-    console.log("response", response);
+    // console.log("response", response);
     if (response) {
       toast.success("user logged in  successfully");
       localStorage.setItem("token", response.data.data.tokenResponse.token);
@@ -106,7 +106,9 @@ export function* googlelogin(action: any) {
       "/auth/google"
     );
     // console.log("google", response)
-  } catch (error) {}
+  } catch (error) {
+
+  }
 }
 
 export function* getAllProducts(action: ActionProductInterface) {
@@ -149,7 +151,7 @@ export function* getAllProducts(action: ActionProductInterface) {
       yield put({ type: "SET_ALL_PRODUCTS", payload: temp });
     }
   } catch (error) {
-    console.log("rea", error);
+    // console.log("rea", error);
   }
 }
 export function* getSingleProduct(action: ActionNumberInterface) {
@@ -174,7 +176,7 @@ export function* addProduct(action: ActionAddProductInterface) {
     formData.append("category", d.category);
     formData.append("description", d.description);
     formData.append("product_img", d.file);
-    console.log("file", d.file);
+    // console.log("file", d.file);
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
@@ -185,7 +187,7 @@ export function* addProduct(action: ActionAddProductInterface) {
       toast.success("product added successfully");
       yield put({ type: "ADD_PRODUCT_REDUCER", payload: response.data });
     }
-    console.log("add product", response.data);
+    // console.log("add product", response.data);
   } catch (error) {
     toast.error("product not added successfully");
   }
@@ -211,7 +213,7 @@ export function* updateProducts(action: ActionAddProductInterface) {
       toast.success("product update successfully");
       yield put({ type: "UPDATE_PRODUCT_REDUCER", payload: response.data });
     }
-    console.log("add product", response.data);
+    // console.log("add product", response.data);
   } catch (error) {
     toast.error("product not update ");
   }
@@ -229,7 +231,7 @@ export function* deleteProduct(action: ActionNumberInterface) {
       yield put({ type: "DELETE_PRODUCT_REDUCER", payload: id });
     }
   } catch (error: any) {
-    console.log("err", error);
+    // console.log("err", error);
 
     // toast.error(error.response.message);
   }
@@ -242,7 +244,7 @@ export function* searchProduct(action: any) {
       axiosInstance.get,
       `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
     );
-    console.log("status", response.status);
+    // console.log("status", response.status);
     if (response.status === 200) {
       console.log("search saga", response.data.data);
       yield put({
@@ -252,7 +254,7 @@ export function* searchProduct(action: any) {
     } else {
     }
   } catch (error: any) {
-    console.log("errrrrrr", error.response.status);
+    // console.log("errrrrrr", error.response.status);
     yield put({ type: "CLEAR_SEARCH_PRODUCT_REDUCER" });
   }
 }
@@ -373,15 +375,28 @@ export function* updateQuantityCart(action: any) {
   } catch (error) {}
 }
 
-export function* completePurchase(action: ActionCheckoutInterface) {
+export function* completePurchase(action: any) {
   try {
-    let temp = action.payload;
+    let temp = action.payload.values;
+    let id = action.payload.id;
+
+    let url = `/products/shipping_details`;
+    if (id) {
+      url += `/${id}`;
+    }
+
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
-      `/products/shipping_details`,
+      url,
       temp
     );
-  } catch (error: any) {}
+
+    if (response) {
+      yield put({ type: 'COMPLETE_PURCHASE_SUCCESS' });
+    }
+  } catch (error) {
+    // Handle the error here if needed
+  }
 }
 
 export function* watcher() {

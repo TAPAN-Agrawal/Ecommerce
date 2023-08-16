@@ -13,7 +13,7 @@ function SearchedProduct() {
   const searchResult = useSelector(
     (state: any) => state.ecommerce.searchResults
   );
-  console.log("searchResult", searchResult.length);
+  // console.log("searchResult", searchResult.length);
 
   const singleProductHandler = (id: any) => {
     dispatch(getSingleProduct(id));

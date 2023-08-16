@@ -44,18 +44,18 @@ function CartCard(Props: any) {
   };
 
   const handleChange = (value: any) => {
-    console.log("value", value);
+    // console.log("value", value);
   };
   const confirm = (id: any) => {
-    console.log("confirm", id);
+    // console.log("confirm", id);
     dispatch(deleteCartItems(id));
   };
   const cancel = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e);
+    // console.log(e);
   };
 
   useEffect(() => {
-    console.log("total quantity",totalconst);
+    // console.log("total quantity",totalconst);
 
 
 

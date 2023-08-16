@@ -78,7 +78,7 @@ function ProductTable() {
           <Button
           style={{backgroundColor:"#279EFF",margin:"1rem"}}
             onClick={() => {
-              console.log("update product", record.id);
+              // console.log("update product", record.id);
               navigate("/adminpanel/updateproduct", {
                 state: {
                   id: record.id,

@@ -40,7 +40,7 @@ function Home() {
       (product: any) => product.category === 0
     );
     setCategory(menProducts);
-    console.log("men products", menProducts);
+    // console.log("men products", menProducts);
   };
   const womenHandler = () => {
     setSelectedButton(1);
@@ -49,7 +49,7 @@ function Home() {
       (product: any) => product.category === 1
     );
     setCategory(womenProducts);
-    console.log("woman products", womenProducts);
+    // console.log("woman products", womenProducts);
   };
   const allHandler = () => {
     setSelectedButton(null);
@@ -83,10 +83,13 @@ function Home() {
   const pageCalculator =  Math.ceil(totalCount/12)*10
 
   useEffect(() => {
+    // console.log("first");
+    
     dispatch(getAllProducts(page, 12, selectedButton, sort));
   }, [page, selectedButton, sort]);
 
   useEffect(() => {
+
     setProducts(data);
     setCategory(data);
   }, [data]);

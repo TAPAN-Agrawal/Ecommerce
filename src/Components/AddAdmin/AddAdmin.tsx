@@ -23,11 +23,11 @@ function AddAdmin() {
 
   const onFinish = (values: any) => {
     dispatch(addAdmin(values));
-    console.log("Success:", values);
+    // console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   return (
@@ -47,7 +47,7 @@ function AddAdmin() {
         size="large"
       >
         <h1>AddAdmin</h1>
-        <Form.Item label="Username" name="username" rules={nameValidate}>
+        <Form.Item label="Username" name="username" rules={nameValidate} className="item">
           <Input />
         </Form.Item>
         <Form.Item label="Email" name="email" rules={emailValidate}>

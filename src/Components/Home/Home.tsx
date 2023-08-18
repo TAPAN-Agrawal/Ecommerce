@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Carousel, Pagination, Select, Spin } from "antd";
+import { Button, Carousel, Pagination, Select, Spin } from "antd";
 import "./Home.scss";
 
 import ProductCard from "../ProductCard/ProductCard";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllProducts, getSingleProduct } from "../../Redux/Action/Action";
+import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
+import { RightOutlined } from "@ant-design/icons";
 
 function Home() {
-  const contentStyle: React.CSSProperties = {
-    height: "400px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.ecommerce.products);
-  const totalCount = useSelector((state: any) => state.ecommerce.totalCount)
+  const totalCount = useSelector((state: any) => state.ecommerce.totalCount);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [page, setPage] = useState(1);
@@ -35,25 +31,29 @@ function Home() {
     });
   };
   const menHandler = () => {
+    
+    setPage(1);
     setSelectedButton(0);
     const menProducts = products.filter(
       (product: any) => product.category === 0
     );
     setCategory(menProducts);
-    // console.log("men products", menProducts);
   };
   const womenHandler = () => {
-    setSelectedButton(1);
 
+    setPage(1);
+
+    setSelectedButton(1);
     const womenProducts = products.filter(
       (product: any) => product.category === 1
     );
     setCategory(womenProducts);
-    // console.log("woman products", womenProducts);
   };
   const allHandler = () => {
-    setSelectedButton(null);
 
+    setPage(1);
+
+    setSelectedButton(null);
     setCategory(products);
   };
 
@@ -80,16 +80,13 @@ function Home() {
       </div>
     );
   });
-  const pageCalculator =  Math.ceil(totalCount/12)*10
+  const pageCalculator = Math.ceil(totalCount / 12) * 10;
 
   useEffect(() => {
-    // console.log("first");
-    
     dispatch(getAllProducts(page, 12, selectedButton, sort));
   }, [page, selectedButton, sort]);
 
   useEffect(() => {
-
     setProducts(data);
     setCategory(data);
   }, [data]);
@@ -97,6 +94,9 @@ function Home() {
     <>
       {products ? (
         <div className="home-wrapper">
+          {/* <BreadCrumComp name=''/> */}
+     
+
           <div className="home-slider">
             <Carousel autoplay>
               <div>
@@ -169,7 +169,12 @@ function Home() {
               <div className="home-men-section">{mapProducts}</div>
             </div>
           </div>
-          <Pagination defaultCurrent={1} total={pageCalculator} onChange={pageHandler} />
+          <Pagination
+          current={page}
+            defaultCurrent={1}
+            total={pageCalculator}
+            onChange={pageHandler}
+          />
         </div>
       ) : (
         <Spin size="large" />

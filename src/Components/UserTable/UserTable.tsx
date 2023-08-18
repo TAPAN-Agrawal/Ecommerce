@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Pagination, Popconfirm, Space, Table, Tag } from "antd";
+import { Button, Pagination, Popconfirm, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import "./UserTable.scss";
 import { deleteUser, getAllUsers } from "../../Redux/Action/Action";
@@ -53,7 +53,7 @@ function UserTable() {
           okText="Yes"
           cancelText="No"
         >
-          <Button>Delete</Button>
+          <Button >Delete</Button>
         </Popconfirm>
       ),
     },

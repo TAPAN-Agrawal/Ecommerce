@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, FloatButton, Pagination, Popconfirm, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import img from "../../Assets/Images/logo-color.png";
 import "./ProductTable.scss";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import {
   cleanAllProduct,
-  cleanSingleProduct,
   deleteProduct,
   getAllProducts,
 } from "../../Redux/Action/Action";
@@ -78,7 +76,6 @@ function ProductTable() {
           <Button
           style={{backgroundColor:"#279EFF",margin:"1rem"}}
             onClick={() => {
-              // console.log("update product", record.id);
               navigate("/adminpanel/updateproduct", {
                 state: {
                   id: record.id,
@@ -95,14 +92,14 @@ function ProductTable() {
             okText="Yes"
             cancelText="No"
           >
-            <Button>Delete</Button>
+            <Button danger>Delete</Button>
           </Popconfirm>
         </div>
       ),
     },
   ];
 
-  const pageCalculator =  Math.ceil(totalCount/12)*10
+  const pageCalculator =  Math.ceil(totalCount/8)*10
   useEffect(() => {
     dispatch(cleanAllProduct());
   }, []);

@@ -1,8 +1,6 @@
 import React from "react";
-import { Button, Card, Rate } from "antd";
+import {  Card, Rate } from "antd";
 import "./ProductCard.scss";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-const { Meta } = Card;
 
 function ProductCard(Props: any) {
   return (
@@ -10,14 +8,14 @@ function ProductCard(Props: any) {
       <div className="img-wrapper">
         <img
           alt="example"
-          src={`http://192.168.1.69:8000/${Props.img}`}
+          src={`${process.env.REACT_APP_BASEURL}/${Props.img}`}
           height={140}
         />
       </div>
       <div className="details-wrapper">
         <div className="detail-name-price">
           <h3>{Props.title}</h3>
-          <h4>{Props.price}$</h4>
+          <h4>$ {Props.price}</h4>
         </div>
         <div className="description">{Props.description.slice(0,60)}</div>
         <div>

@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Detail.scss";
-import img from "../../Assets/Images/free-photo-beauty-product-bottle-mockup-image-with-background.jpg";
 import { Button, Divider, Spin } from "antd";
 import {
-  DownOutlined,
   RocketOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Dropdown, Typography } from "antd";
-import { Select, Space } from "antd";
-import ProductCard from "../ProductCard/ProductCard";
 
-import { Rate } from "antd";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -22,9 +16,10 @@ import {
   purchaseRemover,
 } from "../../Redux/Action/Action";
 import Offer from "../Offer/Offer";
-import OtherCard from "../OtherCard/OtherCard";
 import Other from "../Other/Other";
 import { toast } from "react-toastify";
+import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
+
 
 function Detail() {
   const navigate = useNavigate();
@@ -36,8 +31,7 @@ function Detail() {
 
   const [detailProduct, setDetailProduct] = useState<any>([]);
 
-  const desc = ["terrible", "bad", "normal", "good", "wonderful"];
-  const [value, setValue] = useState(3);
+
 
   const [count, setCount] = useState<number>(0);
 
@@ -55,7 +49,6 @@ function Detail() {
   };
 
   const handleChange = (value: any) => {
-    // console.log("value", value);
   };
 
   const cartHandler = () => {
@@ -67,6 +60,7 @@ function Detail() {
     };
     if (token) {
       dispatch(addToCart(data));
+      dispatch(purchaseRemover());
     } else {
       navigate("/login");
       toast.error("please login to add product in cart");
@@ -77,12 +71,11 @@ function Detail() {
       toast.error("Please add quantity");
     } else {
       let role = localStorage.getItem("role");
-    if(role !== '2'){
-      // navigate('/login');
-      toast.error('you are not authorized only for uers!')
-      return
-    }
-      dispatch(purchaseRemover())
+      if (role !== "2") {
+        toast.error("you are not authorized only for uers!");
+        return;
+      }
+      dispatch(purchaseRemover());
       let data = {
         id: location.state.id,
         quantity: count,
@@ -97,21 +90,28 @@ function Detail() {
       navigate("/checkout", {
         state: {
           p: price,
-          // buyNow:true,
-          id:location.state.id
+          id: location.state.id,
+          isCalledFromCart:false
         },
       });
     }
   };
+
+
   useEffect(() => {
     dispatch(cleanSingleProduct());
 
     dispatch(getSingleProduct(location.state.id));
     setDetailProduct(singleProduct);
   }, []);
-
+  
   return (
     <div className="parent-detail">
+      {/* <BreadCrumComp name='detail'/> */}
+      <div className="Back-Front-btn">
+      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
+     
+      </div>
       {singleProduct.id ? (
         <div className="parentd">
           <div className="detail-parent-wrapper">
@@ -120,22 +120,29 @@ function Detail() {
                 <img
                   src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
                   alt=""
-                  className="detail-image"
+                  height={400}
+                  // className="detail-image"
                 />
                 <div className="small-img">
                   <img
                     src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
                     alt=""
+                    height={50}
                     className="detail-image"
+
                   />
                   <img
                     src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
                     alt=""
                     className="detail-image"
+                    height={50}
+
                   />
                   <img
                     src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
                     alt=""
+                    height={50}
+                    
                     className="detail-image"
                   />
                 </div>
@@ -160,7 +167,7 @@ function Detail() {
                 <h2>{singleProduct.product_name}</h2>
                 <p>{singleProduct.description}</p>
 
-                <h3>{singleProduct.price}$</h3>
+                <h3>$ {singleProduct.price}</h3>
                 <div>
                   <Button onClick={decrement}>-</Button>
                   {count}

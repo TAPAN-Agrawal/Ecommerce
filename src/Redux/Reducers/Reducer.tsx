@@ -4,10 +4,10 @@ const initialState: any = {
   searchResults: [],
   users: [],
   cartItems: [],
-  totalCount:'',
+  totalCount: "",
   login: false,
   register: false,
-  purchased: false
+  purchased: false,
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
@@ -21,7 +21,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         login: false,
-        register:false
+        register: false,
       };
     case "REGISTER_REDUCER":
       return {
@@ -33,7 +33,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         products: action.payload.products,
-        totalCount: action.payload.count
+        totalCount: action.payload.count,
       };
 
     case "SET_SINGLE_PRODUCTS":
@@ -44,17 +44,24 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "ADD_PRODUCT_REDUCER":
       return {
         ...state,
-        products: [...state.products, action.payload],
+        products: [...state.products, action.payload.data.savedProduct],
       };
-    case "UPDATE_PRODUCT_REDUCER":
-      const id = action.payload.id;
-      const updatedProduct = state.products.map((product: any) =>
-        product.id === id ? { ...product, ...action.payload } : product
-      );
-      return {
-        ...state,
-        products: updatedProduct,
-      };
+      case "UPDATE_PRODUCT_REDUCER":
+        const id = action.payload.data.updatedProduct.id;
+        console.log('id',id)
+        const updatedProductList = state.products.map((product: any) => {
+          if (id === product.id) {
+            return action.payload.data.updatedProduct;
+          }
+          return product; 
+        });
+        console.log(updatedProductList);
+        
+        return {
+          ...state,
+          products: updatedProductList, 
+        };
+      
 
     case "DELETE_PRODUCT_REDUCER":
       const updatedProducts = state.products.filter((record: any) => {
@@ -90,7 +97,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         users: action.payload.users,
-        totalCount: action.payload.totalCount
+        totalCount: action.payload.totalCount,
       };
 
     case "DELETE_USER_REDUCER":
@@ -145,17 +152,16 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         cartItems: updatedCartItems,
       };
-      case 'COMPLETE_PURCHASE_SUCCESS':
-        return {
-          ...state,
-          purchased:true
-        }
-        case'PURCHASE_REMOVER':
-        return{
-          ...state,
-          purchased:false
-        }
-
+    case "COMPLETE_PURCHASE_SUCCESS":
+      return {
+        ...state,
+        purchased: true,
+      };
+    case "PURCHASE_REMOVER":
+      return {
+        ...state,
+        purchased: false,
+      };
 
     default:
       return state;

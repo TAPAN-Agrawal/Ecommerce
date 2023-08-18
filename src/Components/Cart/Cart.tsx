@@ -8,6 +8,7 @@ import { getProductsInCart } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
@@ -37,6 +38,7 @@ function Cart() {
     navigate("/checkout", {
       state: {
         p: price,
+        isCalledFromCart: true
       },
     });
   };
@@ -54,6 +56,10 @@ function Cart() {
   }, []);
   return (
     <div className="parent-cart">
+      {/* <BreadCrumComp name='cart'/> */}
+      <div className="Back-Front-btn">
+      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
+      </div>
       {cartItem.length !== 0 ? (
         <div className="cart-wrapper">
           <div className="cart-wrapper-child">

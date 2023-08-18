@@ -7,6 +7,8 @@
 }
 
 .nav-wrapper {
+
+  // position: fixed;
   .nav-main-container {
     @include display;
     justify-content: space-around;
@@ -23,16 +25,21 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
-      // justify-content: space-between;
-      // border: $border;
+      .company-logo{
+        color: blue;
+        font-family: $font-family;
+        font-size: 20px;
+        margin-left: 6rem;
+      }
+      .company-logo:hover{
+       cursor: pointer;
+      }
       p {
         color: black;
         height: 10px;
         margin: 0 !important;
         padding-left: 5rem;
         font-size: 15px;
-        // font-size: $font-size;
         font-family: 'Courier New', Courier, monospace;
         span{
           font-size: 10px;
@@ -74,7 +81,8 @@
         margin: 0.3rem;
 
         .item-link {
-          color: black;
+          color: blue;
+
           text-decoration: none;
           margin-left: 0.4rem;
           font-family: Roboto, Arial, sans-serif;
@@ -82,7 +90,7 @@
         }
 
         .nav-nav-item-logo {
-          color: black;
+          color: blue;
         }
 
         .badge {

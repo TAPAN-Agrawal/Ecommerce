@@ -29,7 +29,6 @@ function AddProduct() {
     product_img: "",
   });
 
-  // console.log("location", location.state.id);
 
   const validationErr = [{ required: true, message: "required" }];
 
@@ -51,12 +50,11 @@ function AddProduct() {
     // toast.warning("errorInfo")
   };
   const handleFileChange = (event: any) => {
-    const file = event.target.files[0]; // Get the first selected file (you can handle multiple files too if needed)
-    setSelectedFile(file); // Step 4: Update the state with the selected file
+    const file = event.target.files[0];
+    setSelectedFile(file); 
   };
   useEffect(() => {
     dispatch(cleanSingleProduct());
-    // console.log("idsss", location.state.id);
 
     if (location.state.id) {
       dispatch(getSingleProduct(location.state.id));

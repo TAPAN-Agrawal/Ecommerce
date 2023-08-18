@@ -1,8 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
-import { message } from "antd";
-import { getProductsInCart, updateProduct } from "../Action/Action";
 import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
@@ -70,31 +68,23 @@ export function* register(action: RegisterActionInterface) {
       toast.success("user registered successfully");
       yield put({ type: "REGISTER_REDUCER" });
     } else {
-      // console.log("message");
     }
-  } catch (error: any) {
-    // console.log("error", error.response.data.message);
-  }
+  } catch (error: any) {}
 }
 
 export function* login(action: LoginActionInterface) {
   const temp = action.payload;
 
-  // console.log("first", temp);
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
       "/auth/login",
       temp
     );
-    // console.log("response", response);
     if (response) {
-      toast.success("user logged in  successfully");
+      toast.success(response.data.message);
       localStorage.setItem("token", response.data.data.tokenResponse.token);
       yield put({ type: "LOGIN_REDUCER" });
-
-      //   if(temp.email === 'superadmin@gmail.com' || temp.email === 'admin@gmail.com') {
-      //     localStorage.setItem('role',0)
     }
   } catch (error: any) {}
 }
@@ -105,17 +95,13 @@ export function* googlelogin(action: any) {
       axiosInstance.get,
       "/auth/google"
     );
-    // console.log("google", response)
-  } catch (error) {
-
-  }
+  } catch (error) {}
 }
 
 export function* getAllProducts(action: ActionProductInterface) {
   try {
     let { page, limit, category, sort } = action.payload;
 
-    // console.log("data");
     const response: AxiosResponse<any> = yield call(() => {
       if (category !== null) {
         if (sort !== null) {
@@ -142,17 +128,14 @@ export function* getAllProducts(action: ActionProductInterface) {
       }
     });
 
-
     if (response) {
-      let temp={
-        products:response.data.products,
-        count:response.data.totalCount
-      }
+      let temp = {
+        products: response.data.products,
+        count: response.data.totalCount,
+      };
       yield put({ type: "SET_ALL_PRODUCTS", payload: temp });
     }
-  } catch (error) {
-    // console.log("rea", error);
-  }
+  } catch (error) {}
 }
 export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
@@ -176,7 +159,6 @@ export function* addProduct(action: ActionAddProductInterface) {
     formData.append("category", d.category);
     formData.append("description", d.description);
     formData.append("product_img", d.file);
-    // console.log("file", d.file);
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
@@ -185,9 +167,7 @@ export function* addProduct(action: ActionAddProductInterface) {
     );
     if (response) {
       toast.success("product added successfully");
-      yield put({ type: "ADD_PRODUCT_REDUCER", payload: response.data });
     }
-    // console.log("add product", response.data);
   } catch (error) {
     toast.error("product not added successfully");
   }
@@ -199,8 +179,8 @@ export function* updateProducts(action: ActionAddProductInterface) {
 
     const formData: any = new FormData();
     formData.append("product_name", d.name);
-    formData.append("price", 50);
-    formData.append("quantity", "20");
+    formData.append("price", d.price);
+    formData.append("quantity", d.quantity);
     formData.append("category", d.category);
     formData.append("description", d.description);
     formData.append("product_img", d.file);
@@ -213,9 +193,8 @@ export function* updateProducts(action: ActionAddProductInterface) {
       toast.success("product update successfully");
       yield put({ type: "UPDATE_PRODUCT_REDUCER", payload: response.data });
     }
-    // console.log("add product", response.data);
   } catch (error) {
-    toast.error("product not update ");
+    toast.error("product not update");
   }
 }
 
@@ -230,11 +209,7 @@ export function* deleteProduct(action: ActionNumberInterface) {
     if (response) {
       yield put({ type: "DELETE_PRODUCT_REDUCER", payload: id });
     }
-  } catch (error: any) {
-    // console.log("err", error);
-
-    // toast.error(error.response.message);
-  }
+  } catch (error: any) {}
 }
 
 export function* searchProduct(action: any) {
@@ -244,7 +219,6 @@ export function* searchProduct(action: any) {
       axiosInstance.get,
       `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
     );
-    // console.log("status", response.status);
     if (response.status === 200) {
       console.log("search saga", response.data.data);
       yield put({
@@ -254,7 +228,6 @@ export function* searchProduct(action: any) {
     } else {
     }
   } catch (error: any) {
-    // console.log("errrrrrr", error.response.status);
     yield put({ type: "CLEAR_SEARCH_PRODUCT_REDUCER" });
   }
 }
@@ -281,11 +254,11 @@ export function* getAllUsers(action: UserActionInterface) {
       `/auth/users/?page=${page}&limit=${limit}`
     );
     if (response) {
-      let temp={
-        users:response.data.data,
-        totalCount:response.data.totalCount
-      }
-      yield put({ type: "ADD_USER_REDUCER", payload:temp});
+      let temp = {
+        users: response.data.data,
+        totalCount: response.data.totalCount,
+      };
+      yield put({ type: "ADD_USER_REDUCER", payload: temp });
     }
   } catch (error) {}
 }
@@ -378,25 +351,38 @@ export function* updateQuantityCart(action: any) {
 export function* completePurchase(action: any) {
   try {
     let temp = action.payload.values;
-    let id = action.payload.id;
+    let $isCalledFromCart = action.payload.isCalledFromCart;
+    // console.log(isCalledFromCart);
 
     let url = `/products/shipping_details`;
-    if (id) {
-      url += `/${id}`;
-    }
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
       url,
-      temp
+      {...temp,$isCalledFromCart},
+      
     );
 
     if (response) {
-      yield put({ type: 'COMPLETE_PURCHASE_SUCCESS' });
+      yield put({ type: "COMPLETE_PURCHASE_SUCCESS" });
     }
-  } catch (error) {
-    // Handle the error here if needed
+  } catch (error) {}
+}
+export function* buyNow(action:any){
+  try{
+    console.log("buyNow")
+    let id=action.payload.id;
+    let quantity=action.payload.quantity;
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.patch,
+      `/products/buy_now/${id}` ,
+      quantity     
+    );
+    if(response){
+      console.log('success', response)
+    }
   }
+  catch(error) {}
 }
 
 export function* watcher() {
@@ -433,4 +419,6 @@ export function* watcher() {
   yield takeLatest("UPDATE_Quantity_CART", updateQuantityCart);
 
   yield takeLatest("COMPLETE_PURCHASE", completePurchase);
+
+  yield takeLatest('BUY_NOW',buyNow);
 }

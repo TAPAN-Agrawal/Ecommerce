@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
-import { message } from "antd";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASEURL,
@@ -13,12 +12,9 @@ export const axiosInstanceAuth = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: any) => {
-    // console.log("here request", config);
     return config;
   },
   function (error) {
-    // Do something with request error
-    // console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -29,10 +25,8 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   function (error) {
-    // Do something with request error
     toast.error(error.response.data.message);
 
-    // console.log("error", error.AxiosError);
     return Promise.reject(error);
   }
 );
@@ -44,8 +38,6 @@ axiosInstanceAuth.interceptors.request.use(
     return config;
   },
   function (error) {
-    // Do something with request error
-    // console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -60,7 +52,6 @@ axiosInstanceAuth.interceptors.response.use(
   function (error) {
     toast.error(error.response.data.message);
 
-    // console.log("forbidden", error);
     return Promise.reject(error);
   }
 );

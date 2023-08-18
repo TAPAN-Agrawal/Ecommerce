@@ -1,6 +1,6 @@
 import React from "react";
 import "./CartPrice.scss";
-import { Button, Card, Divider } from "antd";
+import {  Card, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 
 function CartPrice({ priceList }: any) {
@@ -21,7 +21,6 @@ function CartPrice({ priceList }: any) {
   const navigate = useNavigate();
   const purchased = () => {
     navigate("/checkout");
-    // navigate('/purchased')
   };
   return (
     <div className="CartPrice-wrapper">
@@ -46,7 +45,6 @@ function CartPrice({ priceList }: any) {
         </div>
         <Divider />
         {priceListMap}
-        {/* {priceListMap} */}
         <div className="item">
           <h3>TotalTtems:</h3>
           <div>{priceListMap.length} </div>
@@ -54,7 +52,7 @@ function CartPrice({ priceList }: any) {
         <Divider />
         <div className="item">
           <h3>Total Amount</h3>
-          <h2>{t}$</h2>
+          <h2>$ {t}</h2>
         </div>
       </Card>
     </div>

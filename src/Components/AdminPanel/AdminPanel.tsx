@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./AdminPanel.scss";
 import {
-  ShoppingOutlined,
-  UserAddOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import UserTable from "../UserTable/UserTable";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
@@ -18,7 +15,7 @@ import { toast } from "react-toastify";
 function AdminPanel() {
   const navigate = useNavigate();
   const location = useLocation();
-  const currentPath = location.pathname.split("/")[2];
+  // const currentPath = location.pathname.split("/")[2];
 
 
   useEffect(() => {

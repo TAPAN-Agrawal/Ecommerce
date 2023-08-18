@@ -5,9 +5,10 @@ import CartPrice from "../CartPrice/CartPrice";
 import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { completePurchase } from "../../Redux/Action/Action";
+import { buyNow, completePurchase } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 
 export interface CheckoutInterface {
   address_line1: string;
@@ -34,29 +35,30 @@ function Checkout() {
   ];
 
   const onFinish = (values:any) => {
-    console.log('object',state.id);
    let temp = {
     id: state.id,
-    values: values
+    values: values,
+    isCalledFromCart: state.isCalledFromCart
    }
     dispatch(completePurchase(temp));
-    // console.log("Success:", values);
-    // navigate("/purchased");
-  };
-  // useEffect(()=>{
-  //   let token = localStorage.getItem('token')
-  //   if(!token){
-  //     navigate('/login')
-  //     toast.error('please login ')
-      
-  //   }
 
-  // },[])
+   
+  };
+  
  
   useEffect(()=>{
    
     if(purchased === true){
       navigate("/purchased");
+    }
+
+    if(state.isCalledFromCart === false){
+      console.log("Called from")
+      let temp={
+        id:state.id,
+        quantity:state.p.quatity
+      }
+      dispatch(buyNow(temp));
     }
 
 
@@ -65,7 +67,11 @@ function Checkout() {
 
   return (
     <div className="checkout-main">
+      {/* <BreadCrumComp name='checkout'/> */}
       {/* <h1>checkout</h1> */}
+      <div className="Back-Front-btn">
+      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
+      </div>
       <div className="checkout-wrapper">
         <Form className="form" layout="vertical" onFinish={onFinish}>
           <div className="checkout-wrapper-child">

@@ -38,14 +38,13 @@ function Login() {
   ];
   const onFinish = (values: LoginInterface) => {
     setFlag(true);
-    // console.log("Success:", values);
-    dispatch(login(values)); // Wait for the dispatch to complete
+    dispatch(login(values));
   };
   const onFinishFailed = (errorInfo: any) => {
-    // console.log("Failed:", errorInfo);
   };
 
   const googleHandler = () => {
+    window.location.href = `${process.env.REACT_APP_BASEURL}/auth/google`;
     dispatch(googlelogin());
   };
   const TokenDecoder = (token: any) => {
@@ -66,10 +65,8 @@ function Login() {
           localStorage.setItem("role", "0");
         }
       } else {
-        // console.log("Invalid token");
       }
     } catch (error: any) {
-      // console.error("Error decoding token:", error.message);
     }
   };
 
@@ -92,7 +89,6 @@ function Login() {
       navigate("/home");
 
       let token = localStorage.getItem("token");
-      // console.log("token", token);
       if (token) {
         TokenDecoder(token);
       } else {
@@ -103,7 +99,6 @@ function Login() {
 
   return (
     <div className="login-wrapper">
-      {/* <div className="login-title">Login</div> */}
       <div className="login-box">
         <div className="image-section">
           <img src={img} alt="" />
@@ -141,12 +136,12 @@ function Login() {
             </Form.Item>
             <Divider>or login with</Divider>
             <div className="logos">
-              {/* <Button type="primary" onClick={googleHandler}>
+              <Button type="primary" onClick={googleHandler}>
                 google login
-              </Button> */}
-              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
+              </Button>
+              {/* <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
                 <FacebookFilled className="logo" />
-              </a>
+              </a> */}
               {/* 
               <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
                

@@ -9,10 +9,13 @@
 .home-wrapper {
     @include display;
     flex-direction: column;
+    // align-items: flex-end;
     height: 100%;
     width: 100vw;
     background: $primary-color;
-
+  .front-btn{
+    margin-left:90% ;
+  }
     .home-slider {
         // border: 2px solid yellow;
         margin-top: 1.5rem;

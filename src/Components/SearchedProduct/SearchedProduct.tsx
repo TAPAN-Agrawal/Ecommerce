@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getSingleProduct, searchProduct } from "../../Redux/Action/Action";
 import ProductCard from "../ProductCard/ProductCard";
+import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 
 function SearchedProduct() {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ function SearchedProduct() {
   const searchResult = useSelector(
     (state: any) => state.ecommerce.searchResults
   );
-  // console.log("searchResult", searchResult.length);
 
   const singleProductHandler = (id: any) => {
     dispatch(getSingleProduct(id));
@@ -50,6 +50,7 @@ function SearchedProduct() {
 
   return (
     <div className="search-wrapper">
+      {/* <BreadCrumComp name='search'/> */}
       {searchResult.length < 1 ? (
         <div className="no-item">no item found..</div>
       ) : (

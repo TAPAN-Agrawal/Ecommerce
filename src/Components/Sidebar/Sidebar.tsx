@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { MenuOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 import { TbShoppingBag } from "react-icons/tb";
 import type { MenuProps } from "antd";
-import { Button, Menu, Popconfirm } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Button, Menu } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
+import { toast } from "react-toastify";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -30,8 +31,17 @@ function Sidebar() {
     getItem("Products", "product", <TbShoppingBag className="icons" />),
     getItem("AddAdmin", "addAdmin", <UserAddOutlined className="icons" />),
   ];
+  const location = useLocation();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+
+  let selectedKey: any = "user"; 
+  const matchingItem = items.find((item: any) =>
+    location.pathname.includes(item.key)
+  );
+  if (matchingItem) {
+    selectedKey = matchingItem.key;
+  }
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -44,7 +54,12 @@ function Sidebar() {
       navigate("/adminpanel/product");
     }
     if (e.key === "addAdmin") {
-      navigate("/adminpanel/addAdmin");
+      let role = localStorage.getItem("role");
+      if (role === "1") {
+        toast.error("you have view only permission");
+      } else {
+        navigate("/adminpanel/addAdmin");
+      }
     }
   };
   return (
@@ -52,7 +67,9 @@ function Sidebar() {
       <Button onClick={toggleCollapsed}>
         {collapsed ? <MenuOutlined /> : <MenuOutlined />}
       </Button>
+      {!collapsed && <h4>Admin Panel</h4>}
       <Menu
+        selectedKeys={[selectedKey]}
         defaultSelectedKeys={["user"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"

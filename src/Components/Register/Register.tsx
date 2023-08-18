@@ -3,12 +3,10 @@ import { Button, DatePicker, Form, Input, Radio } from "antd";
 import "./Register.scss";
 import img from "../../Assets/Images/register.png";
 import TextArea from "antd/es/input/TextArea";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { register } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "antd/es/form/Form";
 
 export interface RegisterInterface {
   username: string;
@@ -23,7 +21,6 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const registers = useSelector((state: any) => state.ecommerce.register);
-  const [form] = Form.useForm()
 
  
 
@@ -62,7 +59,6 @@ function Register() {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    // console.log("Failed:", errorInfo);
   };
   useEffect(() => {
     if (registers) {
@@ -79,13 +75,12 @@ function Register() {
             layout="vertical"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
+            // style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             className="addAdmin-Form"
-            form={form}
           >
             <Form.Item label="Username" name="username" rules={nameValidate}>
               <Input />

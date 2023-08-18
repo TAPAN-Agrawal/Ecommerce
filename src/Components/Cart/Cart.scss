@@ -1,28 +1,46 @@
 @import '../../Global//Variable.scss';
+// body{
+//     background: #f5f8f0;
+//   }
 @mixin display{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .parent-cart{
+    min-height:900px;
+    background:$primary-color;
+    .Back-Front-btn{
+        @include display;
+        justify-content: space-between;
+        width: 90%;
+        // background:$primary-color;
 
+        margin-left: auto;
+        margin-right: auto;
+       
+      
+    }
     .cart-wrapper{
         @include display;
-        background:$primary-color;
         .cart-wrapper-child{
-            @include display;
+          
+            display: flex;
+            justify-content: center;
+            align-items: center;
             align-items: flex-start;
-            height: 100%;
+            // min-height:850px;
             width: 90vw;
+            padding-top: 5px;
             .left-child{
                 height: 100%;
                 width: 100%;
-                // border: 2px solid blue;
+                flex: 1 1;
             }
             .right-child{
                 height: 100%;
                 width: 30%;
-                // border: 2px solid yellow;
+                margin-left: 40px;
                 Button{
                     font-family: $font-family;
                     background-color:yellow;

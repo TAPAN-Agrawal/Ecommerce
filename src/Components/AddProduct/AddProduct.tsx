@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AddProduct.scss";
 import {
   Button,
-  Checkbox,
+ 
   Form,
   Input,
   InputNumber,
   Radio,
-  Upload,
+
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { message } from "antd";
-import { addProduct, getSingleProduct } from "../../Redux/Action/Action";
+import { addProduct, } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 export interface AddProductInterface {
   id?: number;
@@ -29,13 +27,11 @@ export interface AddProductInterface {
 function AddProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: AddProductInterface) => {
-    // console.log("Success:", values);
     const updatedValues = { ...values, file: selectedFile };
     dispatch(addProduct(updatedValues));
     navigate("/adminpanel/product");
@@ -46,8 +42,8 @@ function AddProduct() {
     // toast.warning("errorInfo")
   };
   const handleFileChange = (event: any) => {
-    const file = event.target.files[0]; // Get the first selected file (you can handle multiple files too if needed)
-    setSelectedFile(file); // Step 4: Update the state with the selected file
+    const file = event.target.files[0]; 
+    setSelectedFile(file); 
   };
 
   return (

@@ -146,6 +146,15 @@ export const completePurchase = (data: any) => {
   };
 };
 
+
+export const buyNow=(data: any) => {
+  return{
+    type:'BUY_NOW',
+    data: data,
+  }
+}
+
+
 export const purchaseRemover = ()=>{
   return{
     type:'PURCHASE_REMOVER',

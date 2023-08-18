@@ -1,6 +1,5 @@
 import React from "react";
 import './Notfound.scss'
-import img from '../../Assets/Images/dog-3431913_1280-removebg-preview.png'
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 

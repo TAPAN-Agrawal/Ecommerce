@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import logo from "../../Assets/Images/shopping-bag-cart-ecommerce-icon-bubble-speech-chat-3d-rendering-removebg-preview (1).png";
-import { Badge, Button, Input, Popconfirm } from "antd";
+import React, { useEffect, useState} from "react";
+import {  Button, Input, Popconfirm } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,10 +7,10 @@ import { useDispatch } from "react-redux";
 import {
   loginSetter,
   logoutSetter,
-  searchProduct,
 } from "../../Redux/Action/Action";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import logo from '../../Assets/Images/logo-no-background.png'
 
 const { Search } = Input;
 function Navbar() {
@@ -37,7 +36,7 @@ function Navbar() {
         searchKey: value,
       },
     });
-    // console.log("Searching for:", value);
+
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -50,11 +49,12 @@ function Navbar() {
     <div className="nav-wrapper">
       <div className="nav-main-container">
         <div className="nav-logo" onClick={logoHandler}>
-          <img
+          <div className="company-logo">Velvate Aura</div>
+          {/* <img
             src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/flipkart-095e08.svg"
             alt="company-logo"
             className="nav-img"
-          />
+          /> */}
           <p>
             Explore{" "}
             <span>
@@ -81,9 +81,7 @@ function Navbar() {
             </NavLink>
           </div>
           <div className="nav-nav-items-child">
-            {/* <Badge count={cartItem.length} size="small" color="gold" className="badge"> */}
             <ShoppingCartOutlined className="nav-nav-item-logo" />
-            {/* </Badge> */}
             <NavLink to="/cart" className="item-link">
               Cart
             </NavLink>
@@ -106,11 +104,10 @@ function Navbar() {
               title="Are you sure you want to Logout"
               description="Do you want to logout from this page?"
               onConfirm={logoutHandler}
-              // onCancel={cancel}
               okText="Yes"
               cancelText="No"
             >
-              <Button>Logout</Button>
+              <Button danger>Logout</Button>
             </Popconfirm>
           )}
         </div>

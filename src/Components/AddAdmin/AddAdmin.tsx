@@ -1,6 +1,6 @@
 import React from "react";
 import "./AddAdmin.scss";
-import { Button, Checkbox, DatePicker, Form, Input, Radio } from "antd";
+import { Button,  DatePicker, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { addAdmin } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
@@ -23,16 +23,13 @@ function AddAdmin() {
 
   const onFinish = (values: any) => {
     dispatch(addAdmin(values));
-    // console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    // console.log("Failed:", errorInfo);
   };
 
   return (
     <div className="addAdmin-wrapper">
-      {/* <h1>Add-Admin</h1> */}
       <Form
         name="basic"
         layout="vertical"
@@ -71,7 +68,7 @@ function AddAdmin() {
           <DatePicker />
         </Form.Item>
         <Form.Item label="Address" name="address" rules={combine}>
-          <TextArea rows={4} />
+          <TextArea rows={2} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">

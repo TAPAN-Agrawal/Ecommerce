@@ -35,7 +35,7 @@ function Sidebar() {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
-  let selectedKey: any = "user"; 
+  let selectedKey: any = "user";
   const matchingItem = items.find((item: any) =>
     location.pathname.includes(item.key)
   );

@@ -1,7 +1,10 @@
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
 import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
-import { CheckoutInterface } from "../../Components/Checkout/Checkout";
+import { CheckoutInterface, buyNowInterface, completePurchaseInterface } from "../../Components/Checkout/Checkout";
+import { AddAdmin } from "../../Components/AddAdmin/AddAdmin";
+import { addToCartInterface } from "../../Components/Detail/Detail";
+import { updateQuantityCartInterface } from "../../Components/CartCard/CartCard";
 
 export const register = (data: RegisterInterface) => {
   return {
@@ -84,14 +87,14 @@ export const cleanSingleProduct = () => {
   };
 };
 
-export const searchProduct = (search: any, page: any, limit: any) => {
+export const searchProduct = (search: string, page: number, limit: number) => {
   return {
     type: "SEARCH_PRODUCT",
     payload: { search, page, limit },
   };
 };
 
-export const addAdmin = (data: any) => {
+export const addAdmin = (data: AddAdmin) => {
   return {
     type: "ADD_ADMIN",
     payload: data,
@@ -105,7 +108,7 @@ export const getAllUsers = (page: number, limit: number) => {
   };
 };
 
-export const addToCart = (data: any) => {
+export const addToCart = (data: addToCartInterface) => {
   return {
     type: "ADD_TO_CART",
     payload: data,
@@ -132,31 +135,29 @@ export const deleteCartItems = (id: number) => {
   };
 };
 
-export const updateQuantityCart = (data: any) => {
+export const updateQuantityCart = (data: updateQuantityCartInterface) => {
   return {
     type: "UPDATE_Quantity_CART",
     payload: data,
   };
 };
 
-export const completePurchase = (data: any) => {
+export const completePurchase = (data: completePurchaseInterface) => {
   return {
     type: "COMPLETE_PURCHASE",
     payload: data,
   };
 };
 
+export const buyNow = (data: buyNowInterface) => {
+  return {
+    type: "BUY_NOW",
+    payload: data,
+  };
+};
 
-export const buyNow=(data: any) => {
-  return{
-    type:'BUY_NOW',
-    data: data,
-  }
-}
-
-
-export const purchaseRemover = ()=>{
-  return{
-    type:'PURCHASE_REMOVER',
-  }
-}
+export const purchaseRemover = () => {
+  return {
+    type: "PURCHASE_REMOVER",
+  };
+};

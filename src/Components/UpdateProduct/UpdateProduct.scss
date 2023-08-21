@@ -17,8 +17,8 @@
         background: transparent;
         backdrop-filter: blur(20px);
         box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-        padding: 10px;
-        padding-left: 50px;
+        padding: 20px;
+        // padding-left: 50px;
         font-family: $font-family;
         label{
         font-family: $font-family;
@@ -27,7 +27,7 @@
         .item{
             Button{
                 width: 100%;
-                margin-left: -5rem;
+                // margin-left: -5rem;
             }
         }
     }

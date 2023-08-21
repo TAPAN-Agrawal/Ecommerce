@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./UpdateProduct.scss";
 import { Button, Form, Input, InputNumber, Radio, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {
-  updateProduct,
-  getSingleProduct,
-  cleanSingleProduct,
+import {updateProduct,getSingleProduct,cleanSingleProduct,
 } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,16 +12,15 @@ function AddProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  // const history = useHistory();
   const singleProducts = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [product, setProduct] = useState<any>({
-    product_name: "t",
-    description: "t",
-    quantity: "t",
-    price: "t",
+    product_name: "",
+    description: "",
+    quantity: "",
+    price: "",
     category: 0,
     product_img: "",
   });
@@ -33,21 +29,22 @@ function AddProduct() {
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: any) => {
+  
     dispatch(cleanSingleProduct());
     const updatedValues = {
       ...values,
-
       file: selectedFile,
       id: singleProducts.id,
     };
+    
+    
+    
     dispatch(updateProduct(updatedValues));
-    // dispatch(addProduct(values));
     navigate("/adminpanel/product");
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    // console.log("Failed:", errorInfo);
-    // toast.warning("errorInfo")
+    
   };
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
@@ -70,9 +67,7 @@ function AddProduct() {
         <Form
           name="basic"
           layout="vertical"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
+         
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -130,9 +125,9 @@ function AddProduct() {
           <Form.Item label="Image" name="image" className="item">
             <input type="file" onChange={handleFileChange} />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">
+          <Form.Item  className="item">
             <Button type="primary" htmlType="submit">
-              Submit
+             Update
             </Button>
           </Form.Item>
         </Form>

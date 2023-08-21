@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import "./AdminPanel.scss";
-import {
-} from "@ant-design/icons";
 import UserTable from "../UserTable/UserTable";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
 import Notfound from "../Notfound/Notfound";
@@ -14,16 +12,13 @@ import { toast } from "react-toastify";
 
 function AdminPanel() {
   const navigate = useNavigate();
-  const location = useLocation();
-  // const currentPath = location.pathname.split("/")[2];
-
 
   useEffect(() => {
     let role = localStorage.getItem("role");
     if (role === "0" || role === "1") {
     } else {
       navigate("/login");
-      toast.error("you are not authorized to view this panel");
+     
     }
   }, []);
 

@@ -15,7 +15,7 @@ import Protected from "../Components/Protected/Protected";
 import RoleProtected from "../Components/RoleProtected/RoleProtected";
 import SearchedProduct from "../Components/SearchedProduct/SearchedProduct";
 import Checkout from "../Components/Checkout/Checkout";
-import './Page.scss'
+import "./Page.scss";
 function Page() {
   return (
     <>
@@ -46,7 +46,10 @@ function Page() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/cart" element={<Protected Component={Cart} />} />
         <Route path="/checkout" element={<Protected Component={Checkout} />} />
-        <Route path="/purchased" element={<Protected Component={Purchased} />} />
+        <Route
+          path="/purchased"
+          element={<Protected Component={Purchased} />}
+        />
         <Route path="*" element={<Notfound />} />
       </Routes>
     </>

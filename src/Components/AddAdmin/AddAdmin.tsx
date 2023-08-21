@@ -1,9 +1,19 @@
 import React from "react";
 import "./AddAdmin.scss";
-import { Button,  DatePicker, Form, Input, Radio } from "antd";
+import { Button, DatePicker, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { addAdmin } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
+
+export interface AddAdmin{
+  "username": string,
+  "password": string,
+  "email": string,
+  "dob": string,
+  "gender": number,
+  "address": "string",
+ 
+}
 
 function AddAdmin() {
   const dispatch = useDispatch();
@@ -15,27 +25,26 @@ function AddAdmin() {
     { required: true, message: " email required" },
     { type: "email", message: " enter  valid email" },
   ];
-  const passwordValidate = [
+  const passwordValidate: any = [
     { required: true, message: "password required" },
-    { min: 8, message: "minimum 8 characters" },
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
+      message: "create strong password",
+    },
   ];
   const combine = [{ required: true, message: "Please  fill required field" }];
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: AddAdmin) => {
     dispatch(addAdmin(values));
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <div className="addAdmin-wrapper">
       <Form
         name="basic"
         layout="vertical"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -44,7 +53,12 @@ function AddAdmin() {
         size="large"
       >
         <h1>AddAdmin</h1>
-        <Form.Item label="Username" name="username" rules={nameValidate} className="item">
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={nameValidate}
+          className="item"
+        >
           <Input />
         </Form.Item>
         <Form.Item label="Email" name="email" rules={emailValidate}>
@@ -70,7 +84,7 @@ function AddAdmin() {
         <Form.Item label="Address" name="address" rules={combine}>
           <TextArea rows={2} />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>

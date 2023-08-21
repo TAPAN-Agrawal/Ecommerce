@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/editor/icons", {data:[{},{}],fetch:{},mutations:[]});

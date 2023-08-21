@@ -8,15 +8,16 @@ import { getProductsInCart } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
+import img from "../../Assets/Images/emptycart-removebg-preview.png";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cart = cartItem.map((item: any) => (
+  const cart = cartItem.map((item: any, key: any) => (
     <CartCard
+      key={item.id}
       id={item.id}
       img={item.product_img}
       description={item.description}
@@ -27,7 +28,7 @@ function Cart() {
     />
   ));
 
-  const price = cartItem.map((item: any) => {
+  const price = cartItem.map((item: any, key: any) => {
     return {
       item: item.product_name,
       price: item.price * item.quantity,
@@ -38,27 +39,31 @@ function Cart() {
     navigate("/checkout", {
       state: {
         p: price,
-        isCalledFromCart: true
+        isCalledFromCart: true,
       },
     });
   };
 
+  const backHandler = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     let role = localStorage.getItem("role");
-    if(role !== '2'){
-      navigate('/login');
-      toast.error('you are not authorized only for uers!')
-      return
+    if (role !== "2") {
+      navigate("/login");
+     
+      return;
     }
 
-      dispatch(getProductsInCart());
-   
+    dispatch(getProductsInCart());
   }, []);
   return (
     <div className="parent-cart">
-      {/* <BreadCrumComp name='cart'/> */}
       <div className="Back-Front-btn">
-      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
+        <Button type="text" onClick={backHandler}>
+          Back
+        </Button>
       </div>
       {cartItem.length !== 0 ? (
         <div className="cart-wrapper">
@@ -72,7 +77,11 @@ function Cart() {
             </div>
           </div>
         </div>
-      ):<div className="no-item">No items in cart..</div>}
+      ) : (
+        <div className="no-item">
+          <img src={img} alt="emptycart" />
+        </div>
+      )}
     </div>
   );
 }

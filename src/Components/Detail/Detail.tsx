@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Detail.scss";
 import { Button, Divider, Spin } from "antd";
-import {
-  RocketOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
-
+import { RocketOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,8 +14,11 @@ import {
 import Offer from "../Offer/Offer";
 import Other from "../Other/Other";
 import { toast } from "react-toastify";
-import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 
+export interface addToCartInterface {
+  id: number;
+  quantity: number;
+}
 
 function Detail() {
   const navigate = useNavigate();
@@ -30,8 +29,6 @@ function Detail() {
   );
 
   const [detailProduct, setDetailProduct] = useState<any>([]);
-
-
 
   const [count, setCount] = useState<number>(0);
 
@@ -48,13 +45,12 @@ function Detail() {
     setCount(temp);
   };
 
-  const handleChange = (value: any) => {
-  };
+  const handleChange = (value: any) => {};
 
   const cartHandler = () => {
     let token = localStorage.getItem("token");
 
-    let data = {
+    let data: addToCartInterface = {
       id: location.state.id,
       quantity: count,
     };
@@ -63,20 +59,18 @@ function Detail() {
       dispatch(purchaseRemover());
     } else {
       navigate("/login");
-      toast.error("please login to add product in cart");
     }
   };
   const BuyHandler = () => {
     if (count === 0) {
-      toast.error("Please add quantity");
+  
     } else {
       let role = localStorage.getItem("role");
       if (role !== "2") {
-        toast.error("you are not authorized only for uers!");
         return;
       }
       dispatch(purchaseRemover());
-      let data = {
+      let data: addToCartInterface = {
         id: location.state.id,
         quantity: count,
       };
@@ -91,26 +85,28 @@ function Detail() {
         state: {
           p: price,
           id: location.state.id,
-          isCalledFromCart:false
+          isCalledFromCart: false,
         },
       });
     }
   };
-
-
+  const backHandler = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     dispatch(cleanSingleProduct());
 
     dispatch(getSingleProduct(location.state.id));
     setDetailProduct(singleProduct);
   }, []);
-  
+
   return (
     <div className="parent-detail">
-      {/* <BreadCrumComp name='detail'/> */}
       <div className="Back-Front-btn">
-      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
-     
+        <Button type="text" onClick={backHandler}>
+          {" "}
+          Back
+        </Button>
       </div>
       {singleProduct.id ? (
         <div className="parentd">
@@ -118,31 +114,28 @@ function Detail() {
             <div className="detail-wrapper">
               <div className="detail-product-image">
                 <img
-                  src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                  src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}
                   alt=""
                   height={400}
                   // className="detail-image"
                 />
                 <div className="small-img">
                   <img
-                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}
                     alt=""
                     height={50}
                     className="detail-image"
-
                   />
                   <img
-                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}
                     alt=""
                     className="detail-image"
                     height={50}
-
                   />
                   <img
-                    src={`http://192.168.1.69:8000/${singleProduct.product_img}`}
+                    src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}
                     alt=""
                     height={50}
-                    
                     className="detail-image"
                   />
                 </div>

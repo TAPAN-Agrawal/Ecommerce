@@ -26,8 +26,8 @@
       justify-content: center;
       align-items: center;
       .company-logo{
-        color: blue;
-        font-family: $font-family;
+        color:$blue-color;
+        font-family: cursive;
         font-size: 20px;
         margin-left: 6rem;
       }
@@ -81,7 +81,7 @@
         margin: 0.3rem;
 
         .item-link {
-          color: blue;
+          color: $blue-color;
 
           text-decoration: none;
           margin-left: 0.4rem;
@@ -90,7 +90,7 @@
         }
 
         .nav-nav-item-logo {
-          color: blue;
+          color: $blue-color;
         }
 
         .badge {

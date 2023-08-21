@@ -1,5 +1,5 @@
 import React from "react";
-import {  Card, Rate } from "antd";
+import { Rate } from "antd";
 import "./ProductCard.scss";
 
 function ProductCard(Props: any) {
@@ -17,7 +17,7 @@ function ProductCard(Props: any) {
           <h3>{Props.title}</h3>
           <h4>$ {Props.price}</h4>
         </div>
-        <div className="description">{Props.description.slice(0,60)}</div>
+        <div className="description">{Props.description.slice(0, 60)}</div>
         <div>
           <Rate allowHalf defaultValue={2.5} />
         </div>

@@ -11,6 +11,7 @@ import {
 } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface DataType {
   key: string;
@@ -23,17 +24,40 @@ interface DataType {
 function ProductTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const totalCount = useSelector((state: any) => state.ecommerce.totalCount)
+  const totalCount = useSelector((state: any) => state.ecommerce.totalCount);
 
   const datas = useSelector((state: any) => state.ecommerce.products);
   const [page, setPage] = useState<number>(1);
 
   const addHandler = () => {
-    navigate("/adminpanel/addproduct");
+    let role = localStorage.getItem("role");
+    if (role !== "0") {
+    } else {
+      navigate("/adminpanel/addproduct");
+    }
   };
 
   const deleteHandler = (id: number) => {
     dispatch(deleteProduct(id));
+     
+  if (datas.length === 1 && page > 1) {
+ 
+    setPage(page - 1);
+  }
+  const pageCalculator = Math.ceil(totalCount / 8) * 10;
+
+  };
+
+  const updateHandler = (record: any) => {
+    let role = localStorage.getItem("role");
+    if (role !== "0") {
+    } else {
+      navigate("/adminpanel/updateproduct", {
+        state: {
+          id: record.id,  
+        },
+      });
+    }
   };
   const pageHandler = (e: number) => {
     setPage(e);
@@ -51,7 +75,7 @@ function ProductTable() {
       key: "coverPhoto",
       render: (coverPhoto: string) => (
         <img
-          src={`http://192.168.1.69:8000/${coverPhoto}`}
+          src={`${process.env.REACT_APP_BASEURL}/${coverPhoto}`}
           alt="Cover"
           style={{ width: 50, height: 50 }}
         />
@@ -74,14 +98,8 @@ function ProductTable() {
       render: (record) => (
         <div>
           <Button
-          style={{backgroundColor:"#279EFF",margin:"1rem"}}
-            onClick={() => {
-              navigate("/adminpanel/updateproduct", {
-                state: {
-                  id: record.id,
-                },
-              });
-            }}
+            style={{ backgroundColor: "#279EFF", margin: "1rem" }}
+            onClick={() => updateHandler(record)}
           >
             Update
           </Button>
@@ -99,7 +117,8 @@ function ProductTable() {
     },
   ];
 
-  const pageCalculator =  Math.ceil(totalCount/8)*10
+  const pageCalculator = Math.ceil(totalCount / 8) * 10;
+
   useEffect(() => {
     dispatch(cleanAllProduct());
   }, []);
@@ -112,7 +131,12 @@ function ProductTable() {
         <div className="ProductTable-wrapper">
           <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
           <Table columns={columns} dataSource={datas} pagination={false} />
-          <Pagination defaultCurrent={1} total={pageCalculator} onChange={pageHandler} />
+          <Pagination
+          current={page}
+            defaultCurrent={1}
+            total={pageCalculator}
+            onChange={pageHandler}
+          />
         </div>
       ) : (
         <Spin tip="loading..." size="large">

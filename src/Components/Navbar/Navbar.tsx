@@ -1,16 +1,13 @@
-import React, { useEffect, useState} from "react";
-import {  Button, Input, Popconfirm } from "antd";
+import React, { useEffect } from "react";
+import { Button, Input, Popconfirm } from "antd";
 import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  loginSetter,
-  logoutSetter,
-} from "../../Redux/Action/Action";
+import { loginSetter, logoutSetter } from "../../Redux/Action/Action";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import logo from '../../Assets/Images/logo-no-background.png'
+import logo from "../../Assets/Images/logo-no-background.png";
 
 const { Search } = Input;
 function Navbar() {
@@ -26,9 +23,9 @@ function Navbar() {
     navigate("/home");
     dispatch(logoutSetter());
   };
-  const logoHandler=()=>{
-    navigate('/')
-  }
+  const logoHandler = () => {
+    navigate("/");
+  };
 
   const handleSearch = (value: any) => {
     navigate("/search", {
@@ -36,7 +33,6 @@ function Navbar() {
         searchKey: value,
       },
     });
-
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,12 +45,8 @@ function Navbar() {
     <div className="nav-wrapper">
       <div className="nav-main-container">
         <div className="nav-logo" onClick={logoHandler}>
-          <div className="company-logo">Velvate Aura</div>
-          {/* <img
-            src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/flipkart-095e08.svg"
-            alt="company-logo"
-            className="nav-img"
-          /> */}
+          <div className="company-logo">Creole Ventures</div>
+
           <p>
             Explore{" "}
             <span>

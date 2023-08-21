@@ -7,6 +7,25 @@
 }
 .search-wrapper{
     @include display;
+    flex-direction: column;
+    .Back-Front-btn {
+        @include display;
+        justify-content: space-between;
+        width: 90%;
+        // border: 2px solid black;
+        margin-left: auto;
+        margin-right: auto;
+        Button{
+            border: 2px solid$blue-color;
+            color:$blue-color;
+            margin-top: 1rem;
+        }
+        Button:hover{
+            border: 2px solid $blue-color;
+            color:$blue-color !important;
+           background: transparent!important;
+        }
+    }
    .no-item{
     margin-top: 20%;
    }

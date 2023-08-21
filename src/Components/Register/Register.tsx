@@ -22,8 +22,6 @@ function Register() {
   const dispatch = useDispatch();
   const registers = useSelector((state: any) => state.ecommerce.register);
 
- 
-
   const nameValidate = [
     { required: true, message: "Please input your username!" },
     { min: 2, message: "must be at least 3 characters" },
@@ -36,30 +34,31 @@ function Register() {
 
   const passwordValidate = [
     { required: true, message: "Please input your password!" },
-    { min: 8, message: "minimum length is 8 characters" },
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
+      message: "create strong password",
+    },
   ];
 
-  const confirmPassword :any= [
+  const confirmPassword: any = [
     { required: true, message: "Please enter confirmation password" },
-    ({ getFieldValue }:any) => ({
-      validator( _:any,value:any) {
+    ({ getFieldValue }: any) => ({
+      validator(_: any, value: any) {
         if (!value || getFieldValue("password") === value) {
           return Promise.resolve();
         }
-        return Promise.reject(new Error('password not match!'));
+        return Promise.reject(new Error("password not match!"));
       },
     }),
   ];
 
   const combine = [{ required: true, message: "Please  fill required field" }];
 
-
   const onFinish = (values: RegisterInterface) => {
     dispatch(register(values));
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-  };
+  const onFinishFailed = (errorInfo: any) => {};
   useEffect(() => {
     if (registers) {
       navigate("/login");
@@ -67,15 +66,13 @@ function Register() {
   }, [registers]);
   return (
     <div className="register-wrapper">
+      <h1>Register</h1>
       <div className="register-form-wrapper">
         <img src={img} alt="" />
         <div className="register-form">
           <Form
             name="basic"
             layout="vertical"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            // style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -119,9 +116,9 @@ function Register() {
             <Form.Item label="Address" name="address" rules={combine}>
               <TextArea rows={4} />
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item>
               <Button type="primary" htmlType="submit">
-                Submit
+                Register
               </Button>
             </Form.Item>
           </Form>

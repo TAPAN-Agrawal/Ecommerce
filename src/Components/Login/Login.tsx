@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Login.scss";
-import { Button, Checkbox, Divider, Form, Input } from "antd";
+import { Button, Divider, Form, Input } from "antd";
 
 import img from "../../Assets/Images/login.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -13,7 +13,6 @@ import {
 import { useDispatch } from "react-redux";
 import { googlelogin, login } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
 
 export interface LoginInterface {
@@ -24,7 +23,6 @@ export interface LoginInterface {
 function Login() {
   const IsLogin = useSelector((state: any) => state.ecommerce.login);
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const [flag, setFlag] = useState<any>(false);
 
@@ -40,8 +38,7 @@ function Login() {
     setFlag(true);
     dispatch(login(values));
   };
-  const onFinishFailed = (errorInfo: any) => {
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   const googleHandler = () => {
     window.location.href = `${process.env.REACT_APP_BASEURL}/auth/google`;
@@ -66,8 +63,7 @@ function Login() {
         }
       } else {
       }
-    } catch (error: any) {
-    }
+    } catch (error: any) {}
   };
 
   // useEffect(() => {
@@ -99,6 +95,7 @@ function Login() {
 
   return (
     <div className="login-wrapper">
+      <h1>Login</h1>
       <div className="login-box">
         <div className="image-section">
           <img src={img} alt="" />
@@ -107,9 +104,6 @@ function Login() {
           <Form
             name="basic"
             layout="vertical"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -131,7 +125,7 @@ function Login() {
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button type="primary" htmlType="submit" size="large">
-               Login
+                Login
               </Button>
             </Form.Item>
             <Divider>or login with</Divider>

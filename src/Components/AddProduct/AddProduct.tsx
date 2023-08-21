@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import "./AddProduct.scss";
-import {
-  Button,
- 
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-
-} from "antd";
+import { Button, Form, Input, InputNumber, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { addProduct, } from "../../Redux/Action/Action";
+import { addProduct } from "../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export interface AddProductInterface {
   id?: number;
@@ -29,6 +21,7 @@ function AddProduct() {
   const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState<any>(null);
+
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: AddProductInterface) => {
@@ -38,12 +31,11 @@ function AddProduct() {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-    // toast.warning("errorInfo")
+    // console.log("Failed:", errorInfo);
   };
   const handleFileChange = (event: any) => {
-    const file = event.target.files[0]; 
-    setSelectedFile(file); 
+    const file = event.target.files[0];
+    setSelectedFile(file);
   };
 
   return (
@@ -51,9 +43,6 @@ function AddProduct() {
       <Form
         name="basic"
         layout="vertical"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -112,9 +101,9 @@ function AddProduct() {
         >
           <input type="file" onChange={handleFileChange} />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="item">
+        <Form.Item className="item">
           <Button type="primary" htmlType="submit">
-            Submit
+            Add
           </Button>
         </Form.Item>
       </Form>

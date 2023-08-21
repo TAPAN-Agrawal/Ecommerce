@@ -5,7 +5,14 @@ import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
 import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
-import { CheckoutInterface } from "../../Components/Checkout/Checkout";
+import {
+  CheckoutInterface,
+  buyNowInterface,
+  completePurchaseInterface,
+} from "../../Components/Checkout/Checkout";
+import { AddAdmin } from "../../Components/AddAdmin/AddAdmin";
+import { addToCartInterface } from "../../Components/Detail/Detail";
+import { updateQuantityCartInterface } from "../../Components/CartCard/CartCard";
 
 interface RegisterActionInterface {
   type: string;
@@ -46,6 +53,30 @@ interface ActionCheckoutInterface {
   payload: CheckoutInterface;
 }
 
+interface ActionAddAdminInterface {
+  type: string;
+  payload: AddAdmin;
+}
+interface ActionAddToCartInterface {
+  type: string;
+  payload: addToCartInterface;
+}
+
+interface ActionupdateQuantityCartInterface {
+  type: string;
+  payload: updateQuantityCartInterface;
+}
+
+interface ActionCompletePurchaseInterface {
+  type: string;
+  payload: completePurchaseInterface;
+}
+
+interface ActionBuyNowInterface {
+  type: string;
+  payload: buyNowInterface;
+}
+
 export function* register(action: RegisterActionInterface) {
   const { username, password, email, dob, gender, address } = action.payload;
 
@@ -65,7 +96,7 @@ export function* register(action: RegisterActionInterface) {
     );
 
     if (response) {
-      toast.success("user registered successfully");
+     
       yield put({ type: "REGISTER_REDUCER" });
     } else {
     }
@@ -82,7 +113,7 @@ export function* login(action: LoginActionInterface) {
       temp
     );
     if (response) {
-      toast.success(response.data.message);
+     
       localStorage.setItem("token", response.data.data.tokenResponse.token);
       yield put({ type: "LOGIN_REDUCER" });
     }
@@ -105,8 +136,6 @@ export function* getAllProducts(action: ActionProductInterface) {
     const response: AxiosResponse<any> = yield call(() => {
       if (category !== null) {
         if (sort !== null) {
-          console.log("data");
-
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
           );
@@ -165,11 +194,9 @@ export function* addProduct(action: ActionAddProductInterface) {
       "/products/add_product",
       formData
     );
-    if (response) {
-      toast.success("product added successfully");
-    }
+   
   } catch (error) {
-    toast.error("product not added successfully");
+   
   }
 }
 export function* updateProducts(action: ActionAddProductInterface) {
@@ -190,11 +217,11 @@ export function* updateProducts(action: ActionAddProductInterface) {
       formData
     );
     if (response) {
-      toast.success("product update successfully");
+     
       yield put({ type: "UPDATE_PRODUCT_REDUCER", payload: response.data });
     }
   } catch (error) {
-    toast.error("product not update");
+    
   }
 }
 
@@ -220,10 +247,9 @@ export function* searchProduct(action: any) {
       `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
     );
     if (response.status === 200) {
-      console.log("search saga", response.data.data);
       yield put({
         type: "SEARCH_PRODUCT_REDUCER",
-        payload: response.data.data,
+        payload: response.data,
       });
     } else {
     }
@@ -232,7 +258,7 @@ export function* searchProduct(action: any) {
   }
 }
 
-export function* addAdmin(action: any) {
+export function* addAdmin(action: ActionAddAdminInterface) {
   const temp = action.payload;
   try {
     const response: AxiosResponse<any> = yield call(
@@ -240,9 +266,7 @@ export function* addAdmin(action: any) {
       `/auth/add_admin`,
       temp
     );
-    if (response) {
-      toast.success("admin added successfully");
-    }
+   
   } catch (error) {}
 }
 
@@ -263,7 +287,7 @@ export function* getAllUsers(action: UserActionInterface) {
   } catch (error) {}
 }
 
-export function* addToCart(action: any) {
+export function* addToCart(action: ActionAddToCartInterface) {
   const id = action.payload.id;
   const quantity = action.payload.quantity;
   let temp = {
@@ -276,9 +300,7 @@ export function* addToCart(action: any) {
       `/products/add_to_cart/${id}`,
       temp
     );
-    if (response) {
-      toast.success("Item added to cart");
-    }
+   
   } catch (error) {}
 }
 
@@ -289,7 +311,7 @@ export function* getProductsInCarts() {
       `/products/carts`
     );
     if (response) {
-      toast.success("cart items fetched");
+     
       yield put({
         type: "SET_PRODUCTS_CART_REDUCER",
         payload: response.data.data,
@@ -306,7 +328,7 @@ export function* deleteUser(action: ActionNumberInterface) {
       `/auth/remove_user/${id}`
     );
     if (response) {
-      toast.success("removed user");
+     
       yield put({ type: "DELETE_USER_REDUCER", payload: id });
     }
   } catch (error) {}
@@ -320,13 +342,13 @@ export function* deleteCartItem(action: ActionNumberInterface) {
       `/products/remove_from_cart/${id}`
     );
     if (response) {
-      toast.success("item removed from cart");
+     
       yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
     }
   } catch (error) {}
 }
 
-export function* updateQuantityCart(action: any) {
+export function* updateQuantityCart(action: ActionupdateQuantityCartInterface) {
   let id = action.payload.id;
   let temp = {
     quantity: action.payload.count,
@@ -348,19 +370,17 @@ export function* updateQuantityCart(action: any) {
   } catch (error) {}
 }
 
-export function* completePurchase(action: any) {
+export function* completePurchase(action: ActionCompletePurchaseInterface) {
   try {
     let temp = action.payload.values;
     let $isCalledFromCart = action.payload.isCalledFromCart;
-    // console.log(isCalledFromCart);
 
     let url = `/products/shipping_details`;
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
       url,
-      {...temp,$isCalledFromCart},
-      
+      { ...temp, $isCalledFromCart }
     );
 
     if (response) {
@@ -368,21 +388,20 @@ export function* completePurchase(action: any) {
     }
   } catch (error) {}
 }
-export function* buyNow(action:any){
-  try{
-    console.log("buyNow")
-    let id=action.payload.id;
-    let quantity=action.payload.quantity;
+export function* buyNow(action: ActionBuyNowInterface) {
+  try {
+    let id = action.payload.id;
+    let quantity = action.payload.quantity;
+    let temp = {
+      quantity: quantity,
+    };
+
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
-      `/products/buy_now/${id}` ,
-      quantity     
+      `/products/buy_now/${id}`,
+      temp
     );
-    if(response){
-      console.log('success', response)
-    }
-  }
-  catch(error) {}
+  } catch (error: any) {}
 }
 
 export function* watcher() {
@@ -420,5 +439,5 @@ export function* watcher() {
 
   yield takeLatest("COMPLETE_PURCHASE", completePurchase);
 
-  yield takeLatest('BUY_NOW',buyNow);
+  yield takeLatest("BUY_NOW", buyNow);
 }

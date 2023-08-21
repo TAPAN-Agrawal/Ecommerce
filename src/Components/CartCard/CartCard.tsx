@@ -6,10 +6,13 @@ import { useDispatch } from "react-redux";
 import { deleteCartItems, updateQuantityCart } from "../../Redux/Action/Action";
 import { toast } from "react-toastify";
 
+export interface updateQuantityCartInterface {
+  id: number;
+  count: number;
+}
+
 function CartCard(Props: any) {
   const dispatch = useDispatch();
-  const desc = ["terrible", "bad", "normal", "good", "wonderful"];
-  const [value, setValue] = useState(3);
   const [count, setCount] = useState<number>(Props.quantity || 0);
   const [totalconst, settotalConst] = useState(Props.totalQuantity);
 
@@ -19,8 +22,13 @@ function CartCard(Props: any) {
     if (totalconst - 1 >= 1) {
       setCount(temp);
       settotalConst((prev: any) => prev - 1);
+      let inc: updateQuantityCartInterface = {
+        id: Props.id,
+        count: temp,
+      };
+      dispatch(updateQuantityCart(inc));
     } else {
-      toast.error("Oops!, not enough quantity");
+     
     }
   };
 
@@ -30,24 +38,20 @@ function CartCard(Props: any) {
     if (temp >= 1) {
       setCount(temp);
       settotalConst((prev: any) => prev + 1);
+      let dec: updateQuantityCartInterface = {
+        id: Props.id,
+        count: temp,
+      };
+      dispatch(updateQuantityCart(dec));
     } else {
       dispatch(deleteCartItems(Props.id));
     }
   };
 
-  const handleChange = (value: any) => {};
   const confirm = (id: any) => {
     dispatch(deleteCartItems(id));
   };
   const cancel = (e: React.MouseEvent<HTMLElement>) => {};
-
-  useEffect(() => {
-    let temp = {
-      id: Props.id,
-      count: count,
-    };
-    dispatch(updateQuantityCart(temp));
-  }, [count]);
 
   return (
     <div className="CartCard-wrapper">
@@ -57,7 +61,7 @@ function CartCard(Props: any) {
             src={`${process.env.REACT_APP_BASEURL}/${Props.img}`}
             alt=""
             className="CartCard-img"
-            height='100'
+            height="100"
           />
         </div>
         <div className="CartCart-right">

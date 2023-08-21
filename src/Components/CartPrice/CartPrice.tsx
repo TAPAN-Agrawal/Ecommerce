@@ -1,10 +1,12 @@
 import React from "react";
 import "./CartPrice.scss";
-import {  Card, Divider } from "antd";
+import { Card, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 
 function CartPrice({ priceList }: any) {
-  const priceListMap = priceList.map((item: any) => (
+  const navigate = useNavigate();
+
+  const priceListMap = priceList.map((item: any, key: any) => (
     <div className="item">
       <div>
         {item.item} x({item.quantity})
@@ -12,13 +14,13 @@ function CartPrice({ priceList }: any) {
       <div>{item.price}$</div>
     </div>
   ));
+
   var t = 0;
-  const totalAmount = priceList.map((x: any) => {
+  const totalAmount = priceList.map((x: any, key: any) => {
     t += Number(x.price);
     return t;
   });
 
-  const navigate = useNavigate();
   const purchased = () => {
     navigate("/checkout");
   };

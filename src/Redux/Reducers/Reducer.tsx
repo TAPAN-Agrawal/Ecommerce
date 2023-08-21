@@ -46,22 +46,20 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         products: [...state.products, action.payload.data.savedProduct],
       };
-      case "UPDATE_PRODUCT_REDUCER":
-        const id = action.payload.data.updatedProduct.id;
-        console.log('id',id)
-        const updatedProductList = state.products.map((product: any) => {
-          if (id === product.id) {
-            return action.payload.data.updatedProduct;
-          }
-          return product; 
-        });
-        console.log(updatedProductList);
-        
-        return {
-          ...state,
-          products: updatedProductList, 
-        };
+    case "UPDATE_PRODUCT_REDUCER":
+      const id = action.payload.data.updatedProduct.id;
+      const updatedProductList = state.products.map((product: any) => {
+        if (id === product.id) {
+          return action.payload.data.updatedProduct;
+        }
+        return product;
+      });
       
+
+      return {
+        ...state,
+        products: updatedProductList,
+      };
 
     case "DELETE_PRODUCT_REDUCER":
       const updatedProducts = state.products.filter((record: any) => {
@@ -85,7 +83,8 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "SEARCH_PRODUCT_REDUCER":
       return {
         ...state,
-        searchResults: action.payload,
+        searchResults: action.payload.data,
+        totalCount: action.payload.totalCount,
       };
     case "CLEAR_SEARCH_PRODUCT_REDUCER":
       return {
@@ -138,6 +137,8 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "UPDATE_QUANTITY_CART":
       let ids = action.payload.id;
       let qty = action.payload.quantity;
+     
+      
       let updatedCartItems = state.cartItems.map((item: any) => {
         if (item.id === ids) {
           return {

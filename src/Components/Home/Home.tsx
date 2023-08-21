@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Carousel, Pagination, Select, Spin } from "antd";
 import "./Home.scss";
-
 import ProductCard from "../ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllProducts, getSingleProduct } from "../../Redux/Action/Action";
-import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 import { RightOutlined } from "@ant-design/icons";
 
 function Home() {
- 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.ecommerce.products);
@@ -31,7 +28,6 @@ function Home() {
     });
   };
   const menHandler = () => {
-    
     setPage(1);
     setSelectedButton(0);
     const menProducts = products.filter(
@@ -40,7 +36,6 @@ function Home() {
     setCategory(menProducts);
   };
   const womenHandler = () => {
-
     setPage(1);
 
     setSelectedButton(1);
@@ -50,7 +45,6 @@ function Home() {
     setCategory(womenProducts);
   };
   const allHandler = () => {
-
     setPage(1);
 
     setSelectedButton(null);
@@ -91,12 +85,9 @@ function Home() {
     setCategory(data);
   }, [data]);
   return (
-    <>
+    <div className="home-parent">
       {products ? (
         <div className="home-wrapper">
-          {/* <BreadCrumComp name=''/> */}
-     
-
           <div className="home-slider">
             <Carousel autoplay>
               <div>
@@ -170,16 +161,18 @@ function Home() {
             </div>
           </div>
           <Pagination
-          current={page}
+            current={page}
             defaultCurrent={1}
             total={pageCalculator}
             onChange={pageHandler}
           />
         </div>
       ) : (
-        <Spin size="large" />
+        <div className="loader">
+          <Spin size="large" />
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

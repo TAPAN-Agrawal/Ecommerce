@@ -1,14 +1,12 @@
-import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Form, Input } from "antd";
+import React, { useEffect } from "react";
 import "./Checkout.scss";
 import CartPrice from "../CartPrice/CartPrice";
-import * as yup from "yup";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { buyNow, completePurchase } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import BreadCrumComp from "../BreadCrumComponent/BreadCrumComp";
 
 export interface CheckoutInterface {
   address_line1: string;
@@ -22,11 +20,19 @@ export interface CheckoutInterface {
   zip_code: string;
 }
 
+export interface completePurchaseInterface{
+  id:number,
+  values:CheckoutInterface,
+  isCalledFromCart:string|boolean
+}
+export interface buyNowInterface{id:number,quantity:number}
+
 function Checkout() {
   const navigate = useNavigate();
-  const purchased = useSelector((state:any)=>state.ecommerce.purchased)
+  const purchased = useSelector((state: any) => state.ecommerce.purchased);
   const dispatch = useDispatch();
   const { state } = useLocation();
+
   const required = [{ required: true, message: " required field" }];
 
   const email: any = [
@@ -34,43 +40,40 @@ function Checkout() {
     { type: "email", message: "enter valid email" },
   ];
 
-  const onFinish = (values:any) => {
-   let temp = {
-    id: state.id,
-    values: values,
-    isCalledFromCart: state.isCalledFromCart
-   }
+  const onFinish = (values: CheckoutInterface) => {
+    let temp:completePurchaseInterface = {
+      id: state.id,
+      values: values,
+      isCalledFromCart: state.isCalledFromCart,
+    };
     dispatch(completePurchase(temp));
-
-   
   };
-  
- 
-  useEffect(()=>{
-   
-    if(purchased === true){
+  const backHandler = () => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    if (purchased === true) {
       navigate("/purchased");
-    }
+      if (state.isCalledFromCart === false) {
+        let temp :buyNowInterface= {
+          id: state.id,
+          quantity: state.p[0].quantity,
+        };
 
-    if(state.isCalledFromCart === false){
-      console.log("Called from")
-      let temp={
-        id:state.id,
-        quantity:state.p.quatity
+
+        dispatch(buyNow(temp));
       }
-      dispatch(buyNow(temp));
     }
-
-
-
-  },[purchased])
+  }, [purchased]);
 
   return (
     <div className="checkout-main">
-      {/* <BreadCrumComp name='checkout'/> */}
-      {/* <h1>checkout</h1> */}
       <div className="Back-Front-btn">
-      <Button type="text" onClick={()=>navigate(-1)}>{'<'} Back</Button>
+        <Button type="text" onClick={backHandler}>
+          {" "}
+          Back
+        </Button>
       </div>
       <div className="checkout-wrapper">
         <Form className="form" layout="vertical" onFinish={onFinish}>

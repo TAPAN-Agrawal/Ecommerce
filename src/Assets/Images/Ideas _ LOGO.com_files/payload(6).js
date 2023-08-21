@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/editor/colors", {data:[{},{}],fetch:{},mutations:[]});

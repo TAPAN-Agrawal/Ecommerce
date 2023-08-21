@@ -4,24 +4,30 @@
 @mixin display {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .register-wrapper {
     @include display;
+    flex-direction: column;
     height: 100vh;
     width: 100vw;
     background-image: url('https://img.freepik.com/free-photo/gray-abstract-wireframe-technology-background_53876-101941.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.1.1517963016.1688116260&semt=sph');
-    // border: 2px solid green;
     border-radius: 10px;
 
     background-repeat: no-repeat;
     background-size: cover;
+    h1{
+        color: $blue-color;
+        font-family: $font-family;
+        font-weight: 100;
+        font-size: 35px;
+        margin-bottom: 0.5rem;
+
+    }
 
     .register-form-wrapper {
-        // background: transparent;
-    // border: 2px solid green;
-    // border: 2px solid green;
+     
 
         @include display;
         padding-top: 15px;
@@ -30,18 +36,19 @@
         box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 
         img {
-            height: 100%;
+            // height: 100%;
             width: 50%;
         }
 
         .register-form {
+            // border: 2px solid black;
+            width: 60%;
             height: 100%;
-            // width: 50%;
         background: transparent;
         backdrop-filter: blur(7px);
 
             .ant-form-item-control-input{
-                width: 230px;
+                width: 370px;
                 .ant-input{
                     
                     background: transparent;
@@ -50,6 +57,9 @@
                     background: transparent;
 
                 }
+            }
+            Button{
+                width: 100%;
             }
             // border: 2px solid purple;
         }

@@ -15,7 +15,9 @@ function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cart = cartItem.map((item: any, key: any) => (
+  const cartItems = cartItem.map((item: any, key: any) => (
+   
+    
     <CartCard
       key={item.id}
       id={item.id}
@@ -52,10 +54,9 @@ function Cart() {
     let role = localStorage.getItem("role");
     if (role !== "2") {
       navigate("/login");
-     
+      toast.error("You are not authorized");
       return;
     }
-
     dispatch(getProductsInCart());
   }, []);
   return (
@@ -69,7 +70,7 @@ function Cart() {
         <div className="cart-wrapper">
           <div className="cart-wrapper-child">
             <div className="left-child">
-              <Card title="Cart Items">{cart}</Card>
+              <Card title="Cart Items">{cartItems}</Card>
             </div>
             <div className="right-child">
               <CartPrice priceList={price} />

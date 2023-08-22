@@ -6,8 +6,9 @@ const initialState: any = {
   cartItems: [],
   totalCount: "",
   login: false,
-  register: false,
   purchased: false,
+  profileDetails:'',
+ 
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
@@ -23,11 +24,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
         login: false,
         register: false,
       };
-    case "REGISTER_REDUCER":
-      return {
-        ...state,
-        register: true,
-      };
+   
 
     case "SET_ALL_PRODUCTS":
       return {
@@ -39,7 +36,10 @@ export const ecommerce = (state: any = initialState, action: any) => {
     case "SET_SINGLE_PRODUCTS":
       return {
         ...state,
-        singleProduct: action.payload,
+        singleProduct: {
+          ...action.payload.product,
+          quantityInCart: action.payload.quantityInCart
+        }
       };
     case "ADD_PRODUCT_REDUCER":
       return {
@@ -132,6 +132,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         cartItems: updatedCarts,
+        singleProduct:[]
       };
 
     case "UPDATE_QUANTITY_CART":
@@ -163,6 +164,12 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         purchased: false,
       };
+
+      case 'SET_PROFILE_DETAILS_REDUCER':
+        return{
+          ...state,
+          profileDetails:action.payload
+        }
 
     default:
       return state;

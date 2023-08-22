@@ -16,6 +16,7 @@ import RoleProtected from "../Components/RoleProtected/RoleProtected";
 import SearchedProduct from "../Components/SearchedProduct/SearchedProduct";
 import Checkout from "../Components/Checkout/Checkout";
 import "./Page.scss";
+import '../Global/Global.scss'
 function Page() {
   return (
     <>

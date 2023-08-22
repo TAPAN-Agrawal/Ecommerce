@@ -56,7 +56,7 @@ function Sidebar() {
     if (e.key === "addAdmin") {
       let role = localStorage.getItem("role");
       if (role === "1") {
-        toast.error("you have view only permission");
+        toast.error("You are not authorized");
       } else {
         navigate("/adminpanel/addAdmin");
       }

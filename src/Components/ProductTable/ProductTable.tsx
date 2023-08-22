@@ -32,6 +32,7 @@ function ProductTable() {
   const addHandler = () => {
     let role = localStorage.getItem("role");
     if (role !== "0") {
+      toast.error("You are not authorized");
     } else {
       navigate("/adminpanel/addproduct");
     }
@@ -51,6 +52,7 @@ function ProductTable() {
   const updateHandler = (record: any) => {
     let role = localStorage.getItem("role");
     if (role !== "0") {
+      toast.error("You are not authorized");
     } else {
       navigate("/adminpanel/updateproduct", {
         state: {

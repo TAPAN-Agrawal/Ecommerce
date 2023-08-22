@@ -5,6 +5,7 @@ import { CheckoutInterface, buyNowInterface, completePurchaseInterface } from ".
 import { AddAdmin } from "../../Components/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/CartCard/CartCard";
+import { Profile } from "../../Components/Navbar/Navbar";
 
 export const register = (data: RegisterInterface) => {
   return {
@@ -161,3 +162,16 @@ export const purchaseRemover = () => {
     type: "PURCHASE_REMOVER",
   };
 };
+
+export const getProfileDetails=()=>{
+  return{
+    type: "GET_PROFILE_details"
+  }
+}
+
+export const updateProfileDetails=(data:Profile)=>{
+  return{
+    type:'UPDATE_PROFILE_DETAILS',
+    payload:data
+  }
+}

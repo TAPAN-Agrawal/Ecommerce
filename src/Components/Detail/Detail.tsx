@@ -10,13 +10,14 @@ import {
   cleanSingleProduct,
   getSingleProduct,
   purchaseRemover,
+  updateQuantityCart,
 } from "../../Redux/Action/Action";
 import Offer from "../Offer/Offer";
 import Other from "../Other/Other";
 import { toast } from "react-toastify";
 
 export interface addToCartInterface {
-  id: number;
+  id: number | any;
   quantity: number;
 }
 
@@ -24,9 +25,7 @@ function Detail() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const singleProduct = useSelector(
-    (state: any) => state.ecommerce.singleProduct
-  );
+  const { singleProduct } = useSelector((state: any) => state.ecommerce);
 
   const [detailProduct, setDetailProduct] = useState<any>([]);
 
@@ -35,60 +34,73 @@ function Detail() {
   const increment = () => {
     let temp = count + 1;
     setCount(temp);
+    let details = {
+      id: singleProduct.id,
+      quantity: 1,
+    };
+    dispatch(addToCart(details));
   };
 
   const decrement = () => {
     let temp = count - 1;
     if (temp < 1) {
       temp = 0;
+      // setCount(temp);
+
     }
-    setCount(temp);
+    else{
+
+      setCount(temp);
+    }
+    let details = {
+      id: singleProduct.id,
+      quantity: -1,
+    };
+   if(temp !== 0){
+    dispatch(addToCart(details));
+   }
   };
 
   const handleChange = (value: any) => {};
 
   const cartHandler = () => {
     let token = localStorage.getItem("token");
-
-    let data: addToCartInterface = {
-      id: location.state.id,
-      quantity: count,
-    };
     if (token) {
-      dispatch(addToCart(data));
-      dispatch(purchaseRemover());
+      if (count === 0) {
+        setCount((prev) => prev + 1);
+
+        let data: addToCartInterface = {
+          id: location.state.id,
+          quantity: count === 0 ? 1 : count,
+        };
+
+        dispatch(addToCart(data));
+        dispatch(purchaseRemover());
+      }
     } else {
       navigate("/login");
+      toast.error("Please login to add product in cart");
     }
   };
   const BuyHandler = () => {
-    if (count === 0) {
-  
-    } else {
+ 
       let role = localStorage.getItem("role");
       if (role !== "2") {
+        toast.error("You are not authorized ");
         return;
       }
       dispatch(purchaseRemover());
+
+   
+
       let data: addToCartInterface = {
-        id: location.state.id,
-        quantity: count,
-      };
-      let price = [
-        {
-          item: singleProduct.product_name,
-          price: singleProduct.price * count,
-          quantity: count,
-        },
-      ];
-      navigate("/checkout", {
-        state: {
-          p: price,
           id: location.state.id,
-          isCalledFromCart: false,
-        },
-      });
-    }
+          quantity: 1 ,
+        };
+
+        dispatch(addToCart(data));
+      // navigate("/cart");
+    
   };
   const backHandler = () => {
     navigate(-1);
@@ -99,6 +111,14 @@ function Detail() {
     dispatch(getSingleProduct(location.state.id));
     setDetailProduct(singleProduct);
   }, []);
+
+  useEffect(() => {
+    if (singleProduct?.quantityInCart) {
+      setCount(singleProduct?.quantityInCart);
+    }
+  }, [singleProduct]);
+
+ 
 
   return (
     <div className="parent-detail">
@@ -161,11 +181,13 @@ function Detail() {
                 <p>{singleProduct.description}</p>
 
                 <h3>$ {singleProduct.price}</h3>
-                <div>
-                  <Button onClick={decrement}>-</Button>
-                  {count}
-                  <Button onClick={increment}>+</Button>
-                </div>
+                {count >= 1 && (
+                  <div>
+                    <Button onClick={decrement}>-</Button>
+                    {count}
+                    <Button onClick={increment}>+</Button>
+                  </div>
+                )}
                 <Divider />
                 <div className="offer-img">
                   <div className="img-wrapper">

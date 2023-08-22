@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 
 export interface CheckoutInterface {
   address_line1: string;
-  address_line2: string;
+  
   city: string;
   country: string;
   email: string;
   first_name: string;
   last_name: string;
-  zip_postal: string;
-  zip_code: string;
+ 
+  pin_code: string;
 }
 
 export interface completePurchaseInterface{
@@ -83,21 +83,14 @@ function Checkout() {
                 <h2>Personal Section</h2>
                 <div className="personal-section-child1">
                   <Form.Item
-                    name="first_name"
-                    label="First Name"
+                    name="name"
+                    label="Name"
                     rules={required}
                     className="item"
                   >
-                    <Input placeholder="First Name" />
+                    <Input placeholder=" Name" />
                   </Form.Item>
-                  <Form.Item
-                    name="last_name"
-                    label="Last Name"
-                    rules={required}
-                    className="item"
-                  >
-                    <Input placeholder="Last Name" />
-                  </Form.Item>
+                 
                 </div>
                 <div className="personal-section-child2">
                   <Form.Item
@@ -121,16 +114,7 @@ function Checkout() {
                   >
                     <Input placeholder="Address" />
                   </Form.Item>
-                  <Form.Item
-                    name="address_line2"
-                    label="Address Line:2"
-                    rules={required}
-                    className="item"
-                  >
-                    <Input placeholder="Address" />
-                  </Form.Item>
-                </div>
-                <div className="shipping-section-child2">
+                
                   <Form.Item
                     name="city"
                     label="City"
@@ -139,15 +123,10 @@ function Checkout() {
                   >
                     <Input placeholder="City" />
                   </Form.Item>
-                  <Form.Item
-                    name="zip_postal"
-                    label="Zip/Postal"
-                    rules={required}
-                    className="item"
-                  >
-                    <Input placeholder="Zip/Postal" />
-                  </Form.Item>
                 </div>
+               
+                 
+              
                 <div className="shipping-section-child3">
                   <Form.Item
                     name="country"
@@ -158,12 +137,12 @@ function Checkout() {
                     <Input placeholder="Country" />
                   </Form.Item>
                   <Form.Item
-                    name="zip_code"
-                    label="Zip Code"
+                    name="pin_code"
+                    label="Pin Code"
                     rules={required}
                     className="item"
                   >
-                    <Input placeholder="Zip Code" />
+                    <Input placeholder="Pin Code" />
                   </Form.Item>
                 </div>
               </div>

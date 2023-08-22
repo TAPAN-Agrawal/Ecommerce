@@ -44,7 +44,7 @@ function CartCard(Props: any) {
       };
       dispatch(updateQuantityCart(dec));
     } else {
-      dispatch(deleteCartItems(Props.id));
+      // dispatch(deleteCartItems(Props.id));
     }
   };
 
@@ -71,8 +71,16 @@ function CartCard(Props: any) {
 
           <div className="count-delete">
             <div>
-              <Button onClick={decrement}>-</Button>
-              {count}
+             {count < 2 ? <Popconfirm 
+              title="Delete this item"
+              description="Are you sure to delete this item from cart?"
+              onConfirm={() => confirm(Props.id)}
+              onCancel={() => cancel}
+              okText="Yes"
+              cancelText="No">
+             <Button onClick={decrement}>-</Button>
+             </Popconfirm>:<Button onClick={decrement}>-</Button>}
+              {Props.quantity}
               <Button onClick={increment}>+</Button>
             </div>
             <div className="delete">

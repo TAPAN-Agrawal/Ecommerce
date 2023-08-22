@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, DatePicker, Form, Input, Radio } from "antd";
 import "./Register.scss";
 import img from "../../Assets/Images/register.png";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { register } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export interface RegisterInterface {
   username: string;
@@ -55,15 +56,19 @@ function Register() {
   const combine = [{ required: true, message: "Please  fill required field" }];
 
   const onFinish = (values: RegisterInterface) => {
+   
+    
     dispatch(register(values));
+    
   };
 
-  const onFinishFailed = (errorInfo: any) => {};
-  useEffect(() => {
-    if (registers) {
-      navigate("/login");
-    }
-  }, [registers]);
+  const minDate = moment().subtract(18, 'years');
+  const disabledDate:any=(current:any)=>{
+    return current && current > minDate;
+  }
+
+
+
   return (
     <div className="register-wrapper">
       <h1>Register</h1>
@@ -75,7 +80,6 @@ function Register() {
             layout="vertical"
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
             className="addAdmin-Form"
           >
@@ -111,7 +115,10 @@ function Register() {
               </Radio.Group>
             </Form.Item>
             <Form.Item label="Birthday" name="dob" rules={combine}>
-              <DatePicker />
+              <DatePicker
+              format='YYYY-MM-DD'
+              disabledDate={disabledDate}
+               />
             </Form.Item>
             <Form.Item label="Address" name="address" rules={combine}>
               <TextArea rows={4} />

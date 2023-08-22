@@ -8,7 +8,7 @@ function Protected({ Component }: any) {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
-      toast.error("please login");
+      toast.error("Please login");
     }
   }, []);
   if (!localStorage.getItem("token")) {

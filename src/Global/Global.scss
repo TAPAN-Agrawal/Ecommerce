@@ -1,4 +1,8 @@
-
+@import './Variable.scss';
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
 
 // // colors
 // $primary-color:#40128B;
@@ -19,39 +23,34 @@
     align-items: center;
 }
 .ant-modal{
- 
+   @include display;
+            justify-content: flex-end;
     .ant-modal-content{
-        width: 1000px;
-        .ant-modal-header{}
+        // width: 1000px;
+        // font-family: $font-family;
+       height: 100%;
+        width: 100%;
+        .ant-modal-header{
+ height: 10%;
+        }
         .ant-modal-body{
-            @include display;
-            height: 500px;
-            width: 900px;
-            border: 2px solid navy;
-            .left{
-                @include display;
-                flex-direction: column;
-                justify-content: flex-start;
-                margin-top: 1rem;
-                height: 100%;
-                width: 50%;
-                .left-top{
-                    @include display;
-                    justify-content: space-around;
-                }
-                .left-bottom{
-                    @include display;
-                    justify-content: space-around;
-                }
-            }
-            .right{
-                height: 100%;
-                width: 50%;
-            }
+           
+            height: 70%;
+            width: 100%;
+            // border: 2px solid navy;
+            
         }
         .ant-modal-footer{
+ height: 10%;
 
         }
+
+       
+    }
+    .form{
+     Button{
+      width: 100%;
+     }
     }
 }
 

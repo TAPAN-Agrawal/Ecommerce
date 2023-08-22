@@ -1,20 +1,62 @@
-import React, { useEffect } from "react";
-import { Button, Input, Popconfirm } from "antd";
-import { HomeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import {
+  Avatar,
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Popconfirm,
+  Radio,
+  Spin,
+} from "antd";
+import { HomeOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginSetter, logoutSetter } from "../../Redux/Action/Action";
+import {
+  getProfileDetails,
+  loginSetter,
+  logoutSetter,
+  updateProfileDetails,
+} from "../../Redux/Action/Action";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import logo from "../../Assets/Images/logo-no-background.png";
+import TextArea from "antd/es/input/TextArea";
+import moment from "moment";
 
 const { Search } = Input;
+
+export interface Profile {
+  username: string;
+  dob: any;
+  gender: number;
+  address: string;
+}
+
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = useSelector((state: any) => state.ecommerce.login);
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
+  const profileDetail = useSelector(
+    (state: any) => state.ecommerce.profileDetails
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm()
+
+  const nameValidate = [
+    { required: true, message: "Please input your username!" },
+    { min: 2, message: "must be at least 3 characters" },
+  ];
+
+  const combine = [{ required: true, message: "Please  fill required field" }];
+
+  const minDate = moment().subtract(18, "years");
+
+  const disabledDate: any = (current: any) => {
+    return current && current > minDate;
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -27,18 +69,46 @@ function Navbar() {
     navigate("/");
   };
 
-  const handleSearch = (value: any) => {
+  const handleSearch = (e: any) => {
     navigate("/search", {
       state: {
-        searchKey: value,
+        searchKey: e.target.value,
       },
     });
   };
+
+  const showModal = () => {
+    dispatch(getProfileDetails());
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    form.resetFields();
+    
+    setIsModalOpen(false);
+  };
+
+  const avatarHandler = () => {
+    showModal();
+  };
+
+  const onFinish = (values: Profile) => {
+
+    handleOk()
+    dispatch(updateProfileDetails(values));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(loginSetter());
     }
+
+   
   }, []);
 
   return (
@@ -62,7 +132,7 @@ function Navbar() {
         <div className="nav-search-bar">
           <Search
             placeholder="Enter your search query"
-            onSearch={handleSearch}
+            // onChange={handleSearch}
           />
         </div>
         <div className="nav-nav-items">
@@ -92,15 +162,93 @@ function Navbar() {
             </NavLink>
           )}
           {isLogin === true && (
-            <Popconfirm
-              title="Are you sure you want to Logout"
-              description="Do you want to logout from this page?"
-              onConfirm={logoutHandler}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button danger>Logout</Button>
-            </Popconfirm>
+            <div className="log-ava">
+              <Avatar className="avatar" onClick={avatarHandler} icon={<UserOutlined />}>
+               
+              </Avatar>
+              {profileDetail && (
+                <Modal
+                  title="My profile"
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  footer={false}
+                >
+                  <Form
+                    name="basic"
+                    layout="vertical"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    autoComplete="off"
+                    className="form"
+                    form={form}
+                  >
+                    <Form.Item
+                      label="Username"
+                      name="username"
+                      initialValue={profileDetail.username}
+                      rules={nameValidate}
+                      required={false}
+                    >
+                      <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Gender"
+                      name="gender"
+                      initialValue={profileDetail.gender}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select your gender",
+                        },
+                      ]}
+                      required={false}
+                    >
+                      <Radio.Group>
+                        <Radio value={0}> Male </Radio>
+                        <Radio value={1}> Female </Radio>
+                      </Radio.Group>
+                    </Form.Item>
+                    <Form.Item
+                      label="Birthday"
+                      name="dob"
+                      rules={combine}
+                      initialValue={
+                        profileDetail.dob ? moment(profileDetail.dob) : null
+                      }
+                      required={false}
+                    >
+                      <DatePicker disabledDate={disabledDate} />
+                    </Form.Item>
+                    <Form.Item
+                      label="Address"
+                      name="address"
+                      rules={combine}
+                      initialValue={profileDetail.address}
+                      required={false}
+                    >
+                      <TextArea rows={4} />
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit">
+                        save
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </Modal>
+              )}
+              <Popconfirm
+                title="Are you sure you want to Logout"
+                description="Do you want to logout from this page?"
+                onConfirm={logoutHandler}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button danger>Logout</Button>
+              </Popconfirm>
+            </div>
           )}
         </div>
       </div>

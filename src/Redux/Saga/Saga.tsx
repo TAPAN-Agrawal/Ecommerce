@@ -96,8 +96,7 @@ export function* register(action: RegisterActionInterface) {
     );
 
     if (response) {
-     
-      yield put({ type: "REGISTER_REDUCER" });
+      // yield put({ type: "REGISTER_REDUCER" });
     } else {
     }
   } catch (error: any) {}
@@ -404,6 +403,39 @@ export function* buyNow(action: ActionBuyNowInterface) {
   } catch (error: any) {}
 }
 
+export function* getProfileDetails(){
+  try {
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.get,
+      `/auth/user`,
+     
+    );
+
+    if(response){
+      yield put({type:'SET_PROFILE_DETAILS_REDUCER',payload:response.data.data.customer})
+    }
+  } catch (error) {
+    
+  }
+}
+
+export function*updateProfileDetails(action:any){
+  try {
+   
+    let temp = action.payload
+    let n={...temp,
+    dob:action.payload.dob._i
+    }
+    
+
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.patch,
+      `/auth/update_user`,
+      n
+    );
+  } catch (error: any) {}
+}
+
 export function* watcher() {
   yield takeLatest("REGISTER", register);
 
@@ -440,4 +472,8 @@ export function* watcher() {
   yield takeLatest("COMPLETE_PURCHASE", completePurchase);
 
   yield takeLatest("BUY_NOW", buyNow);
+
+  yield takeLatest('GET_PROFILE_details',getProfileDetails);
+
+  yield takeLatest('UPDATE_PROFILE_DETAILS', updateProfileDetails);
 }

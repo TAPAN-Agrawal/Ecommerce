@@ -11,7 +11,7 @@ import {
   LinkedinFilled,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { googlelogin, login } from "../../Redux/Action/Action";
+import { cleanProfileDetails, googlelogin, login,getProfileDetails } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 
@@ -49,17 +49,24 @@ function Login() {
       const decodedToken: any = jwtDecode(token);
 
       if (decodedToken) {
+
+// console.log('token',decodedToken);
+
+
         if (decodedToken.roles === 2) {
           navigate("/home");
           localStorage.setItem("role", "2");
+          localStorage.setItem("userId", decodedToken.userId);
         }
         if (decodedToken.roles === 1) {
           navigate("/adminpanel");
           localStorage.setItem("role", "1");
+          localStorage.setItem("userId", decodedToken.userId);
         }
         if (decodedToken.roles === 0) {
           navigate("/adminpanel");
           localStorage.setItem("role", "0");
+          localStorage.setItem("userId", decodedToken.userId);
         }
       } else {
       }
@@ -83,6 +90,8 @@ function Login() {
   useEffect(() => {
     if (IsLogin) {
       navigate("/home");
+      dispatch(cleanProfileDetails())
+
 
       let token = localStorage.getItem("token");
       if (token) {

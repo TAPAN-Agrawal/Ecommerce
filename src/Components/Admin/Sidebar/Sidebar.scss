@@ -1,0 +1,59 @@
+@import '../../../Global/Variable.scss';
+
+.sidebar-wrapper{
+    width: 15%;
+    padding-top: 5px;
+    Button{
+        // margin-top: 0.5rem;
+    }
+    h4{
+        font-family: $font-family;
+        padding-left: 33px;
+        width: 100%;
+        color:$blue-color;
+    }
+    .menu{
+        font-family:$font-family;
+        .icons{
+            font-size: $font-size;
+            font-weight: 500;
+       }
+    //    .ant-menu-item:hover{
+    //     background-color: black;
+    //     // color: pink;
+    //    }
+    }
+    .ant-menu-item{
+        position: relative;
+        border-radius: 0;
+        &::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: rgb(61, 124, 207);
+            opacity: 0;
+            transform: none !important;
+        }
+        &:hover{
+            &::after{
+                opacity: 1;
+            }
+        }
+       &.ant-menu-item-selected{
+            &::after{
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 5px;
+                height: 100%;
+                background: rgb(61, 124, 207);
+            }
+       }
+
+    }
+ 
+}

@@ -2,19 +2,19 @@ import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Register from "../Components/Register/Register";
 import Login from "../Components/Login/Login";
-import AdminPanel from "../Components/AdminPanel/AdminPanel";
+import AdminPanel from "../Components/Admin/AdminPanel/AdminPanel";
 import { Route, Routes } from "react-router-dom";
-import Home from "../Components/Home/Home";
+import Home from "../Components/User/Home/Home";
 import Notfound from "../Components/Notfound/Notfound";
-import Detail from "../Components/Detail/Detail";
-import Cart from "../Components/Cart/Cart";
-import Purchased from "../Components/Purchased/Purchased";
+import Detail from "../Components/User/Detail/Detail";
+import Cart from "../Components/User/Cart/Cart";
+import Purchased from "../Components/User/Purchased/Purchased";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Protected from "../Components/Protected/Protected";
 import RoleProtected from "../Components/RoleProtected/RoleProtected";
-import SearchedProduct from "../Components/SearchedProduct/SearchedProduct";
-import Checkout from "../Components/Checkout/Checkout";
+import SearchedProduct from "../Components/User/SearchedProduct/SearchedProduct";
+import Checkout from "../Components/User/Checkout/Checkout";
 import "./Page.scss";
 import '../Global/Global.scss'
 function Page() {

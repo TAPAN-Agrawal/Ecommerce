@@ -23,6 +23,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         login: false,
         register: false,
+        profileDetails:''
       };
    
 
@@ -170,6 +171,12 @@ export const ecommerce = (state: any = initialState, action: any) => {
           ...state,
           profileDetails:action.payload
         }
+
+        case 'CLEAN_PROFILE_DETAILS':
+          return{
+            ...state,
+            profileDetails:''
+          }
 
     default:
       return state;

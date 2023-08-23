@@ -1,0 +1,43 @@
+@import '../../../Global/Variable.scss';
+
+@mixin display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-wrapper{
+    @include display;
+    flex-direction: column;
+    .Back-Front-btn {
+        @include display;
+        justify-content: space-between;
+        width: 90%;
+        // border: 2px solid black;
+        margin-left: auto;
+        margin-right: auto;
+        Button{
+            border: 2px solid$blue-color;
+            color:$blue-color;
+            margin-top: 1rem;
+        }
+        Button:hover{
+            border: 2px solid $blue-color;
+            color:$blue-color !important;
+           background: transparent!important;
+        }
+    }
+   .no-item{
+    margin-top: 20%;
+   }
+    .search{
+        @include display;
+        justify-content:flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        height: 70vh;
+        width: 90vw;
+        background-color: rgb(249, 255, 255);
+        padding: 30px;
+        padding-left: 50px;
+    }
+}

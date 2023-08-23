@@ -4,15 +4,15 @@ import { toast } from "react-toastify";
 import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
-import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
+import { AddProductInterface } from "../../Components/Admin/AddProduct/AddProduct";
 import {
   CheckoutInterface,
   buyNowInterface,
   completePurchaseInterface,
-} from "../../Components/Checkout/Checkout";
-import { AddAdmin } from "../../Components/AddAdmin/AddAdmin";
-import { addToCartInterface } from "../../Components/Detail/Detail";
-import { updateQuantityCartInterface } from "../../Components/CartCard/CartCard";
+} from "../../Components/User/Checkout/Checkout";
+import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
+import { addToCartInterface } from "../../Components/User/Detail/Detail";
+import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
 
 interface RegisterActionInterface {
   type: string;
@@ -167,10 +167,12 @@ export function* getAllProducts(action: ActionProductInterface) {
 }
 export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
+  let userId=localStorage.getItem("userId");
+  
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.get,
-      `/products/product/${id}`
+      `/products/product_by_id/?id=${id}&userId=${userId}`
     );
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
   } catch (error) {}
@@ -423,15 +425,12 @@ export function*updateProfileDetails(action:any){
   try {
    
     let temp = action.payload
-    let n={...temp,
-    dob:action.payload.dob._i
-    }
-    
+   
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
       `/auth/update_user`,
-      n
+      temp
     );
   } catch (error: any) {}
 }

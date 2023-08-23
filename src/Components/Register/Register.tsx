@@ -62,7 +62,7 @@ function Register() {
     
   };
 
-  const minDate = moment().subtract(18, 'years');
+  const minDate:any = moment().subtract(18, 'years');
   const disabledDate:any=(current:any)=>{
     return current && current > minDate;
   }
@@ -118,6 +118,7 @@ function Register() {
               <DatePicker
               format='YYYY-MM-DD'
               disabledDate={disabledDate}
+              // defaultPickerValue={minDate}
                />
             </Form.Item>
             <Form.Item label="Address" name="address" rules={combine}>

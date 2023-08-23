@@ -1,10 +1,10 @@
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
-import { AddProductInterface } from "../../Components/AddProduct/AddProduct";
-import { CheckoutInterface, buyNowInterface, completePurchaseInterface } from "../../Components/Checkout/Checkout";
-import { AddAdmin } from "../../Components/AddAdmin/AddAdmin";
-import { addToCartInterface } from "../../Components/Detail/Detail";
-import { updateQuantityCartInterface } from "../../Components/CartCard/CartCard";
+import { AddProductInterface } from "../../Components/Admin/AddProduct/AddProduct";
+import { CheckoutInterface, buyNowInterface, completePurchaseInterface } from "../../Components/User/Checkout/Checkout";
+import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
+import { addToCartInterface } from "../../Components/User/Detail/Detail";
+import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
 import { Profile } from "../../Components/Navbar/Navbar";
 
 export const register = (data: RegisterInterface) => {
@@ -173,5 +173,11 @@ export const updateProfileDetails=(data:Profile)=>{
   return{
     type:'UPDATE_PROFILE_DETAILS',
     payload:data
+  }
+}
+
+export const cleanProfileDetails = ()=>{
+  return{
+    type:'CLEAN_PROFILE_DETAILS'
   }
 }

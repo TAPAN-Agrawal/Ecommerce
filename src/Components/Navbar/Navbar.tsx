@@ -15,6 +15,7 @@ import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
+  cleanProfileDetails,
   getProfileDetails,
   loginSetter,
   logoutSetter,
@@ -43,7 +44,7 @@ function Navbar() {
     (state: any) => state.ecommerce.profileDetails
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm()
+  const [forms] = Form.useForm()
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -52,7 +53,7 @@ function Navbar() {
 
   const combine = [{ required: true, message: "Please  fill required field" }];
 
-  const minDate = moment().subtract(18, "years");
+  const minDate:any = moment().subtract(18, "years");
 
   const disabledDate: any = (current: any) => {
     return current && current > minDate;
@@ -61,6 +62,7 @@ function Navbar() {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("userId");
     toast.success("Logout Successfully");
     navigate("/home");
     dispatch(logoutSetter());
@@ -78,7 +80,9 @@ function Navbar() {
   };
 
   const showModal = () => {
+
     dispatch(getProfileDetails());
+
     setIsModalOpen(true);
   };
 
@@ -87,7 +91,7 @@ function Navbar() {
   };
 
   const handleCancel = () => {
-    form.resetFields();
+    forms.resetFields();
     
     setIsModalOpen(false);
   };
@@ -97,12 +101,15 @@ function Navbar() {
   };
 
   const onFinish = (values: Profile) => {
-
+    // console.log(values);
+    
     handleOk()
     dispatch(updateProfileDetails(values));
   };
 
   useEffect(() => {
+    dispatch(cleanProfileDetails())
+
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(loginSetter());
@@ -110,6 +117,8 @@ function Navbar() {
 
    
   }, []);
+  console.log(profileDetail);
+  
 
   return (
     <div className="nav-wrapper">
@@ -166,22 +175,21 @@ function Navbar() {
               <Avatar className="avatar" onClick={avatarHandler} icon={<UserOutlined />}>
                
               </Avatar>
-              {profileDetail && (
                 <Modal
                   title="My profile"
                   open={isModalOpen}
                   onOk={handleOk}
                   onCancel={handleCancel}
                   footer={false}
-                >
+                  >
+                  {profileDetail.id  ? (
                   <Form
                     name="basic"
                     layout="vertical"
-                    initialValues={{ remember: true }}
                     onFinish={onFinish}
                     autoComplete="off"
                     className="form"
-                    form={form}
+                    form={forms}
                   >
                     <Form.Item
                       label="Username"
@@ -219,7 +227,12 @@ function Navbar() {
                       }
                       required={false}
                     >
-                      <DatePicker disabledDate={disabledDate} />
+                      <DatePicker
+                      //  defaultPickerValue={minDate}
+                      format='YYYY-MM-DD'
+
+                       disabledDate={disabledDate}
+                       />
                     </Form.Item>
                     <Form.Item
                       label="Address"
@@ -237,8 +250,8 @@ function Navbar() {
                       </Button>
                     </Form.Item>
                   </Form>
+              ):<div>Loading</div>}
                 </Modal>
-              )}
               <Popconfirm
                 title="Are you sure you want to Logout"
                 description="Do you want to logout from this page?"

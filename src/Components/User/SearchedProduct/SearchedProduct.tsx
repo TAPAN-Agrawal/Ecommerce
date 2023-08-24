@@ -19,12 +19,12 @@ function SearchedProduct() {
   );
 
   const singleProductHandler = (id: any) => {
-    dispatch(getSingleProduct(id));
+    
     navigate("/detail", {
       state: {
         id: id,
       },
-    });
+    }); 
   };
   const pageHandler = (e: number) => {
     setPage(e);
@@ -46,18 +46,28 @@ function SearchedProduct() {
     );
   });
   const pageCalculator = Math.ceil(totalCount / 12) * 10;
+ 
+  useEffect(()=>{
+    let searchItem = state.searchKey;
+    if (searchItem) {
+      
+      dispatch(searchProduct(searchItem, 1, 12));
+    }
+  },[state.searchKey])
 
   useEffect(() => {
     let searchItem = state.searchKey;
-    if (searchItem) {
+    if (searchItem && page !== 1) {
+      
       dispatch(searchProduct(searchItem, page, 12));
     }
-  }, [state.searchKey, page]);
+  }, [page]);
 
-  return (
+
+  return (  
     <div className="search-wrapper">
       <div className="Back-Front-btn">
-        <Button type="text" onClick={() => navigate(-1)}>
+        <Button type="text" onClick={() => navigate('/')}>
           Back
         </Button>
       </div>

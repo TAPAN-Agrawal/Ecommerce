@@ -101,7 +101,7 @@ function Detail() {
     dispatch(addToCart(data));
     setTimeout(() => {
       navigate("/cart");
-    }, 2000);
+    }, 1000);
   };
   const backHandler = () => {
     navigate(-1);

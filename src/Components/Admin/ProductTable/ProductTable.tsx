@@ -40,13 +40,13 @@ function ProductTable() {
 
   const deleteHandler = (id: number) => {
     dispatch(deleteProduct(id));
-     
-  if (datas.length === 1 && page > 1) {
- 
-    setPage(page - 1);
-  }
-  const pageCalculator = Math.ceil(totalCount / 8) * 10;
 
+   setTimeout(()=>{
+    if (datas.length === 1 && page > 1) {
+      setPage(page - 1);
+    }
+   },1000)
+    const pageCalculator = Math.ceil(totalCount / 8) * 10;
   };
 
   const updateHandler = (record: any) => {
@@ -56,7 +56,7 @@ function ProductTable() {
     } else {
       navigate("/adminpanel/updateproduct", {
         state: {
-          id: record.id,  
+          id: record.id,
         },
       });
     }
@@ -127,17 +127,26 @@ function ProductTable() {
   useEffect(() => {
     dispatch(getAllProducts(page, 8, null, null));
   }, [page]);
+  // console.log(datas);
+
   return (
     <>
       {datas.length !== 0 ? (
+        
         <div className="ProductTable-wrapper">
           <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
-          <Table columns={columns} dataSource={datas} pagination={false} />
+          <Table
+            columns={columns}
+            dataSource={datas}
+            pagination={false}
+            rowKey="id"
+          />
           <Pagination
-          current={page}
+            current={page}
             defaultCurrent={1}
             total={pageCalculator}
             onChange={pageHandler}
+            className="pagination"
           />
         </div>
       ) : (

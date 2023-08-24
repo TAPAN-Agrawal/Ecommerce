@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import jwt from "jsonwebtoken";
 
 function RoleProtected({ Component }: any) {
   const navigate = useNavigate();

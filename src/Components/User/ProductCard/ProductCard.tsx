@@ -14,10 +14,10 @@ function ProductCard(Props: any) {
       </div>
       <div className="details-wrapper">
         <div className="detail-name-price">
-          <h3>{Props.title}</h3>
+          <h3>{Props.title.slice(0, 16)}</h3>
           <h4>$ {Props.price}</h4>
         </div>
-        <div className="description">{Props.description.slice(0, 60)}</div>
+        <div className="description">{Props.description.slice(0, 40)}</div>
         <div>
           <Rate allowHalf defaultValue={2.5} />
         </div>

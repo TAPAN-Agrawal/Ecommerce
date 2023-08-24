@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Carousel, Pagination, Select, Spin } from "antd";
+import { Button, Carousel, Empty, Pagination, Select, Spin } from "antd";
 import "./Home.scss";
 import ProductCard from "../ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ function Home() {
   const pageHandler = (e: number) => {
     setPage(e);
   };
-  const mapProducts = category.map((product: any, key) => {
+  const mapProducts: any = category.map((product: any, key: any) => {
     return (
       <div
         className="home-card"
@@ -157,7 +157,14 @@ function Home() {
                 />
               </div>
 
-              <div className="home-men-section">{mapProducts}</div>
+              {mapProducts.length >= 1 ? (
+                <div className="home-men-section">{mapProducts}</div>
+              ) : (
+                <div className="home-men-section">
+                  {" "}
+                  <Empty className="empty" />
+                </div>
+              )}
             </div>
           </div>
           <Pagination
@@ -165,6 +172,7 @@ function Home() {
             defaultCurrent={1}
             total={pageCalculator}
             onChange={pageHandler}
+            className="pagination"
           />
         </div>
       ) : (

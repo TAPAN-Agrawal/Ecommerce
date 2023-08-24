@@ -7,13 +7,16 @@
 }
 
 .home-parent{
+    position: relative;
     .home-wrapper {
         @include display;
         flex-direction: column;
+        justify-content: flex-start;
         // align-items: flex-end;
-        height: 100%;
+        min-height: 940px;
         width: 100vw;
         background: $primary-color;
+        padding-bottom: 40px;
             // border: 2px solid yellow;
 
       .front-btn{
@@ -90,7 +93,9 @@
                         height: 300px;
                         margin: 0.3rem;
                     }
-    
+                    .empty{
+                        margin: 2rem auto;
+                    }
     
                 }
     
@@ -123,6 +128,11 @@
     
         }
        
+    }
+    .pagination{
+    
+        position: absolute;
+        bottom: 0;
     }
     .loader{
         height: 100vh;

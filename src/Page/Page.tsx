@@ -19,7 +19,7 @@ import "./Page.scss";
 import '../Global/Global.scss'
 function Page() {
   return (
-    <>
+    <div>
       <ToastContainer
         position="top-right"
         autoClose={1000}
@@ -42,7 +42,7 @@ function Page() {
         <Route path="/search" element={<SearchedProduct />} />
         <Route
           path="adminpanel/*"
-          element={<RoleProtected Component={AdminPanel} />}
+          element={<AdminPanel/>}
         />
         <Route path="/detail" element={<Detail />} />
         <Route path="/cart" element={<Protected Component={Cart} />} />
@@ -53,7 +53,7 @@ function Page() {
         />
         <Route path="*" element={<Notfound />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

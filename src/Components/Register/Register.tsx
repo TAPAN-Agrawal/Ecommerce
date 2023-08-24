@@ -76,7 +76,7 @@ function Register() {
         <img src={img} alt="" />
         <div className="register-form">
           <Form
-            name="basic"
+            name="register-form"
             layout="vertical"
             initialValues={{ remember: true }}
             onFinish={onFinish}

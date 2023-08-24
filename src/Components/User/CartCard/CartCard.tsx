@@ -66,7 +66,7 @@ function CartCard(Props: any) {
         </div>
         <div className="CartCart-right">
           <h3>{Props.title}</h3>
-          <p>{Props.description}</p>
+          <p>{Props.description.slice(0,140)}</p>
           <h4>$ {Props.price}</h4>
 
           <div className="count-delete">

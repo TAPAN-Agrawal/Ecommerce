@@ -11,7 +11,13 @@ import {
   LinkedinFilled,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { cleanProfileDetails, googlelogin, login,getProfileDetails } from "../../Redux/Action/Action";
+import {
+  cleanProfileDetails,
+  googlelogin,
+  login,
+  getProfileDetails,
+  loginSetter,
+} from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 
@@ -49,10 +55,6 @@ function Login() {
       const decodedToken: any = jwtDecode(token);
 
       if (decodedToken) {
-
-// console.log('token',decodedToken);
-
-
         if (decodedToken.roles === 2) {
           navigate("/home");
           localStorage.setItem("role", "2");
@@ -88,10 +90,16 @@ function Login() {
   //   // }
   // }, [location.search]);
   useEffect(() => {
+    const response = window.location.search;
+    const token = response.slice(6);
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/");
+      dispatch(loginSetter());
+    }
     if (IsLogin) {
       navigate("/home");
-      dispatch(cleanProfileDetails())
-
+      dispatch(cleanProfileDetails());
 
       let token = localStorage.getItem("token");
       if (token) {
@@ -111,7 +119,7 @@ function Login() {
         </div>
         <div className="form-container">
           <Form
-            name="basic"
+            name="login-form"
             layout="vertical"
             initialValues={{ remember: true }}
             onFinish={onFinish}

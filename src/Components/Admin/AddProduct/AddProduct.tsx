@@ -20,14 +20,16 @@ function AddProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [selectedFile, setSelectedFile] = useState<any>("");
 
   const validationErr = [{ required: true, message: "required" }];
 
   const onFinish = (values: AddProductInterface) => {
     const updatedValues = { ...values, file: selectedFile };
     dispatch(addProduct(updatedValues));
-    navigate("/adminpanel/product");
+    setTimeout(()=>{
+      navigate("/adminpanel/product");
+    },1000)
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -41,7 +43,7 @@ function AddProduct() {
   return (
     <div className="addProduct-wrapper">
       <Form
-        name="basic"
+        name="addproduct-form"
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -79,8 +81,9 @@ function AddProduct() {
           name="quantity"
           rules={validationErr}
           className="item"
+          initialValue={1}
         >
-          <InputNumber min={1} defaultValue={0} />
+          <InputNumber min={1}  />
         </Form.Item>
         <Form.Item
           label="Category"
@@ -98,8 +101,9 @@ function AddProduct() {
           name="image"
           rules={validationErr}
           className="item"
+          initialValue={selectedFile}
         >
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" onChange={handleFileChange}  />
         </Form.Item>
         <Form.Item className="item">
           <Button type="primary" htmlType="submit">

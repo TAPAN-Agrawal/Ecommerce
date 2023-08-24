@@ -43,8 +43,10 @@ function Navbar() {
   const profileDetail = useSelector(
     (state: any) => state.ecommerce.profileDetails
   );
+
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [forms] = Form.useForm()
+
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -80,36 +82,34 @@ function Navbar() {
   };
 
   const showModal = () => {
-
     dispatch(getProfileDetails());
-
     setIsModalOpen(true);
   };
-
+  
   const handleOk = () => {
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
-    forms.resetFields();
-    
+    dispatch(cleanProfileDetails())
     setIsModalOpen(false);
   };
 
   const avatarHandler = () => {
+   
     showModal();
   };
-
+  
   const onFinish = (values: Profile) => {
-    // console.log(values);
     
     handleOk()
     dispatch(updateProfileDetails(values));
   };
 
-  useEffect(() => {
-    dispatch(cleanProfileDetails())
 
+  useEffect(() => {
+
+    dispatch(cleanProfileDetails())
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(loginSetter());
@@ -117,7 +117,7 @@ function Navbar() {
 
    
   }, []);
-  console.log(profileDetail);
+ 
   
 
   return (
@@ -141,7 +141,7 @@ function Navbar() {
         <div className="nav-search-bar">
           <Search
             placeholder="Enter your search query"
-            // onChange={handleSearch}
+            onChange={handleSearch}
           />
         </div>
         <div className="nav-nav-items">
@@ -172,8 +172,10 @@ function Navbar() {
           )}
           {isLogin === true && (
             <div className="log-ava">
-              <Avatar className="avatar" onClick={avatarHandler} icon={<UserOutlined />}>
-               
+              <Avatar className="avatar" onClick={avatarHandler}
+               icon={<UserOutlined />}
+               >
+              
               </Avatar>
                 <Modal
                   title="My profile"
@@ -185,11 +187,11 @@ function Navbar() {
                   {profileDetail.id  ? (
                   <Form
                     name="basic"
+                    // form={form}
                     layout="vertical"
                     onFinish={onFinish}
                     autoComplete="off"
                     className="form"
-                    form={forms}
                   >
                     <Form.Item
                       label="Username"
@@ -199,6 +201,16 @@ function Navbar() {
                       required={false}
                     >
                       <Input />
+                    </Form.Item>
+                    <Form.Item
+                      label="Email"
+                      name="email"
+                      initialValue={profileDetail.email}
+                      rules={nameValidate}
+                      required={false}
+                      
+                    >
+                      <Input disabled={true}/>
                     </Form.Item>
 
                     <Form.Item
@@ -213,7 +225,7 @@ function Navbar() {
                       ]}
                       required={false}
                     >
-                      <Radio.Group>
+                      <Radio.Group disabled={true}>
                         <Radio value={0}> Male </Radio>
                         <Radio value={1}> Female </Radio>
                       </Radio.Group>
@@ -250,7 +262,7 @@ function Navbar() {
                       </Button>
                     </Form.Item>
                   </Form>
-              ):<div>Loading</div>}
+              ):<div>Loading...</div>}
                 </Modal>
               <Popconfirm
                 title="Are you sure you want to Logout"

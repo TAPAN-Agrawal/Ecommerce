@@ -23,28 +23,28 @@ function UserTable() {
   const [page, setPage] = useState<number>(1);
   const columns: ColumnsType<DataType> = [
     {
+      key: "1",
       title: "Name",
       dataIndex: "username",
-      key: "name",
     },
     {
+      key: "2",
       title: "Email",
       dataIndex: "email",
-      key: "email",
     },
     {
+      key: "3",
       title: "Items",
-      dataIndex: "items",
-      key: "items",
+      dataIndex: "total_purchase",
     },
     {
+      key: "4",
       title: "BillAmount",
-      dataIndex: "billamount",
-      key: "billamount",
+      dataIndex: "total_payment",
     },
     {
+      key: "5",
       title: "Action",
-      key: "action",
       render: (record) => (
         <Popconfirm
           title="Delete user"
@@ -53,7 +53,7 @@ function UserTable() {
           okText="Yes"
           cancelText="No"
         >
-          <Button>Delete</Button>
+          <Button >Delete</Button>
         </Popconfirm>
       ),
     },
@@ -70,14 +70,16 @@ function UserTable() {
   useEffect(() => {
     dispatch(getAllUsers(page, 12));
   }, [page]);
+  
 
   return (
     <div className="UserTable-wrapper">
-      <Table columns={columns} dataSource={users} pagination={false} />
+      <Table columns={columns} dataSource={users} pagination={false} rowKey='id' />
       <Pagination
         defaultCurrent={1}
         total={pageCalculator}
         onChange={pageHandler}
+        className="pagination"
       />
     </div>
   );

@@ -15,9 +15,9 @@ function Protected({ Component }: any) {
     return null;
   }
   return (
-    <>
+    <div>
       <Component />
-    </>
+    </div>
   );
 }
 

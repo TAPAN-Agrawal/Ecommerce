@@ -43,7 +43,7 @@ function AddAdmin() {
   return (
     <div className="addAdmin-wrapper">
       <Form
-        name="basic"
+        name="addadmin-form"
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}

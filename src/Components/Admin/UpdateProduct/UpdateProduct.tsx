@@ -15,7 +15,7 @@ function AddProduct() {
   const singleProducts = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
-  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [selectedFile, setSelectedFile] = useState<any>('');
   const [product, setProduct] = useState<any>({
     product_name: "",
     description: "",
@@ -65,9 +65,8 @@ function AddProduct() {
     <div className="updateProduct-wrapper">
       {singleProducts.id ? (
         <Form
-          name="basic"
-          layout="vertical"
-         
+          name="updateproduct-form"
+          layout="vertical"   
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -108,7 +107,7 @@ function AddProduct() {
             rules={validationErr}
             className="item"
           >
-            <InputNumber min={1} defaultValue={0} />
+            <InputNumber min={1}  />
           </Form.Item>
           <Form.Item
             label="Category"
@@ -122,7 +121,7 @@ function AddProduct() {
               <Radio value={1}> Women </Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item label="Image" name="image" className="item">
+          <Form.Item label="Image" name="image" className="item" initialValue={selectedFile}>
             <input type="file" onChange={handleFileChange} />
           </Form.Item>
           <Form.Item  className="item">
@@ -132,7 +131,7 @@ function AddProduct() {
           </Form.Item>
         </Form>
       ) : (
-        <Spin tip="loading.."></Spin>
+        <Spin ></Spin>
       )}
     </div>
   );

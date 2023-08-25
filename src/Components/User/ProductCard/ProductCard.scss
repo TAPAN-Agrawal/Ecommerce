@@ -33,7 +33,11 @@
     .detail-name-price{
       @include display;
       justify-content: space-between;
+      h3{
+        font-size: $font-size ;
+      }
       h4{
+        font-size: $font-size - 4;
         color: $price-color;
       }
     }

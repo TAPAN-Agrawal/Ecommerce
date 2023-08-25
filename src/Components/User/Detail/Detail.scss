@@ -77,6 +77,7 @@
                             height: 150%;
                             background: orange;
                             color: white;
+                            font-size: $font-size - 5;
 
                         }
 
@@ -87,7 +88,7 @@
                         .detail-btn2 {
                             height: 150%;
                             color: white;
-
+                            font-size: $font-size - 5;
                             background: rgb(219, 58, 18);
                         }
 
@@ -113,10 +114,15 @@
 
                     h2 {
                         padding-top: 11px;
+                        font-size: $font-size  + 4;
                     }
 
                     h3 {
                         color: $price-color;
+                        font-size: $font-size - 4;
+                    }
+                    p{
+                        font-size: $font-size - 5;
                     }
 
                     .offer-img {

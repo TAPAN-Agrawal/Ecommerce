@@ -13,6 +13,7 @@ import {
 import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/User/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
+import { useNavigate } from "react-router-dom";
 
 interface RegisterActionInterface {
   type: string;
@@ -89,6 +90,7 @@ export function* register(action: RegisterActionInterface) {
     address: address,
   };
   try {
+    
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
       "/auth/register",
@@ -96,7 +98,7 @@ export function* register(action: RegisterActionInterface) {
     );
 
     if (response) {
-      // yield put({ type: "REGISTER_REDUCER" });
+      window.location.href='/login'
     } else {
     }
   } catch (error: any) {}

@@ -62,6 +62,12 @@
                         // background-color: #b7d7d4;
                         color: rgb(73, 73, 243);
                         border-color: rgb(73, 73, 243);
+                        font-size: $font-size - 5;
+                    }
+                    .not-selected{
+                        color: rgb(73, 73, 243);
+                       
+                        font-size: $font-size - 5;
                     }
                 }
                 .selector{
@@ -72,6 +78,7 @@
     
                 h1 {
                     margin-left: 0.5rem;
+                    font-size: $font-size + 10;
                 }
     
                 .Link {

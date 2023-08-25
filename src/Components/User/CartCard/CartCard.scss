@@ -20,20 +20,11 @@
                 @include display;
                 height: 150px;
                 width: 15%;
-                // border: 2px solid pink;
-                // border-radius: 30px;
-                // box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 5px 0px, rgba(0, 0, 0, 0.1) 2px 2px 1px 0px;
+               
                 position: relative; 
             
             
-            // .CartCard-img {
-            //     // height: 100%;
-            //     // width: 100%; 
-            //     object-fit: cover;
-            //     position: absolute; 
-            //     top: 0;
-            //     left: 0;
-            // }
+           
         }
             .CartCart-right{
                 margin-left: 2rem;
@@ -43,19 +34,23 @@
                 p{
                     // background-color: green;
                     height: 20%;
+                    font-size: $font-size - 4;
                 }
                 h3{
                     margin-top: 0rem;
+                    font-size: $font-size - 4;
                 }
                 h4{
                     color: $price-color;
+                    font-size: $font-size - 4;
+                    padding-bottom: 2px !important;
                 }
                 .count-delete{
                     @include display;
                     justify-content: space-between;
                     .delete{
                         color: red;
-                        font-size: 20px;
+                        font-size: $font-size;
                     }
                 }
     

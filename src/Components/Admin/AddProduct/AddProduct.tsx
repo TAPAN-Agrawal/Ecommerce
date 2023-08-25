@@ -22,7 +22,7 @@ function AddProduct() {
 
   const [selectedFile, setSelectedFile] = useState<any>("");
 
-  const validationErr = [{ required: true, message: "required" }];
+  const validationErr = [{ required: true, message: "Required" }];
 
   const onFinish = (values: AddProductInterface) => {
     const updatedValues = { ...values, file: selectedFile };

@@ -17,6 +17,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         login: true,
+       
       };
     case "LOGOUT_REDUCER":
       return {

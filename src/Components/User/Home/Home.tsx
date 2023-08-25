@@ -128,19 +128,19 @@ function Home() {
                 <div className="category">
                   <Button
                     onClick={menHandler}
-                    className={selectedButton === 0 ? "selected" : ""}
+                    className={selectedButton === 0 ? "selected" : "not-selected"}
                   >
                     Men
                   </Button>
                   <Button
                     onClick={womenHandler}
-                    className={selectedButton === 1 ? "selected" : ""}
+                    className={selectedButton === 1 ? "selected" : "not-selected"}
                   >
                     Women
                   </Button>
                   <Button
                     onClick={allHandler}
-                    className={selectedButton === null ? "selected" : ""}
+                    className={selectedButton === null ? "selected" : "not-selected"}
                   >
                     All
                   </Button>

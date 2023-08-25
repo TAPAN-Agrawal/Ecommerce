@@ -4,6 +4,7 @@ import { Button, DatePicker, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { addAdmin } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
+import moment from "moment";
 
 export interface AddAdmin{
   "username": string,
@@ -18,21 +19,28 @@ export interface AddAdmin{
 function AddAdmin() {
   const dispatch = useDispatch();
   const nameValidate = [
-    { required: true, message: " username required" },
-    { min: 2, message: " at least 3 characters" },
+    { required: true, message: " Username required" },
+    { min: 2, message: " At least 3 characters" },
   ];
   const emailValidate: any = [
-    { required: true, message: " email required" },
-    { type: "email", message: " enter  valid email" },
+    { required: true, message: "Email required" },
+    { type: "email", message: "Enter  valid email" },
   ];
   const passwordValidate: any = [
-    { required: true, message: "password required" },
+    { required: true, message: "Password required" },
     {
       pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
-      message: "create strong password",
+      message: "Create strong password",
     },
   ];
   const combine = [{ required: true, message: "Please  fill required field" }];
+
+  const minDate:any = moment().subtract(18, 'years');
+  const disabledDate:any=(current:any)=>{
+    return current && current > minDate;
+  }
+
+
 
   const onFinish = (values: AddAdmin) => {
     dispatch(addAdmin(values));
@@ -66,7 +74,16 @@ function AddAdmin() {
         </Form.Item>
 
         <Form.Item label="Password" name="password" rules={passwordValidate}>
-          <Input.Password />
+          <Input.Password
+           onPaste={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          onCopy={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          />
         </Form.Item>
         <Form.Item
           label="Gender"
@@ -79,7 +96,10 @@ function AddAdmin() {
           </Radio.Group>
         </Form.Item>
         <Form.Item label="Birthday" name="dob" rules={combine}>
-          <DatePicker />
+          <DatePicker
+          format='YYYY-MM-DD'
+          disabledDate={disabledDate}
+           />
         </Form.Item>
         <Form.Item label="Address" name="address" rules={combine}>
           <TextArea rows={2} />

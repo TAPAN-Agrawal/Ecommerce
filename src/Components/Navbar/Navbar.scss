@@ -9,13 +9,14 @@
 .nav-wrapper {
 
   // position: fixed;
+  background-image: url('https://img.freepik.com/premium-photo/abstract-background_196038-8396.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.2.1517963016.1688116260&semt=ais');
   .nav-main-container {
     @include display;
     justify-content: space-around;
     height: 7vh;
     width: 100vw;
     background: transparent;
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(100px);
     font-family: $font-family;
     color: $tertiary-color;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -63,6 +64,7 @@
         background-color: rgb(240,245,255);
         border: none;
         height: 100%;
+        font-size: $font-size - 1;
 
       }
       .ant-input:focus {
@@ -86,7 +88,7 @@
           text-decoration: none;
           margin-left: 0.4rem;
           font-family: Roboto, Arial, sans-serif;
-          font-size: 16px;
+          font-size: $font-size - 2;
         }
 
         .nav-nav-item-logo {
@@ -105,6 +107,13 @@
     }
 
     .nav-cred {
+      Button{
+        background: transparent;
+        backdrop-filter: blur(20px);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 5px 2px;
+        border: 1px solid $blue-color;
+        color: $blue-color;
+      }
 
       // border: $border;
       .link {
@@ -119,7 +128,7 @@
         .avatar{
           @include display;
           margin: 1rem;
-          font-size: 20px;
+          font-size: $font-size;
           height: 35px;
           width: 35px;
           background-color: $blue-color;

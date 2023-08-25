@@ -16,6 +16,8 @@ function AddProduct() {
     (state: any) => state.ecommerce.singleProduct
   );
   const [selectedFile, setSelectedFile] = useState<any>('');
+  const [visible ,setVisible] =useState<boolean>(true)
+
   const [product, setProduct] = useState<any>({
     product_name: "",
     description: "",
@@ -26,7 +28,7 @@ function AddProduct() {
   });
 
 
-  const validationErr = [{ required: true, message: "required" }];
+  const validationErr = [{ required: true, message: "Required" }];
 
   const onFinish = (values: any) => {
   
@@ -50,13 +52,19 @@ function AddProduct() {
     const file = event.target.files[0];
     setSelectedFile(file); 
   };
+  const fieldChangeHandler=()=>{
+    setVisible(false)
+  }
   useEffect(() => {
+    setVisible(true)
+
     dispatch(cleanSingleProduct());
 
     if (location.state.id) {
       dispatch(getSingleProduct(location.state.id));
     }
   }, []);
+
   useEffect(() => {
     setProduct(singleProducts);
   }, [singleProducts]);
@@ -71,6 +79,7 @@ function AddProduct() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           className="updateAdmin-Form"
+          onFieldsChange={fieldChangeHandler}
         >
           <h1>UpdateProduct</h1>
           <Form.Item
@@ -125,7 +134,7 @@ function AddProduct() {
             <input type="file" onChange={handleFileChange} />
           </Form.Item>
           <Form.Item  className="item">
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={visible}>
              Update
             </Button>
           </Form.Item>

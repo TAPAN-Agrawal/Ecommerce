@@ -31,7 +31,7 @@ const { Search } = Input;
 export interface Profile {
   username: string;
   dob: any;
-  gender: number;
+  
   address: string;
 }
 
@@ -40,6 +40,7 @@ function Navbar() {
   const navigate = useNavigate();
   const isLogin = useSelector((state: any) => state.ecommerce.login);
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
+  const [visible ,setVisible] =useState<boolean>(true)
   const profileDetail = useSelector(
     (state: any) => state.ecommerce.profileDetails
   );
@@ -50,7 +51,7 @@ function Navbar() {
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
-    { min: 2, message: "must be at least 3 characters" },
+    { min: 2, message: "Must be at least 3 characters" },
   ];
 
   const combine = [{ required: true, message: "Please  fill required field" }];
@@ -84,6 +85,7 @@ function Navbar() {
   const showModal = () => {
     dispatch(getProfileDetails());
     setIsModalOpen(true);
+    setVisible(true)
   };
   
   const handleOk = () => {
@@ -93,6 +95,7 @@ function Navbar() {
   const handleCancel = () => {
     dispatch(cleanProfileDetails())
     setIsModalOpen(false);
+   
   };
 
   const avatarHandler = () => {
@@ -101,10 +104,19 @@ function Navbar() {
   };
   
   const onFinish = (values: Profile) => {
-    
+  let temp={
+    username:values.username,
+    dob:values.dob,
+    address:values.address
+
+  }  
     handleOk()
-    dispatch(updateProfileDetails(values));
+    dispatch(updateProfileDetails(temp));
   };
+
+  const fieldChangeHandler=()=>{
+    setVisible(false)
+  }
 
 
   useEffect(() => {
@@ -140,7 +152,7 @@ function Navbar() {
         </div>
         <div className="nav-search-bar">
           <Search
-            placeholder="Enter your search query"
+            placeholder="Search products ..."
             onChange={handleSearch}
           />
         </div>
@@ -186,12 +198,13 @@ function Navbar() {
                   >
                   {profileDetail.id  ? (
                   <Form
-                    name="basic"
-                    // form={form}
+                    name="profile-form"                 
                     layout="vertical"
                     onFinish={onFinish}
                     autoComplete="off"
                     className="form"
+                    onFieldsChange={fieldChangeHandler}
+                    
                   >
                     <Form.Item
                       label="Username"
@@ -199,6 +212,7 @@ function Navbar() {
                       initialValue={profileDetail.username}
                       rules={nameValidate}
                       required={false}
+                     
                     >
                       <Input />
                     </Form.Item>
@@ -257,12 +271,12 @@ function Navbar() {
                     </Form.Item>
 
                     <Form.Item>
-                      <Button type="primary" htmlType="submit">
+                      <Button type="primary" disabled={visible} htmlType="submit">
                         save
                       </Button>
                     </Form.Item>
                   </Form>
-              ):<div>Loading...</div>}
+              ):<Spin>Loading...</Spin>}
                 </Modal>
               <Popconfirm
                 title="Are you sure you want to Logout"
@@ -271,7 +285,7 @@ function Navbar() {
                 okText="Yes"
                 cancelText="No"
               >
-                <Button danger>Logout</Button>
+                <Button danger >Logout</Button>
               </Popconfirm>
             </div>
           )}

@@ -33,12 +33,12 @@ function Login() {
   const [flag, setFlag] = useState<any>(false);
 
   const emailValidate: any = [
-    { required: true, message: "email required" },
+    { required: true, message: "Email required" },
     { type: "email", message: "Please enter your valid email" },
   ];
   const passwordValidate = [
-    { required: true, message: "password required" },
-    { min: 8, message: "minimum length is 8 characters" },
+    { required: true, message: "Password required" },
+    { min: 8, message: "Minimum length is 8 characters" },
   ];
   const onFinish = (values: LoginInterface) => {
     setFlag(true);
@@ -137,7 +137,16 @@ function Login() {
               name="password"
               rules={passwordValidate}
             >
-              <Input.Password />
+              <Input.Password
+               onPaste={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              onCopy={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

@@ -8,10 +8,10 @@ function CartPrice({ priceList }: any) {
 
   const priceListMap = priceList.map((item: any, key: any) => (
     <div className="item" key={item.id}>
-      <div>
+      <p>
         {item.item} x({item.quantity})
-      </div>
-      <div>{item.price}$</div>
+      </p>
+      <p>{item.price}$</p>
     </div>
   ));
 
@@ -38,12 +38,12 @@ function CartPrice({ priceList }: any) {
 
         <h3>Order Summary</h3>
         <div className="item">
-          <div>Subscription</div>
-          <div>+10$ </div>
+          <p>Subscription</p>
+          <p>+10$ </p>
         </div>
         <div className="item">
-          <div>Coupan:Free 20</div>
-          <div>-10$ </div>
+          <p>Coupan:Free 20</p>
+          <p>-10$ </p>
         </div>
         <Divider />
         {priceListMap}

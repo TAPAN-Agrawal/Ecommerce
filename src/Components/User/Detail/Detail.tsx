@@ -15,6 +15,7 @@ import {
 import Offer from "../Offer/Offer";
 import Other from "../Other/Other";
 import { toast } from "react-toastify";
+import DetailImage from "../DetailImage/DetailImage";
 
 export interface addToCartInterface {
   id: number | any;
@@ -29,16 +30,25 @@ function Detail() {
 
   const [detailProduct, setDetailProduct] = useState<any>([]);
 
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(singleProduct.quantity || 0);
+
+  let totalQuantity = singleProduct.quantity;
+ 
 
   const increment = () => {
     let temp = count + 1;
-    setCount(temp);
-    let details = {
-      id: singleProduct.id,
-      quantity: 1,
-    };
-    dispatch(addToCart(details));
+    if (temp <= totalQuantity) {
+      setCount(temp);
+
+      let details = {
+        id: singleProduct.id,
+        quantity: 1,
+      };
+      dispatch(addToCart(details));
+    }
+    else{
+      toast.error(`Only ${totalQuantity} products available in stock `)
+    }
   };
 
   const decrement = () => {
@@ -63,23 +73,22 @@ function Detail() {
   const cartHandler = () => {
     let token = localStorage.getItem("token");
     let role = localStorage.getItem("role");
-    if (token ) {
-     if(role === "2") {
-      if (count === 0) {
-        setCount((prev) => prev + 1);
+    if (token) {
+      if (role === "2") {
+        if (count === 0) {
+          setCount((prev) => prev + 1);
 
-        let data: addToCartInterface = {
-          id: location.state.id,
-          quantity: count === 0 ? 1 : count,
-        };
+          let data: addToCartInterface = {
+            id: location.state.id,
+            quantity: count === 0 ? 1 : count,
+          };
 
-        dispatch(addToCart(data));
-        dispatch(purchaseRemover());
+          dispatch(addToCart(data));
+          dispatch(purchaseRemover());
+        }
+      } else {
+        toast.error("Only  user can add product to cart");
       }
-     }
-     else{
-      toast.error("Only  user can add product to cart");
-     }
     } else {
       // navigate("/login");
       toast.error("Please login to add product in cart");
@@ -98,10 +107,14 @@ function Detail() {
       quantity: 1,
     };
 
-    dispatch(addToCart(data));
-    setTimeout(() => {
+    if (count === 0) {
+      dispatch(addToCart(data));
+      setTimeout(() => {
+        navigate("/cart");
+      }, 500);
+    } else {
       navigate("/cart");
-    }, 1000);
+    }
   };
   const backHandler = () => {
     navigate(-1);
@@ -121,9 +134,6 @@ function Detail() {
     }
   }, [singleProduct]);
 
-  // console.log('count',count);
-  // console.log('singleProduct.quantityInCart',singleProduct.quantityInCart);
-
   return (
     <div className="parent-detail">
       <div className="Back-Front-btn">
@@ -137,12 +147,7 @@ function Detail() {
           <div className="detail-parent-wrapper">
             <div className="detail-wrapper">
               <div className="detail-product-image">
-                <img
-                  src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}
-                  alt=""
-                  height={400}
-                  // className="detail-image"
-                />
+                <DetailImage img={singleProduct.product_img} />
                 <div className="small-img">
                   <img
                     src={`${process.env.REACT_APP_BASEURL}/${singleProduct.product_img}`}

@@ -25,7 +25,7 @@ function Register() {
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
-    { min: 2, message: "must be at least 3 characters" },
+    { min: 2, message: "Must be at least 3 characters" },
   ];
 
   const emailValidate: any = [
@@ -37,7 +37,7 @@ function Register() {
     { required: true, message: "Please input your password!" },
     {
       pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
-      message: "create strong password",
+      message: "Create strong password",
     },
   ];
 
@@ -48,7 +48,7 @@ function Register() {
         if (!value || getFieldValue("password") === value) {
           return Promise.resolve();
         }
-        return Promise.reject(new Error("password not match!"));
+        return Promise.reject(new Error("Password not match!"));
       },
     }),
   ];
@@ -59,6 +59,7 @@ function Register() {
    
     
     dispatch(register(values));
+   
     
   };
 
@@ -95,14 +96,33 @@ function Register() {
               name="password"
               rules={passwordValidate}
             >
-              <Input.Password />
+              <Input.Password
+               onPaste={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              onCopy={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              
+              />
             </Form.Item>
             <Form.Item
               label="ConfirmPassword"
               name="confirmPassword"
               rules={confirmPassword}
             >
-              <Input.Password />
+              <Input.Password
+               onPaste={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              onCopy={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              />
             </Form.Item>
             <Form.Item
               label="Gender"

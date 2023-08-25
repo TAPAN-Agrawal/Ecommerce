@@ -127,7 +127,6 @@ function ProductTable() {
   useEffect(() => {
     dispatch(getAllProducts(page, 8, null, null));
   }, [page]);
-  // console.log(datas);
 
   return (
     <>

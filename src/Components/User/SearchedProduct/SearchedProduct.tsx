@@ -84,6 +84,7 @@ function SearchedProduct() {
             defaultCurrent={1}
             total={pageCalculator}
             onChange={pageHandler}
+            className="pagination"
           />
         </div>
       )}

@@ -11,17 +11,16 @@
         padding-left: 33px;
         width: 100%;
         color:$blue-color;
+        font-size: $font-size;
     }
     .menu{
         font-family:$font-family;
+        font-size: $font-size - 5;
         .icons{
             font-size: $font-size;
             font-weight: 500;
        }
-    //    .ant-menu-item:hover{
-    //     background-color: black;
-    //     // color: pink;
-    //    }
+   
     }
     .ant-menu-item{
         position: relative;

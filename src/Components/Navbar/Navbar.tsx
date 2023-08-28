@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
+import dayjs from 'dayjs';
 
 const { Search } = Input;
 
@@ -140,6 +141,7 @@ function Navbar() {
     }
    
   }, []);
+ 
  
   
 
@@ -259,15 +261,12 @@ function Navbar() {
                       label="Birthday"
                       name="dob"
                       rules={combine}
-                      initialValue={
-                        profileDetail.dob ? moment(profileDetail.dob) : null
-                      }
                       required={false}
                     >
                       <DatePicker
-                      //  defaultPickerValue={minDate}
+                     
                       format='YYYY-MM-DD'
-
+                      defaultValue={dayjs(profileDetail.dob.slice(0,10),'YYYY-MM-DD')}
                        disabledDate={disabledDate}
                        />
                     </Form.Item>

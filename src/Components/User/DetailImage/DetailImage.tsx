@@ -15,9 +15,9 @@ function DetailImage({
   magnifieWidth?: number;
   zoomLevel?: number;
 }) {
-    const [[x, y], setXY] = useState([0, 0]);
-    const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
-    const [showMagnifier, setShowMagnifier] = useState(false);
+  const [[x, y], setXY] = useState([0, 0]);
+  const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
+  const [showMagnifier, setShowMagnifier] = useState(false);
   return (
     <>
       <img
@@ -51,12 +51,12 @@ function DetailImage({
           display: showMagnifier ? "" : "none",
           position: "absolute",
           pointerEvents: "none",
-          height: '500px',
-          width: '570px',
-          top: '145px',
-          left:'820px',
-          zIndex:'2',
-          opacity: "1", 
+          height: "500px",
+          width: "570px",
+          top: "145px",
+          left: "880px",
+          zIndex: "2",
+          opacity: "1",
           border: "1px solid lightgray",
           backgroundColor: "white",
           backgroundImage: `url(${process.env.REACT_APP_BASEURL}/${img})`,

@@ -128,8 +128,8 @@ function Login() {
             className="login-Form"
             size="large"
           >
-            <Form.Item label="Email" name="email" rules={emailValidate}>
-              <Input />
+            <Form.Item label="Email" name="email" rules={emailValidate} >
+              <Input placeholder="Enter email" />
             </Form.Item>
 
             <Form.Item
@@ -146,6 +146,7 @@ function Login() {
                 e.preventDefault();
                 return false;
               }}
+              placeholder="Enter password"
               />
             </Form.Item>
 

@@ -120,6 +120,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
           product_name: item.products.product_name,
           quantity: item.quantity,
           totalQuantity: item.products.quantity,
+          product_id:item.products.id
         };
       });
       return {

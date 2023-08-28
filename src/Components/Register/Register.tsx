@@ -85,10 +85,10 @@ function Register() {
             className="addAdmin-Form"
           >
             <Form.Item label="Username" name="username" rules={nameValidate}>
-              <Input />
+              <Input placeholder="Enter username"/>
             </Form.Item>
             <Form.Item label="Email" name="email" rules={emailValidate}>
-              <Input />
+              <Input placeholder="Enter email"/>
             </Form.Item>
 
             <Form.Item
@@ -105,7 +105,7 @@ function Register() {
                 e.preventDefault();
                 return false;
               }}
-              
+              placeholder="Enter password"
               />
             </Form.Item>
             <Form.Item
@@ -121,7 +121,9 @@ function Register() {
               onCopy={(e) => {
                 e.preventDefault();
                 return false;
+
               }}
+              placeholder="Enter confirm password"
               />
             </Form.Item>
             <Form.Item

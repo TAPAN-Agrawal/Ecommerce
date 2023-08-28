@@ -48,7 +48,7 @@ function CartPrice({ priceList }: any) {
         <Divider />
         {priceListMap}
         <div className="item">
-          <h3>TotalTtems:</h3>
+          <h3>Total-Items:</h3>
           <div>{priceListMap.length} </div>
         </div>
         <Divider />

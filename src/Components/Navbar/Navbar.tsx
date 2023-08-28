@@ -66,6 +66,7 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("userId");
+    sessionStorage.clear()
     toast.success("Logout Successfully");
     navigate("/home");
     dispatch(logoutSetter());
@@ -104,6 +105,7 @@ function Navbar() {
   };
   
   const onFinish = (values: Profile) => {
+    
   let temp={
     username:values.username,
     dob:values.dob,
@@ -114,8 +116,18 @@ function Navbar() {
     dispatch(updateProfileDetails(temp));
   };
 
-  const fieldChangeHandler=()=>{
-    setVisible(false)
+
+
+  const fieldChangeHandler=(error:any)=>{
+    if(error[0].errors.length >= 1){
+      setVisible(true)
+    }
+    else{
+      setVisible(false)
+    }
+    
+    
+    
   }
 
 
@@ -126,7 +138,6 @@ function Navbar() {
     if (token) {
       dispatch(loginSetter());
     }
-
    
   }, []);
  
@@ -276,7 +287,7 @@ function Navbar() {
                       </Button>
                     </Form.Item>
                   </Form>
-              ):<Spin>Loading...</Spin>}
+              ):<Spin></Spin>}
                 </Modal>
               <Popconfirm
                 title="Are you sure you want to Logout"

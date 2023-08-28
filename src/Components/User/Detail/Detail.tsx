@@ -111,7 +111,7 @@ function Detail() {
       dispatch(addToCart(data));
       setTimeout(() => {
         navigate("/cart");
-      }, 500);
+      }, 700);
     } else {
       navigate("/cart");
     }

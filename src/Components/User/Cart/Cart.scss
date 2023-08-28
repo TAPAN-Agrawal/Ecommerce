@@ -1,7 +1,5 @@
 @import '../../../Global/Variable.scss';
-// body{
-//     background: #f5f8f0;
-//   }
+
 @mixin display{
     display: flex;
     justify-content: center;
@@ -31,8 +29,10 @@
 
     .cart-wrapper{
         @include display;
+      
         .cart-wrapper-child{
-          
+         
+         
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,6 +44,10 @@
                 height: 100%;
                 width: 100%;
                 flex: 1 1;
+                h2{
+                    margin: 0px !important;
+                    font-family: $font-family;
+                }
             }
             .right-child{
                 height: 100%;

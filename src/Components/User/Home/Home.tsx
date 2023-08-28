@@ -19,8 +19,8 @@ function Home() {
   const [sort, setSort] = useState(null);
   const [selectedButton, setSelectedButton] = useState<any>(null);
 
-  const singleProductHandler = (id: any) => {
-    // dispatch(getSingleProduct(id));
+  const singleProductHandler = (id: number) => {
+    
     navigate("/detail", {
       state: {
         id: id,
@@ -30,6 +30,7 @@ function Home() {
   const menHandler = () => {
     setPage(1);
     setSelectedButton(0);
+    sessionStorage.setItem("selected",'0')
     const menProducts = products.filter(
       (product: any) => product.category === 0
     );
@@ -37,8 +38,8 @@ function Home() {
   };
   const womenHandler = () => {
     setPage(1);
-
     setSelectedButton(1);
+    sessionStorage.setItem("selected",'1')
     const womenProducts = products.filter(
       (product: any) => product.category === 1
     );
@@ -46,6 +47,7 @@ function Home() {
   };
   const allHandler = () => {
     setPage(1);
+    sessionStorage.setItem("selected",'null')
 
     setSelectedButton(null);
     setCategory(products);
@@ -77,12 +79,23 @@ function Home() {
   const pageCalculator = Math.ceil(totalCount / 12) * 10;
 
   useEffect(() => {
-    dispatch(getAllProducts(page, 12, selectedButton, sort));
+    let selectedCategory = Number(sessionStorage.getItem('selected'));
+   
+    
+    if(selectedCategory === 0 || selectedCategory === 1){
+      setSelectedButton(selectedCategory)
+    dispatch(getAllProducts(page, 12, selectedCategory, sort));
+
+    }
+    else{
+      setSelectedButton(null)
+      dispatch(getAllProducts(page, 12, selectedButton, sort));
+    }
   }, [page, selectedButton, sort]);
 
   useEffect(() => {
-    setProducts(data);
-    setCategory(data);
+      setProducts(data);
+      setCategory(data);
   }, [data]);
   return (
     <div className="home-parent">

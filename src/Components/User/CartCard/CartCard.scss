@@ -15,6 +15,7 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
         .ant-card-body{
             @include display;
+            padding-top: 2px;
 
             .CartCart-left {
                 @include display;
@@ -39,6 +40,10 @@
                 h3{
                     margin-top: 0rem;
                     font-size: $font-size - 4;
+
+                }
+                h3:hover{
+                    cursor: pointer;
                 }
                 h4{
                     color: $price-color;

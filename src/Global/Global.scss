@@ -25,6 +25,8 @@ body::-webkit-scrollbar {
 .ant-modal{
    @include display;
             justify-content: flex-end;
+            margin-top: -1rem;
+            margin-right: 2rem;
     .ant-modal-content{
         // width: 1000px;
         // font-family: $font-family;

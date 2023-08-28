@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Cart.scss";
 import CartCard from "../CartCard/CartCard";
-import { Button, Card } from "antd";
+import { Button, Card, Divider } from "antd";
 import CartPrice from "../CartPrice/CartPrice";
 import { useDispatch } from "react-redux";
 import { getProductsInCart } from "../../../Redux/Action/Action";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import img from "../../../Assets/Images/emptycart-removebg-preview.png";
+import img2 from '../../../Assets/Images/minimal-shopping-cart-shopping-concept-orange-background-3d-rendering-removebg-preview.png'
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
@@ -25,6 +26,8 @@ function Cart() {
       price={item.price}
       quantity={item.quantity}
       totalQuantity={item.totalQuantity}
+      product_id={item.product_id}
+    
     />
   ));
 
@@ -61,6 +64,7 @@ function Cart() {
   }, []);
   return (
     <div className="parent-cart">
+     
       <div className="Back-Front-btn">
         <Button type="text" onClick={backHandler}>
           Back
@@ -70,9 +74,13 @@ function Cart() {
         <div className="cart-wrapper">
           <div className="cart-wrapper-child">
             <div className="left-child">
-              <Card title="Cart Items">{cartItems}</Card>
+              <Card >
+                <h2>Shopping Cart</h2>
+                <Divider/>
+                {cartItems}</Card>
             </div>
             <div className="right-child">
+         
               <CartPrice priceList={price} />
               <Button onClick={ckeckoutHandler}>Checkout</Button>
             </div>

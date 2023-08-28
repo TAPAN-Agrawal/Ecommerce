@@ -5,6 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { deleteCartItems, updateQuantityCart } from "../../../Redux/Action/Action";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export interface updateQuantityCartInterface {
   id: number;
@@ -13,6 +14,7 @@ export interface updateQuantityCartInterface {
 
 function CartCard(Props: any) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [count, setCount] = useState<number>(Props.quantity || 0);
   const [totalconst, settotalConst] = useState(Props.totalQuantity);
 
@@ -53,10 +55,31 @@ function CartCard(Props: any) {
   };
   const cancel = (e: React.MouseEvent<HTMLElement>) => {};
 
+  const detailPageHandler=()=>{
+    navigate('/detail', {
+      state: {
+        id: Props.product_id,
+      },
+    }
+    )
+  }
+
+
+  useEffect(()=>{
+    setCount(Props.quantity)
+  },[Props.quantity])
+
+
+ 
+ 
+  
+
   return (
     <div className="CartCard-wrapper">
       <Card className="CartCard">
-        <div className="CartCart-left">
+        <div className="CartCart-left"
+         onClick={detailPageHandler}
+    >
           <img
             src={`${process.env.REACT_APP_BASEURL}/${Props.img}`}
             alt=""
@@ -65,7 +88,7 @@ function CartCard(Props: any) {
           />
         </div>
         <div className="CartCart-right">
-          <h3>{Props.title}</h3>
+          <h3 onClick={detailPageHandler}>{Props.title}</h3>
           <p>{Props.description.slice(0,140)}</p>
           <h4>$ {Props.price}</h4>
 

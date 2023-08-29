@@ -9,18 +9,11 @@ import AddProduct from "../AddProduct/AddProduct";
 import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import Sidebar from "../Sidebar/Sidebar";
 import { toast } from "react-toastify";
+import RoleProtected from "../../RoleProtected/RoleProtected";
 
 function AdminPanel() {
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    let role = localStorage.getItem("role");
-    if (role === "0" || role === "1") {
-    } else {
-      navigate("/login");
-     
-    }
-  }, []);
+
 
   return (
     <div className="admin-wrapper-container">
@@ -28,13 +21,16 @@ function AdminPanel() {
 
       <div className="admin-right-wrapper">
         <Routes>
-          <Route path="/" element={<UserTable />} />
-          <Route path="/user" element={<UserTable />} />
-          <Route path="product" element={<ProductTable />} />
-          <Route path="/addproduct" element={<AddProduct />} />
-          <Route path="/updateproduct" element={<UpdateProduct />} />
-          <Route path="addAdmin" element={<AddAdmin />} />
           <Route path="*" element={<Notfound />} />
+          <Route element={<RoleProtected />}>
+            <Route path="/" element={<UserTable />} />
+            <Route path="/user" element={<UserTable />} />
+            <Route path="product" element={<ProductTable />} />
+
+            <Route path="/addproduct" element={<AddProduct />}/>
+            <Route path="/updateproduct" element={<UpdateProduct />}/>
+            <Route path="/addAdmin" element={<AddAdmin />}/>
+          </Route>
         </Routes>
       </div>
     </div>

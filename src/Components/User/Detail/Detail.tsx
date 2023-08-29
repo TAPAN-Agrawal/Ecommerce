@@ -95,9 +95,14 @@ function Detail() {
     }
   };
   const BuyHandler = () => {
+    let token = localStorage.getItem("token");
     let role = localStorage.getItem("role");
+    if(!token){
+      toast.error("Please login to buy products");
+      return;
+    }
     if (role !== "2") {
-      toast.error("You are not authorized ");
+      toast.error("Only  user can buy products");
       return;
     }
     dispatch(purchaseRemover());

@@ -36,10 +36,12 @@
                     // background-color: green;
                     height: 20%;
                     font-size: $font-size - 4;
+                    font-family: $font-family;
                 }
                 h3{
                     margin-top: 0rem;
                     font-size: $font-size - 4;
+                    font-family: $font-family;
 
                 }
                 h3:hover{
@@ -53,6 +55,9 @@
                 .count-delete{
                     @include display;
                     justify-content: space-between;
+                    Button{
+                        margin: 0.2rem;
+                    }
                     .delete{
                         color: red;
                         font-size: $font-size;

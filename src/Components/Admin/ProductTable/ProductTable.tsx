@@ -79,7 +79,7 @@ function ProductTable() {
         <img
           src={`${process.env.REACT_APP_BASEURL}/${coverPhoto}`}
           alt="Cover"
-          style={{ width: 50, height: 50 }}
+          height={50}
         />
       ),
     },
@@ -100,7 +100,7 @@ function ProductTable() {
       render: (record) => (
         <div>
           <Button
-            style={{ backgroundColor: "#279EFF", margin: "1rem" }}
+          className="button1"
             onClick={() => updateHandler(record)}
           >
             Update
@@ -112,7 +112,10 @@ function ProductTable() {
             okText="Yes"
             cancelText="No"
           >
-            <Button danger>Delete</Button>
+            <Button
+          className="button2"
+            
+            danger>Delete</Button>
           </Popconfirm>
         </div>
       ),

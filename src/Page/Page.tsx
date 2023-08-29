@@ -45,12 +45,15 @@ function Page() {
           element={<AdminPanel/>}
         />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/cart" element={<Protected Component={Cart} />} />
-        <Route path="/checkout" element={<Protected Component={Checkout} />} />
-        <Route
-          path="/purchased"
-          element={<Protected Component={Purchased} />}
-        />
+       
+        <Route element={<Protected/>}>
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/purchased" element={<Purchased/>}/>
+
+        <Route/>
+        </Route>
+        
         <Route path="*" element={<Notfound />} />
       </Routes>
     </div>

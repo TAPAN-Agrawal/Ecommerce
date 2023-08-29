@@ -5,10 +5,10 @@ const initialState: any = {
   users: [],
   cartItems: [],
   totalCount: "",
+  isRegistered: false,
   login: false,
   purchased: false,
-  profileDetails:'',
- 
+  profileDetails: "",
 };
 
 export const ecommerce = (state: any = initialState, action: any) => {
@@ -17,16 +17,25 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         login: true,
-       
       };
+    case "REGISTER_REDUCER":
+      return {
+        ...state,
+        isRegistered: true,
+      };
+    case "AFTER_REGISTER": {
+      return {
+        ...state,
+        isRegistered: false,
+      };
+    }
     case "LOGOUT_REDUCER":
       return {
         ...state,
         login: false,
         register: false,
-        profileDetails:''
+        profileDetails: "",
       };
-   
 
     case "SET_ALL_PRODUCTS":
       return {
@@ -40,8 +49,8 @@ export const ecommerce = (state: any = initialState, action: any) => {
         ...state,
         singleProduct: {
           ...action.payload.product,
-          quantityInCart: action.payload.quantityInCart
-        }
+          quantityInCart: action.payload.quantityInCart,
+        },
       };
     case "ADD_PRODUCT_REDUCER":
       return {
@@ -56,7 +65,6 @@ export const ecommerce = (state: any = initialState, action: any) => {
         }
         return product;
       });
-      
 
       return {
         ...state,
@@ -120,7 +128,7 @@ export const ecommerce = (state: any = initialState, action: any) => {
           product_name: item.products.product_name,
           quantity: item.quantity,
           totalQuantity: item.products.quantity,
-          product_id:item.products.id
+          product_id: item.products.id,
         };
       });
       return {
@@ -135,14 +143,13 @@ export const ecommerce = (state: any = initialState, action: any) => {
       return {
         ...state,
         cartItems: updatedCarts,
-        singleProduct:[]
+        singleProduct: [],
       };
 
     case "UPDATE_QUANTITY_CART":
       let ids = action.payload.id;
       let qty = action.payload.quantity;
-     
-      
+
       let updatedCartItems = state.cartItems.map((item: any) => {
         if (item.id === ids) {
           return {
@@ -168,17 +175,17 @@ export const ecommerce = (state: any = initialState, action: any) => {
         purchased: false,
       };
 
-      case 'SET_PROFILE_DETAILS_REDUCER':
-        return{
-          ...state,
-          profileDetails:action.payload
-        }
+    case "SET_PROFILE_DETAILS_REDUCER":
+      return {
+        ...state,
+        profileDetails: action.payload,
+      };
 
-        case 'CLEAN_PROFILE_DETAILS':
-          return{
-            ...state,
-            profileDetails:''
-          }
+    case "CLEAN_PROFILE_DETAILS":
+      return {
+        ...state,
+        profileDetails: "",
+      };
 
     default:
       return state;

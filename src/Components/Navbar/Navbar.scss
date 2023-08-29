@@ -8,8 +8,9 @@
 
 .nav-wrapper {
 
-  // position: fixed;
-  background-image: url('https://img.freepik.com/premium-photo/abstract-background_196038-8396.jpg?size=626&ext=jpg&uid=R109346766&ga=GA1.2.1517963016.1688116260&semt=ais');
+  // // position: fixed;
+  // background: rgb(183,231,241);
+  background: linear-gradient(90deg, rgba(63,130,251,0.6811099439775911) 23%, rgba(193,200,237,0.42620798319327735) 100%);
   .nav-main-container {
     @include display;
     justify-content: space-around;

@@ -1,21 +1,15 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {  Outlet, Navigate} from "react-router-dom";
 
-function RoleProtected({ Component }: any) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+function RoleProtected() {
+ 
+    let auth = localStorage.getItem("role") === '0' || localStorage.getItem("role") ==='1';
+    let token = localStorage.getItem('token')
+    
+  
 
-    if (token) {
-      // navigate('/login')
-      //     const decodedToken = jwt.decode(token);
-      //  console.log(decodedToken);
-    }
-  }, []);
   return (
-    <>
-      <Component />
-    </>
+    auth  ? <Outlet/> : token ? <Navigate to='/'/> : <Navigate to='/login'/>
   );
 }
 

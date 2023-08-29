@@ -4,12 +4,7 @@ import { Button, Divider, Form, Input } from "antd";
 
 import img from "../../Assets/Images/login.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  FacebookFilled,
-  GoogleCircleFilled,
-  GoogleOutlined,
-  LinkedinFilled,
-} from "@ant-design/icons";
+
 import { useDispatch } from "react-redux";
 import {
   cleanProfileDetails,
@@ -75,28 +70,10 @@ function Login() {
     } catch (error: any) {}
   };
 
-  // useEffect(() => {
-  //   // Get the URLSearchParams object from the location search
-  //   const searchParams = new URLSearchParams(location.search);
-
-  //   // Get a specific parameter value by name
-  //   const paramValue = searchParams.get("query");
-
-  //   console.log("Parameter Value:", paramValue);
-
-  //   // Iterate through all parameters
-  //   // for (const [key, value] of searchParams) {
-  //   //   console.log(`Parameter ${key}: ${value}`);
-  //   // }
-  // }, [location.search]);
+ 
   useEffect(() => {
     const response = window.location.search;
     const token = response.slice(6);
-    if (token) {
-      localStorage.setItem("token", token);
-      navigate("/");
-      dispatch(loginSetter());
-    }
     if (IsLogin) {
       navigate("/home");
       dispatch(cleanProfileDetails());
@@ -107,6 +84,11 @@ function Login() {
       } else {
         navigate("/home");
       }
+    }
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/");
+      dispatch(loginSetter());
     }
   }, [IsLogin]);
 

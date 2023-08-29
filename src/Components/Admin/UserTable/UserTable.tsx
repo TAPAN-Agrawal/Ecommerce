@@ -61,6 +61,12 @@ function UserTable() {
 
   const deleteHandler = (id: number) => {
     dispatch(deleteUser(id));
+    setTimeout(()=>{
+      if (users.length === 1 && page > 1) {
+        setPage(page - 1);
+      }
+     },1000)
+      const pageCalculator = Math.ceil(totalCount / 8) * 10;
   };
   const pageHandler = (e: number) => {
     setPage(e);

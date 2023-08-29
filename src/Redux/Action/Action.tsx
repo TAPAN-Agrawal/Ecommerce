@@ -1,7 +1,11 @@
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
 import { AddProductInterface } from "../../Components/Admin/AddProduct/AddProduct";
-import { CheckoutInterface, buyNowInterface, completePurchaseInterface } from "../../Components/User/Checkout/Checkout";
+import {
+  CheckoutInterface,
+  buyNowInterface,
+  completePurchaseInterface,
+} from "../../Components/User/Checkout/Checkout";
 import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/User/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
@@ -34,6 +38,11 @@ export const logoutSetter = () => {
 export const googlelogin = () => {
   return {
     type: "GOOGLE_LOGIN",
+  };
+};
+export const afterRegister = () => {
+  return {
+    type: "AFTER_REGISTER",
   };
 };
 
@@ -163,21 +172,21 @@ export const purchaseRemover = () => {
   };
 };
 
-export const getProfileDetails=()=>{
-  return{
-    type: "GET_PROFILE_details"
-  }
-}
+export const getProfileDetails = () => {
+  return {
+    type: "GET_PROFILE_details",
+  };
+};
 
-export const updateProfileDetails=(data:Profile)=>{
-  return{
-    type:'UPDATE_PROFILE_DETAILS',
-    payload:data
-  }
-}
+export const updateProfileDetails = (data: Profile) => {
+  return {
+    type: "UPDATE_PROFILE_DETAILS",
+    payload: data,
+  };
+};
 
-export const cleanProfileDetails = ()=>{
-  return{
-    type:'CLEAN_PROFILE_DETAILS'
-  }
-}
+export const cleanProfileDetails = () => {
+  return {
+    type: "CLEAN_PROFILE_DETAILS",
+  };
+};

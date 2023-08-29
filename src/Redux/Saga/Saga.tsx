@@ -98,10 +98,13 @@ export function* register(action: RegisterActionInterface) {
     );
 
     if (response) {
-      window.location.href='/login'
+      yield put({ type: "REGISTER_REDUCER" });
+      
     } else {
     }
-  } catch (error: any) {}
+  } catch (error: any) {
+
+  }
 }
 
 export function* login(action: LoginActionInterface) {
@@ -146,6 +149,7 @@ export function* getAllProducts(action: ActionProductInterface) {
           );
         }
       } else {
+
         if (sort !== null) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&sortOrder=${sort}`

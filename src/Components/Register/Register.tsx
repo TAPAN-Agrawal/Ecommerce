@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, DatePicker, Form, Input, Radio } from "antd";
 import "./Register.scss";
 import img from "../../Assets/Images/register.png";
 import TextArea from "antd/es/input/TextArea";
 import { useDispatch } from "react-redux";
-import { register } from "../../Redux/Action/Action";
+import { afterRegister, register } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -21,7 +21,7 @@ export interface RegisterInterface {
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const registers = useSelector((state: any) => state.ecommerce.register);
+  const isRegister = useSelector((state: any) => state.ecommerce.isRegistered);
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -67,6 +67,13 @@ function Register() {
   const disabledDate:any=(current:any)=>{
     return current && current > minDate;
   }
+
+  useEffect(()=>{
+    if(isRegister){
+      navigate('/login')
+      dispatch(afterRegister())
+    }
+  },[isRegister])
 
 
 

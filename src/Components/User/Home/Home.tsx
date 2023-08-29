@@ -15,12 +15,11 @@ function Home() {
   const totalCount = useSelector((state: any) => state.ecommerce.totalCount);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<any>(sessionStorage.getItem('page') || 1);
   const [sort, setSort] = useState(null);
   const [selectedButton, setSelectedButton] = useState<any>(null);
 
   const singleProductHandler = (id: number) => {
-    
     navigate("/detail", {
       state: {
         id: id,
@@ -30,7 +29,7 @@ function Home() {
   const menHandler = () => {
     setPage(1);
     setSelectedButton(0);
-    sessionStorage.setItem("selected",'0')
+    sessionStorage.setItem("selected", "0");
     const menProducts = products.filter(
       (product: any) => product.category === 0
     );
@@ -39,7 +38,8 @@ function Home() {
   const womenHandler = () => {
     setPage(1);
     setSelectedButton(1);
-    sessionStorage.setItem("selected",'1')
+    sessionStorage.setItem("selected", "1");
+
     const womenProducts = products.filter(
       (product: any) => product.category === 1
     );
@@ -47,7 +47,7 @@ function Home() {
   };
   const allHandler = () => {
     setPage(1);
-    sessionStorage.setItem("selected",'null')
+    sessionStorage.setItem("selected", "null");
 
     setSelectedButton(null);
     setCategory(products);
@@ -59,6 +59,8 @@ function Home() {
 
   const pageHandler = (e: number) => {
     setPage(e);
+    sessionStorage.setItem("page", e.toString());
+
   };
   const mapProducts: any = category.map((product: any, key: any) => {
     return (
@@ -79,23 +81,25 @@ function Home() {
   const pageCalculator = Math.ceil(totalCount / 12) * 10;
 
   useEffect(() => {
-    let selectedCategory = Number(sessionStorage.getItem('selected'));
-   
-    
-    if(selectedCategory === 0 || selectedCategory === 1){
-      setSelectedButton(selectedCategory)
-    dispatch(getAllProducts(page, 12, selectedCategory, sort));
+    let selectedCategory = Number(sessionStorage.getItem("selected"));
+  
 
-    }
-    else{
-      setSelectedButton(null)
-      dispatch(getAllProducts(page, 12, selectedButton, sort));
-    }
+        if (selectedCategory === 0 || selectedCategory === 1) {
+          setSelectedButton(selectedCategory);
+          if(selectedButton !== null){
+
+            dispatch(getAllProducts(page, 12, selectedCategory, sort));
+          }
+        } else {
+          dispatch(getAllProducts(page, 12, selectedButton, sort));
+        }
+     
+    
   }, [page, selectedButton, sort]);
 
   useEffect(() => {
-      setProducts(data);
-      setCategory(data);
+    setProducts(data);
+    setCategory(data);
   }, [data]);
   return (
     <div className="home-parent">
@@ -141,19 +145,25 @@ function Home() {
                 <div className="category">
                   <Button
                     onClick={menHandler}
-                    className={selectedButton === 0 ? "selected" : "not-selected"}
+                    className={
+                      selectedButton === 0 ? "selected" : "not-selected"
+                    }
                   >
                     Men
                   </Button>
                   <Button
                     onClick={womenHandler}
-                    className={selectedButton === 1 ? "selected" : "not-selected"}
+                    className={
+                      selectedButton === 1 ? "selected" : "not-selected"
+                    }
                   >
                     Women
                   </Button>
                   <Button
                     onClick={allHandler}
-                    className={selectedButton === null ? "selected" : "not-selected"}
+                    className={
+                      selectedButton === null ? "selected" : "not-selected"
+                    }
                   >
                     All
                   </Button>

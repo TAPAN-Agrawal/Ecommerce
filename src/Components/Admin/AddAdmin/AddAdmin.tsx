@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddAdmin.scss";
 import { Button, DatePicker, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -6,18 +6,20 @@ import { addAdmin } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 
-export interface AddAdmin{
-  "username": string,
-  "password": string,
-  "email": string,
-  "dob": string,
-  "gender": number,
-  "address": "string",
- 
+export interface AddAdmin {
+  username: string;
+  password: string;
+  email: string;
+  dob: string;
+  gender: number;
+  address: "string";
 }
 
 function AddAdmin() {
   const dispatch = useDispatch();
+  const [hasError, setHasErrors] = useState<boolean>(true);
+  const [form] = Form.useForm();
+
   const nameValidate = [
     { required: true, message: " Username required" },
     { min: 2, message: " At least 3 characters" },
@@ -35,18 +37,19 @@ function AddAdmin() {
   ];
   const combine = [{ required: true, message: "Please  fill required field" }];
 
-  const minDate:any = moment().subtract(18, 'years');
-  const disabledDate:any=(current:any)=>{
+  const minDate: any = moment().subtract(18, "years");
+  const disabledDate: any = (current: any) => {
     return current && current > minDate;
-  }
-
-
+  };
 
   const onFinish = (values: AddAdmin) => {
     dispatch(addAdmin(values));
   };
 
   const onFinishFailed = (errorInfo: any) => {};
+
+
+
 
   return (
     <div className="addAdmin-wrapper">
@@ -59,6 +62,7 @@ function AddAdmin() {
         autoComplete="off"
         className="addAdmin-Form"
         size="large"
+       
       >
         <h1>AddAdmin</h1>
         <Form.Item
@@ -75,14 +79,14 @@ function AddAdmin() {
 
         <Form.Item label="Password" name="password" rules={passwordValidate}>
           <Input.Password
-           onPaste={(e) => {
-            e.preventDefault();
-            return false;
-          }}
-          onCopy={(e) => {
-            e.preventDefault();
-            return false;
-          }}
+            onPaste={(e) => {
+              e.preventDefault();
+              return false;
+            }}
+            onCopy={(e) => {
+              e.preventDefault();
+              return false;
+            }}
           />
         </Form.Item>
         <Form.Item
@@ -96,17 +100,14 @@ function AddAdmin() {
           </Radio.Group>
         </Form.Item>
         <Form.Item label="Birthday" name="dob" rules={combine}>
-          <DatePicker
-          format='YYYY-MM-DD'
-          disabledDate={disabledDate}
-           />
+          <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} />
         </Form.Item>
         <Form.Item label="Address" name="address" rules={combine}>
           <TextArea rows={2} />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" htmlType="submit" >
+            Add
           </Button>
         </Form.Item>
       </Form>

@@ -41,7 +41,6 @@ function Navbar() {
   const navigate = useNavigate();
   const isLogin = useSelector((state: any) => state.ecommerce.login);
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
-  const [visible ,setVisible] =useState<boolean>(true)
   const profileDetail = useSelector(
     (state: any) => state.ecommerce.profileDetails
   );
@@ -87,7 +86,6 @@ function Navbar() {
   const showModal = () => {
     dispatch(getProfileDetails());
     setIsModalOpen(true);
-    setVisible(true)
   };
   
   const handleOk = () => {
@@ -119,17 +117,7 @@ function Navbar() {
 
 
 
-  const fieldChangeHandler=(error:any)=>{
-    if(error[0].errors.length >= 1){
-      setVisible(true)
-    }
-    else{
-      setVisible(false)
-    }
-    
-    
-    
-  }
+
 
 
   useEffect(() => {
@@ -166,7 +154,7 @@ function Navbar() {
         <div className="nav-search-bar">
           <Search
             placeholder="Search products ..."
-            onChange={handleSearch}
+            // onChange={handleSearch}
           />
         </div>
         <div className="nav-nav-items">
@@ -216,7 +204,7 @@ function Navbar() {
                     onFinish={onFinish}
                     autoComplete="off"
                     className="form"
-                    onFieldsChange={fieldChangeHandler}
+                    
                     
                   >
                     <Form.Item
@@ -262,11 +250,11 @@ function Navbar() {
                       name="dob"
                       rules={combine}
                       required={false}
+                      initialValue={dayjs(profileDetail.dob.slice(0,10),'YYYY-MM-DD')}
                     >
                       <DatePicker
                      
                       format='YYYY-MM-DD'
-                      defaultValue={dayjs(profileDetail.dob.slice(0,10),'YYYY-MM-DD')}
                        disabledDate={disabledDate}
                        />
                     </Form.Item>
@@ -281,7 +269,7 @@ function Navbar() {
                     </Form.Item>
 
                     <Form.Item>
-                      <Button type="primary" disabled={visible} htmlType="submit">
+                      <Button type="primary"  htmlType="submit">
                         save
                       </Button>
                     </Form.Item>

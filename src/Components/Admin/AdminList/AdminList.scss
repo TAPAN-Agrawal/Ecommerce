@@ -1,0 +1,45 @@
+@import '../../../Global/Variable.scss';
+
+.UserTable-wrapper {
+    width: 95%;
+    height: 100%;
+    background:$primary-color;
+    position: relative;
+
+    .ant-table-container {
+
+        .ant-table-content {
+            .ant-table-tbody {
+               
+                .ant-table-row {
+                    
+                    .ant-table-cell {
+                        font-family: $font-family;
+                        font-size: $font-size - 5;
+                        .ant-btn {
+
+                            background-color: rgb(228, 70, 70);
+                            color: white;
+                            border: none;
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+    .pagination{
+       
+        position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    //    .ant-select-selector{
+    //     display: none ;
+    //    }
+       
+    }
+
+}

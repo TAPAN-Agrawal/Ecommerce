@@ -21,12 +21,13 @@
                 @include display;
                 height: 150px;
                 width: 15%;
-               
                 position: relative; 
-            
-            
-           
-        }
+                
+                
+            }
+            .CartCart-left:hover{
+               cursor: pointer;
+           }
             .CartCart-right{
                 margin-left: 2rem;
                 height: 150px;

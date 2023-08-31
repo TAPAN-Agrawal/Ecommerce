@@ -55,14 +55,22 @@ function AddProduct() {
   const fieldChangeHandler=()=>{
     setVisible(false)
   }
+
+
+
   useEffect(() => {
+    
     setVisible(true)
 
     dispatch(cleanSingleProduct());
 
-    if (location.state.id) {
+    if (location.state) {
       dispatch(getSingleProduct(location.state.id));
     }
+    else{
+      navigate('/adminpanel/product')
+    }
+    
   }, []);
 
   useEffect(() => {

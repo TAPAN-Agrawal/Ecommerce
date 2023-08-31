@@ -138,8 +138,8 @@ export function* getAllProducts(action: ActionProductInterface) {
     let { page, limit, category, sort } = action.payload;
 
     const response: AxiosResponse<any> = yield call(() => {
-      if (category !== null) {
-        if (sort !== null) {
+      if (category) {
+        if (sort ) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
           );
@@ -150,7 +150,7 @@ export function* getAllProducts(action: ActionProductInterface) {
         }
       } else {
 
-        if (sort !== null) {
+        if (sort ) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&sortOrder=${sort}`
           );
@@ -174,11 +174,17 @@ export function* getAllProducts(action: ActionProductInterface) {
 export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
   let userId=localStorage.getItem("userId");
-  
+  let url
+    if(userId){
+       url = `/products/product_by_id/?id=${id}&userId=${userId}`
+    }
+    else{
+       url =`/products/product_by_id/?id=${id}`
+    }
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.get,
-      `/products/product_by_id/?id=${id}&userId=${userId}`
+      url
     );
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
   } catch (error) {}
@@ -283,6 +289,22 @@ export function* getAllUsers(action: UserActionInterface) {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
       `/auth/users/?page=${page}&limit=${limit}`
+    );
+    if (response) {
+      let temp = {
+        users: response.data.data,
+        totalCount: response.data.totalCount,
+      };
+      yield put({ type: "ADD_USER_REDUCER", payload: temp });
+    }
+  } catch (error) {}
+}
+export function* getAllAdmins(action: UserActionInterface) {
+  const { page, limit } = action.payload;
+  try {
+    const response: AxiosResponse<any> = yield call(
+      axiosInstanceAuth.get,
+      `/auth/admins/?page=${page}&limit=${limit}`
     );
     if (response) {
       let temp = {
@@ -463,6 +485,8 @@ export function* watcher() {
   yield takeLatest("SEARCH_PRODUCT", searchProduct);
 
   yield takeLatest("GET_ALL_USERS", getAllUsers);
+
+  yield takeLatest('GET_ALL_ADMIN',getAllAdmins);
 
   yield takeLatest("ADD_TO_CART", addToCart);
 

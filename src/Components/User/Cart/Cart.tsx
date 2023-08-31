@@ -40,6 +40,7 @@ function Cart() {
     };
   });
   const ckeckoutHandler = () => {
+    console.log(price[0].id);
     navigate("/checkout", {
       state: {
         p: price,

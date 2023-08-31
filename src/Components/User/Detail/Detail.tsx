@@ -125,8 +125,8 @@ function Detail() {
     navigate(-1);
   };
   useEffect(() => {
+  
     dispatch(cleanSingleProduct());
-
     dispatch(getSingleProduct(location.state.id));
     setDetailProduct(singleProduct);
   }, []);

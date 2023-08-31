@@ -134,6 +134,9 @@
           width: 35px;
           background-color: $blue-color;
         }
+        .avatar:hover{
+          cursor: pointer;
+        }
        .form{
         border: 2px solid red;
        }

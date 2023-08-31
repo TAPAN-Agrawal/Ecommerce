@@ -91,6 +91,7 @@ function UserTable() {
         total={pageCalculator}
         onChange={pageHandler}
         className="pagination"
+        showSizeChanger={false}
       />
     </div>
   );

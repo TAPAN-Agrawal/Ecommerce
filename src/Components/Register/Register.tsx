@@ -70,9 +70,15 @@ function Register() {
 
   useEffect(()=>{
 
-
+    let role = localStorage.getItem('role');
 if(localStorage.getItem('token')){
-  navigate('/')
+  if(role === '2'){
+
+    navigate('/home')
+  }
+  else{
+    navigate('/adminpanel')
+  }
 }
 
     if(isRegister){

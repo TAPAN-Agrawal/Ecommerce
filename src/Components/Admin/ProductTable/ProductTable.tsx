@@ -41,11 +41,11 @@ function ProductTable() {
   const deleteHandler = (id: number) => {
     dispatch(deleteProduct(id));
 
-   setTimeout(()=>{
-    if (datas.length === 1 && page > 1) {
-      setPage(page - 1);
-    }
-   },1000)
+    setTimeout(() => {
+      if (datas.length === 1 && page > 1) {
+        setPage(page - 1);
+      }
+    }, 1000);
     const pageCalculator = Math.ceil(totalCount / 8) * 10;
   };
 
@@ -99,10 +99,7 @@ function ProductTable() {
       key: "action",
       render: (record) => (
         <div>
-          <Button
-          className="button1"
-            onClick={() => updateHandler(record)}
-          >
+          <Button className="button1" onClick={() => updateHandler(record)}>
             Update
           </Button>
           <Popconfirm
@@ -112,10 +109,9 @@ function ProductTable() {
             okText="Yes"
             cancelText="No"
           >
-            <Button
-          className="button2"
-            
-            danger>Delete</Button>
+            <Button className="button2" danger>
+              Delete
+            </Button>
           </Popconfirm>
         </div>
       ),
@@ -128,13 +124,12 @@ function ProductTable() {
     dispatch(cleanAllProduct());
   }, []);
   useEffect(() => {
-    dispatch(getAllProducts(page, 8, null, null));
+    dispatch(getAllProducts(page, 8));
   }, [page]);
 
   return (
     <>
       {datas.length !== 0 ? (
-        
         <div className="ProductTable-wrapper">
           <FloatButton icon={<PlusOutlined />} onClick={addHandler} />
           <Table
@@ -149,6 +144,7 @@ function ProductTable() {
             total={pageCalculator}
             onChange={pageHandler}
             className="pagination"
+            showSizeChanger={false}
           />
         </div>
       ) : (

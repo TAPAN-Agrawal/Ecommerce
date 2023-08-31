@@ -5,7 +5,7 @@ import CartPrice from "../CartPrice/CartPrice";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { buyNow, completePurchase, getProfileDetails } from "../../../Redux/Action/Action";
+import { buyNow, cleanProfileDetails, completePurchase, getProfileDetails } from "../../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 
 export interface CheckoutInterface {
@@ -35,6 +35,8 @@ function Checkout() {
     );
     const dispatch = useDispatch();
   const { state } = useLocation();
+ 
+
 
   const required = [{ required: true, message: " required field" }];
 
@@ -55,9 +57,19 @@ function Checkout() {
     navigate(-1);
   };
 
+
+
+
   useEffect(() => {
+  
+   if(state){
+    dispatch(cleanProfileDetails())
     if (purchased === true) {
-      navigate("/purchased");
+      navigate("/purchased",{
+        state:{
+          bool:true
+        }
+      });
       if (state.isCalledFromCart === false) {
         let temp :buyNowInterface= {
           id: state.id,
@@ -73,6 +85,10 @@ function Checkout() {
       dispatch(getProfileDetails());
     }
 
+   }
+   else{
+    navigate('/')
+   }
 
   }, [purchased]);
 

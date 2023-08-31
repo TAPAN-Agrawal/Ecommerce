@@ -20,7 +20,7 @@ function Home() {
   const [selectedButton, setSelectedButton] = useState<any>(null);
 
   const singleProductHandler = (id: number) => {
-    navigate("/detail", {
+    navigate(`/detail/${id}`, {
       state: {
         id: id,
       },

@@ -20,7 +20,7 @@ function SearchedProduct() {
 
   const singleProductHandler = (id: any) => {
     
-    navigate("/detail", {
+    navigate(`/detail/${id}`, {
       state: {
         id: id,
       },

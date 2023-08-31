@@ -49,8 +49,8 @@ export const afterRegister = () => {
 export const getAllProducts = (
   page: number,
   limit: number,
-  category: number | null,
-  sort: string | null
+  category?: number | null,
+  sort?: string | null
 ) => {
   return {
     type: "GET_ALL_PRODUCTS",
@@ -114,6 +114,12 @@ export const addAdmin = (data: AddAdmin) => {
 export const getAllUsers = (page: number, limit: number) => {
   return {
     type: "GET_ALL_USERS",
+    payload: { page, limit },
+  };
+};
+export const getAllAdmin = (page: number, limit: number) => {
+  return {
+    type: "GET_ALL_ADMIN",
     payload: { page, limit },
   };
 };

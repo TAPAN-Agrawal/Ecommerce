@@ -44,7 +44,7 @@ function Page() {
           path="adminpanel/*"
           element={<AdminPanel/>}
         />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
        
         <Route element={<Protected/>}>
         <Route path="/cart" element={<Cart/>}/>

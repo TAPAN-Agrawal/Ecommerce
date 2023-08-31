@@ -5,6 +5,7 @@ import TextArea from "antd/es/input/TextArea";
 import { addAdmin } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export interface AddAdmin {
   username: string;
@@ -17,7 +18,7 @@ export interface AddAdmin {
 
 function AddAdmin() {
   const dispatch = useDispatch();
-  const [hasError, setHasErrors] = useState<boolean>(true);
+  const navigate = useNavigate()
   const [form] = Form.useForm();
 
   const nameValidate = [
@@ -44,6 +45,9 @@ function AddAdmin() {
 
   const onFinish = (values: AddAdmin) => {
     dispatch(addAdmin(values));
+    setTimeout(()=>{
+      navigate('/adminpanel/admin')
+    },700)
   };
 
   const onFinishFailed = (errorInfo: any) => {};

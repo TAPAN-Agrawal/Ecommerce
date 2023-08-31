@@ -86,6 +86,8 @@ function Navbar() {
   };
 
   const showModal = () => {
+    dispatch(cleanProfileDetails());
+
     dispatch(getProfileDetails());
     setIsModalOpen(true);
   };
@@ -95,7 +97,7 @@ function Navbar() {
   };
 
   const handleCancel = () => {
-    dispatch(cleanProfileDetails());
+    // dispatch(cleanProfileDetails());
     setIsModalOpen(false);
   };
 

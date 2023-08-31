@@ -37,8 +37,9 @@ function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   let selectedKey: any = "user";
+  const path = location.pathname.slice(11)
   const matchingItem = items.find((item: any) =>
-    location.pathname.includes(item.key)
+    path.includes(item.key)
   );
   if (matchingItem) {
     selectedKey = matchingItem.key;
@@ -62,7 +63,7 @@ function Sidebar() {
         navigate("/adminpanel/addAdmin");
       }
     }
-    if(e.key === 'admin'){
+    if(e.key === "admin"){
 
      let role = localStorage.getItem("role");
       if (role === "1") {

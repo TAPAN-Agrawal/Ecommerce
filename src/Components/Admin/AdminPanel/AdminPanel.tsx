@@ -10,6 +10,7 @@ import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import Sidebar from "../Sidebar/Sidebar";
 import RoleProtected from "../../RoleProtected/RoleProtected";
 import AdminProtected from "../../AdminProtected/AdminProtected";
+import AdminList from "../AdminList/AdminList";
 
 function AdminPanel() {
 
@@ -28,9 +29,10 @@ function AdminPanel() {
             <Route path="product" element={<ProductTable />} />
           </Route>
           <Route element={<AdminProtected/>}>
-          <Route path="/addproduct" element={<AddProduct />}/>
+           <Route path="/addproduct" element={<AddProduct />}/>
             <Route path="/updateproduct" element={<UpdateProduct />}/>
             <Route path="/addAdmin" element={<AddAdmin />}/>
+            <Route path="/admin" element={<AdminList/>}/>
           </Route>
         </Routes>
       </div>

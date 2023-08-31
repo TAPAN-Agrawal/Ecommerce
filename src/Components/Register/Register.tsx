@@ -69,6 +69,12 @@ function Register() {
   }
 
   useEffect(()=>{
+
+
+if(localStorage.getItem('token')){
+  navigate('/')
+}
+
     if(isRegister){
       navigate('/login')
       dispatch(afterRegister())

@@ -28,6 +28,7 @@ function getItem(
 function Sidebar() {
   const items: MenuItem[] = [
     getItem("User", "user", <UserOutlined className="icons" />),
+    getItem("Admin","admin", <UserOutlined className="icons" />),
     getItem("Products", "product", <TbShoppingBag className="icons" />),
     getItem("AddAdmin", "addAdmin", <UserAddOutlined className="icons" />),
   ];
@@ -59,6 +60,15 @@ function Sidebar() {
         toast.error("You are not authorized");
       } else {
         navigate("/adminpanel/addAdmin");
+      }
+    }
+    if(e.key === 'admin'){
+
+     let role = localStorage.getItem("role");
+      if (role === "1") {
+        toast.error("You are not authorized");
+      } else {
+        navigate("/adminpanel/admin");
       }
     }
   };

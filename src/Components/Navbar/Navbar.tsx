@@ -10,7 +10,11 @@ import {
   Radio,
   Spin,
 } from "antd";
-import { HomeOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import "./Navbar.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -25,14 +29,14 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const { Search } = Input;
 
 export interface Profile {
   username: string;
   dob: any;
-  
+
   address: string;
 }
 
@@ -45,9 +49,7 @@ function Navbar() {
     (state: any) => state.ecommerce.profileDetails
   );
 
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const nameValidate = [
     { required: true, message: "Please input your username!" },
@@ -56,7 +58,7 @@ function Navbar() {
 
   const combine = [{ required: true, message: "Please  fill required field" }];
 
-  const minDate:any = moment().subtract(18, "years");
+  const minDate: any = moment().subtract(18, "years");
 
   const disabledDate: any = (current: any) => {
     return current && current > minDate;
@@ -66,7 +68,7 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("userId");
-    sessionStorage.clear()
+    sessionStorage.clear();
     toast.success("Logout Successfully");
     navigate("/home");
     dispatch(logoutSetter());
@@ -87,51 +89,37 @@ function Navbar() {
     dispatch(getProfileDetails());
     setIsModalOpen(true);
   };
-  
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
-    dispatch(cleanProfileDetails())
+    dispatch(cleanProfileDetails());
     setIsModalOpen(false);
-   
   };
 
   const avatarHandler = () => {
-   
     showModal();
   };
-  
-  const onFinish = (values: Profile) => {
-    
-  let temp={
-    username:values.username,
-    dob:values.dob,
-    address:values.address
 
-  }  
-    handleOk()
+  const onFinish = (values: Profile) => {
+    let temp = {
+      username: values.username,
+      dob: values.dob,
+      address: values.address,
+    };
+    handleOk();
     dispatch(updateProfileDetails(temp));
   };
 
-
-
-
-
-
   useEffect(() => {
-
-    dispatch(cleanProfileDetails())
+    dispatch(cleanProfileDetails());
     const token = localStorage.getItem("token");
     if (token) {
       dispatch(loginSetter());
     }
-   
   }, []);
- 
- 
-  
 
   return (
     <div className="nav-wrapper">
@@ -152,10 +140,11 @@ function Navbar() {
           </p>
         </div>
         <div className="nav-search-bar">
-          <Search
-            placeholder="Search products ..."
-            // onChange={handleSearch}
-          />
+          {window.location.pathname.split("/")[1] !== "adminpanel" &&
+          window.location.pathname.split("/")[1] !== "register" &&
+          window.location.pathname.split("/")[1] !== "login" ? (
+            <Search placeholder="Search products ..." onChange={handleSearch} />
+          ) : null}
         </div>
         <div className="nav-nav-items">
           <div className="nav-nav-items-child">
@@ -164,12 +153,14 @@ function Navbar() {
               Home
             </NavLink>
           </div>
-          <div className="nav-nav-items-child">
-            <ShoppingCartOutlined className="nav-nav-item-logo" />
-            <NavLink to="/cart" className="item-link">
-              Cart
-            </NavLink>
-          </div>
+          {window.location.pathname.split("/")[1] !== "adminpanel" ? (
+            <div className="nav-nav-items-child">
+              <ShoppingCartOutlined className="nav-nav-item-logo" />
+              <NavLink to="/cart" className="item-link">
+                Cart
+              </NavLink>
+            </div>
+          ) : null}
         </div>
         <div className="nav-cred">
           {isLogin === false && (
@@ -185,27 +176,25 @@ function Navbar() {
           )}
           {isLogin === true && (
             <div className="log-ava">
-              <Avatar className="avatar" onClick={avatarHandler}
-               icon={<UserOutlined />}
-               >
-              
-              </Avatar>
-                <Modal
-                  title="My profile"
-                  open={isModalOpen}
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                  footer={false}
-                  >
-                  {profileDetail.id  ? (
+              <Avatar
+                className="avatar"
+                onClick={avatarHandler}
+                icon={<UserOutlined />}
+              ></Avatar>
+              <Modal
+                title="My profile"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={false}
+              >
+                {profileDetail.id ? (
                   <Form
-                    name="profile-form"                 
+                    name="profile-form"
                     layout="vertical"
                     onFinish={onFinish}
                     autoComplete="off"
                     className="form"
-                    
-                    
                   >
                     <Form.Item
                       label="Username"
@@ -213,7 +202,6 @@ function Navbar() {
                       initialValue={profileDetail.username}
                       rules={nameValidate}
                       required={false}
-                     
                     >
                       <Input />
                     </Form.Item>
@@ -223,9 +211,8 @@ function Navbar() {
                       initialValue={profileDetail.email}
                       rules={nameValidate}
                       required={false}
-                      
                     >
-                      <Input disabled={true}/>
+                      <Input disabled={true} />
                     </Form.Item>
 
                     <Form.Item
@@ -250,13 +237,15 @@ function Navbar() {
                       name="dob"
                       rules={combine}
                       required={false}
-                      initialValue={dayjs(profileDetail.dob.slice(0,10),'YYYY-MM-DD')}
+                      initialValue={dayjs(
+                        profileDetail.dob.slice(0, 10),
+                        "YYYY-MM-DD"
+                      )}
                     >
                       <DatePicker
-                     
-                      format='YYYY-MM-DD'
-                       disabledDate={disabledDate}
-                       />
+                        format="YYYY-MM-DD"
+                        disabledDate={disabledDate}
+                      />
                     </Form.Item>
                     <Form.Item
                       label="Address"
@@ -269,13 +258,15 @@ function Navbar() {
                     </Form.Item>
 
                     <Form.Item>
-                      <Button type="primary"  htmlType="submit">
+                      <Button type="primary" htmlType="submit">
                         save
                       </Button>
                     </Form.Item>
                   </Form>
-              ):<Spin></Spin>}
-                </Modal>
+                ) : (
+                  <Spin></Spin>
+                )}
+              </Modal>
               <Popconfirm
                 title="Are you sure you want to Logout"
                 description="Do you want to logout from this page?"
@@ -283,7 +274,7 @@ function Navbar() {
                 okText="Yes"
                 cancelText="No"
               >
-                <Button danger >Logout</Button>
+                <Button danger>Logout</Button>
               </Popconfirm>
             </div>
           )}

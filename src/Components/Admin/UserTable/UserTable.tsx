@@ -53,7 +53,7 @@ function UserTable() {
           okText="Yes"
           cancelText="No"
         >
-          <Button >Delete</Button>
+          <Button>Delete</Button>
         </Popconfirm>
       ),
     },
@@ -61,12 +61,12 @@ function UserTable() {
 
   const deleteHandler = (id: number) => {
     dispatch(deleteUser(id));
-    setTimeout(()=>{
+    setTimeout(() => {
       if (users.length === 1 && page > 1) {
         setPage(page - 1);
       }
-     },1000)
-      const pageCalculator = Math.ceil(totalCount / 8) * 10;
+    }, 1000);
+    const pageCalculator = Math.ceil(totalCount / 8) * 10;
   };
   const pageHandler = (e: number) => {
     setPage(e);
@@ -76,12 +76,17 @@ function UserTable() {
   useEffect(() => {
     dispatch(getAllUsers(page, 12));
   }, [page]);
-  
 
   return (
     <div className="UserTable-wrapper">
-      <Table columns={columns} dataSource={users} pagination={false} rowKey='id' />
+      <Table
+        columns={columns}
+        dataSource={users}
+        pagination={false}
+        rowKey="id"
+      />
       <Pagination
+        current={page}
         defaultCurrent={1}
         total={pageCalculator}
         onChange={pageHandler}

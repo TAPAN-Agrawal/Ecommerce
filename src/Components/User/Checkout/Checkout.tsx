@@ -68,7 +68,10 @@ function Checkout() {
         dispatch(buyNow(temp));
       }
     }
-    dispatch(getProfileDetails());
+    else{
+
+      dispatch(getProfileDetails());
+    }
 
 
   }, [purchased]);

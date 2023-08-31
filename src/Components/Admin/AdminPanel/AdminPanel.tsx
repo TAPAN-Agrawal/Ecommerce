@@ -8,8 +8,8 @@ import Notfound from "../../Notfound/Notfound";
 import AddProduct from "../AddProduct/AddProduct";
 import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import Sidebar from "../Sidebar/Sidebar";
-import { toast } from "react-toastify";
 import RoleProtected from "../../RoleProtected/RoleProtected";
+import AdminProtected from "../../AdminProtected/AdminProtected";
 
 function AdminPanel() {
 
@@ -26,8 +26,9 @@ function AdminPanel() {
             <Route path="/" element={<UserTable />} />
             <Route path="/user" element={<UserTable />} />
             <Route path="product" element={<ProductTable />} />
-
-            <Route path="/addproduct" element={<AddProduct />}/>
+          </Route>
+          <Route element={<AdminProtected/>}>
+          <Route path="/addproduct" element={<AddProduct />}/>
             <Route path="/updateproduct" element={<UpdateProduct />}/>
             <Route path="/addAdmin" element={<AddAdmin />}/>
           </Route>

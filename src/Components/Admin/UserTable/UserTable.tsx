@@ -65,6 +65,10 @@ function UserTable() {
       if (users.length === 1 && page > 1) {
         setPage(page - 1);
       }
+      else{
+    dispatch(getAllUsers(page, 12));
+
+      }
     }, 1000);
     const pageCalculator = Math.ceil(totalCount / 12) * 10;
   };

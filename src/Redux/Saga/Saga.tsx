@@ -1,6 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { toast } from "react-toastify";
 import { axiosInstance, axiosInstanceAuth } from "../../Service/Service";
 import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
@@ -13,7 +12,6 @@ import {
 import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/User/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
-import { useNavigate } from "react-router-dom";
 
 interface RegisterActionInterface {
   type: string;
@@ -178,7 +176,6 @@ export function* getSingleProduct(action: ActionNumberInterface) {
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
   } catch (error) {
     yield put({ type: "SET_SINGLE_PRODUCTS_FAILED" });
-
   }
 }
 
@@ -212,8 +209,7 @@ export function* updateProducts(action: ActionAddProductInterface) {
     formData.append("quantity", d.quantity);
     formData.append("category", d.category);
     formData.append("description", d.description);
-    if(d.file){
-
+    if (d.file) {
       formData.append("product_img", d.file);
     }
     const response: AxiosResponse<any> = yield call(

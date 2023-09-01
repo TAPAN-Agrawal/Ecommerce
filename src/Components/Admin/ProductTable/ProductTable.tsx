@@ -45,6 +45,10 @@ function ProductTable() {
       if (datas.length === 1 && page > 1) {
         setPage(page - 1);
       }
+      else{
+    dispatch(getAllProducts(page, 9));
+
+      }
     }, 1000);
     const pageCalculator = Math.ceil(totalCount / 9) * 10;
   };

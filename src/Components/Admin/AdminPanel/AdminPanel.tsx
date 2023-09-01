@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./AdminPanel.scss";
 import UserTable from "../UserTable/UserTable";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProductTable from "../ProductTable/ProductTable";
 import AddAdmin from "../AddAdmin/AddAdmin";
 import Notfound from "../../Notfound/Notfound";

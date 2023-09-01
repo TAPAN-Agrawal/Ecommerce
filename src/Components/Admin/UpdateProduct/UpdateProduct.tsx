@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./UpdateProduct.scss";
-import { Button, Form, Input, InputNumber, Radio, Spin } from "antd";
+import { Button, Form, Input, Radio, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import {
   updateProduct,

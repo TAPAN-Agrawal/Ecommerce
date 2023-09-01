@@ -3,7 +3,7 @@ import "./Login.scss";
 import { Button, Divider, Form, Input } from "antd";
 
 import img from "../../Assets/Images/login.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import {

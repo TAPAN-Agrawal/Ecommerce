@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AddProduct.scss";
-import { Button, Form, Input, InputNumber, Radio } from "antd";
+import { Button, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { addProduct } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";

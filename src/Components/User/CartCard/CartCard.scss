@@ -1,19 +1,22 @@
 @import '../../../Global/Variable.scss';
 
-@mixin display{
+@mixin display {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.CartCard-wrapper{
+
+.CartCard-wrapper {
     padding: 22px;
-    .CartCard{
+
+    .CartCard {
         height: 200px;
         width: 100%;
         // border: 2px solid rgb(214, 11, 45);
         border: none;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
-        .ant-card-body{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
+
+        .ant-card-body {
             @include display;
             padding-top: 2px;
 
@@ -21,53 +24,62 @@
                 @include display;
                 height: 150px;
                 width: 15%;
-                position: relative; 
-                
-                
+                position: relative;
+
+
             }
-            .CartCart-left:hover{
-               cursor: pointer;
-           }
-            .CartCart-right{
+
+            .CartCart-left:hover {
+                cursor: pointer;
+            }
+
+            .CartCart-right {
                 margin-left: 2rem;
                 height: 150px;
                 width: 85%;
+
                 // border: 2px solid yellowgreen;
-                p{
+                p {
                     // background-color: green;
                     height: 20%;
                     font-size: $font-size - 4;
                     font-family: $font-family;
                 }
-                h3{
+
+                h3 {
                     margin-top: 0rem;
                     font-size: $font-size - 4;
                     font-family: $font-family;
 
                 }
-                h3:hover{
+
+                h3:hover {
                     cursor: pointer;
                 }
-                h4{
+
+                h4 {
                     color: $price-color;
                     font-size: $font-size - 4;
                     padding-bottom: 2px !important;
                 }
-                .count-delete{
+
+                .count-delete {
                     @include display;
                     justify-content: space-between;
-                    Button{
+
+                    Button {
                         margin: 0.2rem;
                     }
-                    .delete{
+
+                    .delete {
                         color: red;
                         font-size: $font-size;
                     }
                 }
-    
+
             }
         }
-        
+
 
     }
 }

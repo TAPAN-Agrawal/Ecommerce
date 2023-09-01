@@ -16,7 +16,7 @@ import RoleProtected from "../Components/RoleProtected/RoleProtected";
 import SearchedProduct from "../Components/User/SearchedProduct/SearchedProduct";
 import Checkout from "../Components/User/Checkout/Checkout";
 import "./Page.scss";
-import '../Global/Global.scss'
+import "../Global/Global.scss";
 function Page() {
   return (
     <div>
@@ -40,20 +40,17 @@ function Page() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<SearchedProduct />} />
-        <Route
-          path="adminpanel/*"
-          element={<AdminPanel/>}
-        />
+        <Route path="adminpanel/*" element={<AdminPanel />} />
         <Route path="/detail/:id" element={<Detail />} />
-       
-        <Route element={<Protected/>}>
-        <Route path="/cart" element={<Cart/>}/>
-        <Route path="/checkout" element={<Checkout/>}/>
-        <Route path="/purchased" element={<Purchased/>}/>
 
-        <Route/>
+        <Route element={<Protected />}>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/purchased" element={<Purchased />} />
+
+          <Route />
         </Route>
-        
+
         <Route path="*" element={<Notfound />} />
       </Routes>
     </div>

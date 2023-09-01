@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./UpdateProduct.scss";
 import { Button, Form, Input, InputNumber, Radio, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {updateProduct,getSingleProduct,cleanSingleProduct,
+import {
+  updateProduct,
+  getSingleProduct,
+  cleanSingleProduct,
 } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,8 +18,8 @@ function AddProduct() {
   const singleProducts = useSelector(
     (state: any) => state.ecommerce.singleProduct
   );
-  const [selectedFile, setSelectedFile] = useState<any>('');
-  const [visible ,setVisible] =useState<boolean>(true)
+  const [selectedFile, setSelectedFile] = useState<any>("");
+  const [visible, setVisible] = useState<boolean>(true);
 
   const [product, setProduct] = useState<any>({
     product_name: "",
@@ -27,50 +30,42 @@ function AddProduct() {
     product_img: "",
   });
 
-
   const validationErr = [{ required: true, message: "Required" }];
 
   const onFinish = (values: any) => {
-  
     dispatch(cleanSingleProduct());
     const updatedValues = {
       ...values,
       file: selectedFile,
       id: singleProducts.id,
     };
-    
-    
-    
+
     dispatch(updateProduct(updatedValues));
-    navigate("/adminpanel/product");
+    setTimeout(() => {
+      navigate("/adminpanel/product");
+    }, 100);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    
-  };
+  const onFinishFailed = (errorInfo: any) => {};
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
-    setSelectedFile(file); 
+    setSelectedFile(file);
   };
-  const fieldChangeHandler=()=>{
-    setVisible(false)
-  }
-
-
+  const fieldChangeHandler = () => {
+    setVisible(false);
+  };
+  
 
   useEffect(() => {
-    
-    setVisible(true)
+    setVisible(true);
 
     dispatch(cleanSingleProduct());
 
     if (location.state) {
       dispatch(getSingleProduct(location.state.id));
+    } else {
+      navigate("/adminpanel/product");
     }
-    else{
-      navigate('/adminpanel/product')
-    }
-    
   }, []);
 
   useEffect(() => {
@@ -82,7 +77,7 @@ function AddProduct() {
       {singleProducts.id ? (
         <Form
           name="updateproduct-form"
-          layout="vertical"   
+          layout="vertical"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -124,7 +119,7 @@ function AddProduct() {
             rules={validationErr}
             className="item"
           >
-            <InputNumber min={1}  />
+            <InputNumber min={1} />
           </Form.Item>
           <Form.Item
             label="Category"
@@ -138,17 +133,22 @@ function AddProduct() {
               <Radio value={1}> Women </Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item label="Image" name="image" className="item" initialValue={selectedFile}>
+          <Form.Item
+            label="Image"
+            name="image"
+            className="item"
+            initialValue={selectedFile}
+          >
             <input type="file" onChange={handleFileChange} />
           </Form.Item>
-          <Form.Item  className="item">
+          <Form.Item className="item">
             <Button type="primary" htmlType="submit" disabled={visible}>
-             Update
+              Update
             </Button>
           </Form.Item>
         </Form>
       ) : (
-        <Spin ></Spin>
+        <Spin></Spin>
       )}
     </div>
   );

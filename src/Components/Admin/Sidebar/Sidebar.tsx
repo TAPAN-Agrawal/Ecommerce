@@ -28,7 +28,7 @@ function getItem(
 function Sidebar() {
   const items: MenuItem[] = [
     getItem("User", "user", <UserOutlined className="icons" />),
-    getItem("Admin","admin", <UserOutlined className="icons" />),
+    getItem("Admin", "admin", <UserOutlined className="icons" />),
     getItem("Products", "product", <TbShoppingBag className="icons" />),
     getItem("AddAdmin", "addAdmin", <UserAddOutlined className="icons" />),
   ];
@@ -37,10 +37,8 @@ function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   let selectedKey: any = "user";
-  const path = location.pathname.slice(11)
-  const matchingItem = items.find((item: any) =>
-    path.includes(item.key)
-  );
+  const path = location.pathname.slice(11);
+  const matchingItem = items.find((item: any) => path.includes(item.key));
   if (matchingItem) {
     selectedKey = matchingItem.key;
   }
@@ -63,9 +61,8 @@ function Sidebar() {
         navigate("/adminpanel/addAdmin");
       }
     }
-    if(e.key === "admin"){
-
-     let role = localStorage.getItem("role");
+    if (e.key === "admin") {
+      let role = localStorage.getItem("role");
       if (role === "1") {
         toast.error("You are not authorized");
       } else {

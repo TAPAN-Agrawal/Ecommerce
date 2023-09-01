@@ -5,7 +5,11 @@ import ProductCard from "../ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllProducts, getSingleProduct } from "../../../Redux/Action/Action";
+import {
+  getAllProducts,
+  getSingleProduct,
+  setSingleProductInitial,
+} from "../../../Redux/Action/Action";
 import { RightOutlined } from "@ant-design/icons";
 
 function Home() {
@@ -80,7 +84,13 @@ function Home() {
   const pageCalculator = Math.ceil(totalCount / 12) * 10;
 
   useEffect(() => {
-    let selectedCategory = Number(sessionStorage.getItem("selected"));
+    dispatch(setSingleProductInitial());
+    var selectedCategoryStr = sessionStorage.getItem("selected");
+    var selectedCategory;
+
+    if (selectedCategoryStr !== null) {
+      selectedCategory = Number(selectedCategoryStr);
+    }
 
     if (selectedCategory === 0 || selectedCategory === 1) {
       setSelectedButton(selectedCategory);

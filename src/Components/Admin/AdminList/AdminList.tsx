@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Pagination, Popconfirm, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import "./AdminList.scss";
-import { deleteUser, getAllAdmin, getAllUsers } from "../../../Redux/Action/Action";
+import {
+  deleteUser,
+  getAllAdmin,
+  getAllUsers,
+} from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -32,7 +36,7 @@ function AdminList() {
       title: "Email",
       dataIndex: "email",
     },
-    
+
     {
       key: "5",
       title: "Action",

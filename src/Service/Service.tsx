@@ -44,10 +44,9 @@ axiosInstanceAuth.interceptors.request.use(
 );
 axiosInstanceAuth.interceptors.response.use(
   (config: any) => {
-   if(config.data.message){
-
-     toast.success(config.data.message);
-   }
+    if (config.data.message) {
+      toast.success(config.data.message);
+    }
     return config;
   },
   function (error) {

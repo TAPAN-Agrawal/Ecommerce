@@ -1,35 +1,41 @@
 @import '../../../Global/Variable.scss';
-@mixin display{
+
+@mixin display {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.CartPrice-wrapper{
-    .CartPrice-Card{
+
+.CartPrice-wrapper {
+    .CartPrice-Card {
         height: 100%;
         width: 300px;
         margin: 0.5rem auto;
-        h3{
-           text-align: center;
+
+        h3 {
+            text-align: center;
             font-size: $font-size - 3;
             font-family: $font-family;
         }
-        .item{
+
+        .item {
             @include display;
             justify-content: space-between;
-            p{
+
+            p {
                 font-family: $font-family;
                 font-size: $font-size - 6;
                 margin: 0.5rem;
 
             }
         }
-        Button{
+
+        Button {
             margin-left: 15rem;
             margin-top: 2rem;
             font-family: $font-family;
 
-            
+
         }
     }
 }

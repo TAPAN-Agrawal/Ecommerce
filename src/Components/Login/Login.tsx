@@ -69,8 +69,15 @@ function Login() {
       }
     } catch (error: any) {}
   };
+  const onPaste=(e:any)=>{
+    e.preventDefault();
+    return false;
+  }
+  const onCopy = (e:any) => {
+    e.preventDefault();
+    return false;
+  }
 
- 
   useEffect(() => {
     const response = window.location.search;
     const token = response.slice(6);
@@ -110,7 +117,7 @@ function Login() {
             className="login-Form"
             size="large"
           >
-            <Form.Item label="Email" name="email" rules={emailValidate} >
+            <Form.Item label="Email" name="email" rules={emailValidate}>
               <Input placeholder="Enter email" />
             </Form.Item>
 
@@ -120,15 +127,9 @@ function Login() {
               rules={passwordValidate}
             >
               <Input.Password
-               onPaste={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              onCopy={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              placeholder="Enter password"
+                onPaste={onPaste}
+                onCopy={onCopy}
+                placeholder="Enter password"
               />
             </Form.Item>
 

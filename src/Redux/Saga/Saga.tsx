@@ -90,7 +90,6 @@ export function* register(action: RegisterActionInterface) {
     address: address,
   };
   try {
-    
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
       "/auth/register",
@@ -99,12 +98,9 @@ export function* register(action: RegisterActionInterface) {
 
     if (response) {
       yield put({ type: "REGISTER_REDUCER" });
-      
     } else {
     }
-  } catch (error: any) {
-
-  }
+  } catch (error: any) {}
 }
 
 export function* login(action: LoginActionInterface) {
@@ -117,7 +113,6 @@ export function* login(action: LoginActionInterface) {
       temp
     );
     if (response) {
-     
       localStorage.setItem("token", response.data.data.tokenResponse.token);
       yield put({ type: "LOGIN_REDUCER" });
     }
@@ -136,10 +131,10 @@ export function* googlelogin(action: any) {
 export function* getAllProducts(action: ActionProductInterface) {
   try {
     let { page, limit, category, sort } = action.payload;
-
+    console.log(action.payload)
     const response: AxiosResponse<any> = yield call(() => {
-      if (category) {
-        if (sort ) {
+      if (category === 0 || category === 1) {
+        if (sort) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
           );
@@ -149,8 +144,7 @@ export function* getAllProducts(action: ActionProductInterface) {
           );
         }
       } else {
-
-        if (sort ) {
+        if (sort) {
           return axiosInstanceAuth.get(
             `/products/all?page=${page}&limit=${limit}&sortOrder=${sort}`
           );
@@ -173,21 +167,20 @@ export function* getAllProducts(action: ActionProductInterface) {
 }
 export function* getSingleProduct(action: ActionNumberInterface) {
   const id = action.payload;
-  let userId=localStorage.getItem("userId");
-  let url
-    if(userId){
-       url = `/products/product_by_id/?id=${id}&userId=${userId}`
-    }
-    else{
-       url =`/products/product_by_id/?id=${id}`
-    }
+  let userId = localStorage.getItem("userId");
+  let url;
+  if (userId) {
+    url = `/products/product_by_id/?id=${id}&userId=${userId}`;
+  } else {
+    url = `/products/product_by_id/?id=${id}`;
+  }
   try {
-    const response: AxiosResponse<any> = yield call(
-      axiosInstance.get,
-      url
-    );
+    const response: AxiosResponse<any> = yield call(axiosInstance.get, url);
     yield put({ type: "SET_SINGLE_PRODUCTS", payload: response.data });
-  } catch (error) {}
+  } catch (error) {
+    yield put({ type: "SET_SINGLE_PRODUCTS_FAILED" });
+
+  }
 }
 
 export function* addProduct(action: ActionAddProductInterface) {
@@ -207,10 +200,7 @@ export function* addProduct(action: ActionAddProductInterface) {
       "/products/add_product",
       formData
     );
-   
-  } catch (error) {
-   
-  }
+  } catch (error) {}
 }
 export function* updateProducts(action: ActionAddProductInterface) {
   try {
@@ -230,12 +220,9 @@ export function* updateProducts(action: ActionAddProductInterface) {
       formData
     );
     if (response) {
-     
       yield put({ type: "UPDATE_PRODUCT_REDUCER", payload: response.data });
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 
 export function* deleteProduct(action: ActionNumberInterface) {
@@ -279,7 +266,6 @@ export function* addAdmin(action: ActionAddAdminInterface) {
       `/auth/add_admin`,
       temp
     );
-   
   } catch (error) {}
 }
 
@@ -329,7 +315,6 @@ export function* addToCart(action: ActionAddToCartInterface) {
       `/products/add_to_cart/${id}`,
       temp
     );
-   
   } catch (error) {}
 }
 
@@ -340,7 +325,6 @@ export function* getProductsInCarts() {
       `/products/carts`
     );
     if (response) {
-     
       yield put({
         type: "SET_PRODUCTS_CART_REDUCER",
         payload: response.data.data,
@@ -357,7 +341,6 @@ export function* deleteUser(action: ActionNumberInterface) {
       `/auth/remove_user/${id}`
     );
     if (response) {
-     
       yield put({ type: "DELETE_USER_REDUCER", payload: id });
     }
   } catch (error) {}
@@ -371,7 +354,6 @@ export function* deleteCartItem(action: ActionNumberInterface) {
       `/products/remove_from_cart/${id}`
     );
     if (response) {
-     
       yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
     }
   } catch (error) {}
@@ -433,27 +415,25 @@ export function* buyNow(action: ActionBuyNowInterface) {
   } catch (error: any) {}
 }
 
-export function* getProfileDetails(){
+export function* getProfileDetails() {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
-      `/auth/user`,
-     
+      `/auth/user`
     );
 
-    if(response){
-      yield put({type:'SET_PROFILE_DETAILS_REDUCER',payload:response.data.data.customer})
+    if (response) {
+      yield put({
+        type: "SET_PROFILE_DETAILS_REDUCER",
+        payload: response.data.data.customer,
+      });
     }
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 
-export function*updateProfileDetails(action:any){
+export function* updateProfileDetails(action: any) {
   try {
-   
-    let temp = action.payload
-   
+    let temp = action.payload;
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
@@ -486,7 +466,7 @@ export function* watcher() {
 
   yield takeLatest("GET_ALL_USERS", getAllUsers);
 
-  yield takeLatest('GET_ALL_ADMIN',getAllAdmins);
+  yield takeLatest("GET_ALL_ADMIN", getAllAdmins);
 
   yield takeLatest("ADD_TO_CART", addToCart);
 
@@ -502,7 +482,7 @@ export function* watcher() {
 
   yield takeLatest("BUY_NOW", buyNow);
 
-  yield takeLatest('GET_PROFILE_details',getProfileDetails);
+  yield takeLatest("GET_PROFILE_details", getProfileDetails);
 
-  yield takeLatest('UPDATE_PROFILE_DETAILS', updateProfileDetails);
+  yield takeLatest("UPDATE_PROFILE_DETAILS", updateProfileDetails);
 }

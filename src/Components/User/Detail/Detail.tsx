@@ -10,6 +10,7 @@ import {
   cleanSingleProduct,
   getSingleProduct,
   purchaseRemover,
+  setSingleProductInitial,
   updateQuantityCart,
 } from "../../../Redux/Action/Action";
 import Offer from "../Offer/Offer";
@@ -26,14 +27,15 @@ function Detail() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { singleProduct } = useSelector((state: any) => state.ecommerce);
+  const { singleProduct, singleProductFailed } = useSelector(
+    (state: any) => state.ecommerce
+  );
 
   const [detailProduct, setDetailProduct] = useState<any>([]);
 
   const [count, setCount] = useState<number>(singleProduct.quantity || 0);
 
   let totalQuantity = singleProduct.quantity;
- 
 
   const increment = () => {
     let temp = count + 1;
@@ -45,9 +47,8 @@ function Detail() {
         quantity: 1,
       };
       dispatch(addToCart(details));
-    }
-    else{
-      toast.error(`Only ${totalQuantity} products available in stock `)
+    } else {
+      toast.error(`Only ${totalQuantity} products available in stock `);
     }
   };
 
@@ -79,7 +80,7 @@ function Detail() {
           setCount((prev) => prev + 1);
 
           let data: addToCartInterface = {
-            id: location.state.id,
+            id: Number(window.location.pathname.split("/")[2]),
             quantity: count === 0 ? 1 : count,
           };
 
@@ -97,7 +98,7 @@ function Detail() {
   const BuyHandler = () => {
     let token = localStorage.getItem("token");
     let role = localStorage.getItem("role");
-    if(!token){
+    if (!token) {
       toast.error("Please login to buy products");
       return;
     }
@@ -108,7 +109,7 @@ function Detail() {
     dispatch(purchaseRemover());
 
     let data: addToCartInterface = {
-      id: location.state.id,
+      id: Number(window.location.pathname.split("/")[2]),
       quantity: 1,
     };
 
@@ -125,11 +126,16 @@ function Detail() {
     navigate(-1);
   };
   useEffect(() => {
-  
-    dispatch(cleanSingleProduct());
-    dispatch(getSingleProduct(location.state.id));
-    setDetailProduct(singleProduct);
-  }, []);
+    if(singleProductFailed === false){
+
+      dispatch(cleanSingleProduct());
+      dispatch(getSingleProduct(Number(window.location.pathname.split("/")[2])));
+      setDetailProduct(singleProduct);
+    }
+    else{
+      navigate('/')
+    }
+  }, [singleProductFailed]);
 
   useEffect(() => {
     if (singleProduct.quantityInCart) {

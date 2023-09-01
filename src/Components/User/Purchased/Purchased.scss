@@ -1,9 +1,10 @@
-@mixin display{
+@mixin display {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.purchased-parent{
+
+.purchased-parent {
     height: 80vh;
     width: 100vw;
     @include display;

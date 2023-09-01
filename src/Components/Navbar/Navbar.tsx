@@ -178,11 +178,14 @@ function Navbar() {
           )}
           {isLogin === true && (
             <div className="log-ava">
-              <Avatar
-                className="avatar"
-                onClick={avatarHandler}
-                icon={<UserOutlined />}
-              ></Avatar>
+              {window.location.pathname.split("/")[1] !== "checkout" && (
+                <Avatar
+                  className="avatar"
+                  onClick={avatarHandler}
+                  icon={<UserOutlined />}
+                ></Avatar>
+              )}
+
               <Modal
                 title="My profile"
                 open={isModalOpen}

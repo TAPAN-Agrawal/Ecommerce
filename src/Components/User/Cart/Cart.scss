@@ -1,13 +1,15 @@
 @import '../../../Global/Variable.scss';
 
-@mixin display{
+@mixin display {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.parent-cart{
-    min-height:900px;
-    background:$primary-color;
+
+.parent-cart {
+    min-height: 900px;
+    background: $primary-color;
+
     .Back-Front-btn {
         @include display;
         justify-content: space-between;
@@ -15,24 +17,26 @@
         // border: 2px solid black;
         margin-left: auto;
         margin-right: auto;
-        Button{
+
+        Button {
             border: 2px solid $blue-color;
-            color:$blue-color;
+            color: $blue-color;
             margin-top: 1rem;
         }
-        Button:hover{
+
+        Button:hover {
             border: 2px solid $blue-color;
-            color:$blue-color !important;
-           background: transparent!important;
+            color: $blue-color !important;
+            background: transparent !important;
         }
     }
 
-    .cart-wrapper{
+    .cart-wrapper {
         @include display;
-      
-        .cart-wrapper-child{
-         
-         
+
+        .cart-wrapper-child {
+
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,35 +44,40 @@
             // min-height:850px;
             width: 90vw;
             padding-top: 5px;
-            .left-child{
+
+            .left-child {
                 height: 100%;
                 width: 100%;
                 flex: 1 1;
-                h2{
+
+                h2 {
                     margin: 0px !important;
                     font-family: $font-family;
                 }
             }
-            .right-child{
+
+            .right-child {
                 height: 100%;
                 width: 30%;
                 margin-left: 40px;
-                Button{
+
+                Button {
                     font-family: $font-family;
-                    background-color:yellow;
+                    background-color: yellow;
                     color: black;
                     border: none;
                     width: 300px;
                     display: block;
-                    margin:0 auto;
-    
+                    margin: 0 auto;
+
                 }
             }
-    
+
         }
     }
-    .no-item{
-      @include display;
-      margin-top: 3rem;
+
+    .no-item {
+        @include display;
+        margin-top: 3rem;
     }
 }

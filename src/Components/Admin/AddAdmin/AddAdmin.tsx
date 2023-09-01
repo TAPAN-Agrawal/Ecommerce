@@ -18,8 +18,7 @@ export interface AddAdmin {
 
 function AddAdmin() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const nameValidate = [
     { required: true, message: " Username required" },
@@ -45,15 +44,20 @@ function AddAdmin() {
 
   const onFinish = (values: AddAdmin) => {
     dispatch(addAdmin(values));
-    setTimeout(()=>{
-      navigate('/adminpanel/admin')
-    },700)
+    setTimeout(() => {
+      navigate("/adminpanel/admin");
+    }, 700);
   };
 
   const onFinishFailed = (errorInfo: any) => {};
-
-
-
+  const onPaste=(e:any)=>{
+    e.preventDefault();
+    return false;
+  }
+  const onCopy = (e:any) => {
+    e.preventDefault();
+    return false;
+  }
 
   return (
     <div className="addAdmin-wrapper">
@@ -66,7 +70,6 @@ function AddAdmin() {
         autoComplete="off"
         className="addAdmin-Form"
         size="large"
-       
       >
         <h1>AddAdmin</h1>
         <Form.Item
@@ -83,14 +86,8 @@ function AddAdmin() {
 
         <Form.Item label="Password" name="password" rules={passwordValidate}>
           <Input.Password
-            onPaste={(e) => {
-              e.preventDefault();
-              return false;
-            }}
-            onCopy={(e) => {
-              e.preventDefault();
-              return false;
-            }}
+            onPaste={onPaste}
+            onCopy={onCopy}
           />
         </Form.Item>
         <Form.Item
@@ -110,7 +107,7 @@ function AddAdmin() {
           <TextArea rows={2} />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" >
+          <Button type="primary" htmlType="submit">
             Add
           </Button>
         </Form.Item>

@@ -56,38 +56,37 @@ function Register() {
   const combine = [{ required: true, message: "Please  fill required field" }];
 
   const onFinish = (values: RegisterInterface) => {
-   
-    
     dispatch(register(values));
-   
-    
   };
 
-  const minDate:any = moment().subtract(18, 'years');
-  const disabledDate:any=(current:any)=>{
+  const minDate: any = moment().subtract(18, "years");
+  const disabledDate: any = (current: any) => {
     return current && current > minDate;
+  };
+  const onPaste=(e:any)=>{
+    e.preventDefault();
+    return false;
+  }
+  const onCopy = (e:any) => {
+    e.preventDefault();
+    return false;
   }
 
-  useEffect(()=>{
-
-    let role = localStorage.getItem('role');
-if(localStorage.getItem('token')){
-  if(role === '2'){
-
-    navigate('/home')
-  }
-  else{
-    navigate('/adminpanel')
-  }
-}
-
-    if(isRegister){
-      navigate('/login')
-      dispatch(afterRegister())
+  useEffect(() => {
+    let role = localStorage.getItem("role");
+    if (localStorage.getItem("token")) {
+      if (role === "2") {
+        navigate("/home");
+      } else {
+        navigate("/adminpanel");
+      }
     }
-  },[isRegister])
 
-
+    if (isRegister) {
+      navigate("/login");
+      dispatch(afterRegister());
+    }
+  }, [isRegister]);
 
   return (
     <div className="register-wrapper">
@@ -104,10 +103,10 @@ if(localStorage.getItem('token')){
             className="addAdmin-Form"
           >
             <Form.Item label="Username" name="username" rules={nameValidate}>
-              <Input placeholder="Enter username"/>
+              <Input placeholder="Enter username" />
             </Form.Item>
             <Form.Item label="Email" name="email" rules={emailValidate}>
-              <Input placeholder="Enter email"/>
+              <Input placeholder="Enter email" />
             </Form.Item>
 
             <Form.Item
@@ -116,15 +115,9 @@ if(localStorage.getItem('token')){
               rules={passwordValidate}
             >
               <Input.Password
-               onPaste={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              onCopy={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              placeholder="Enter password"
+                onPaste={onPaste}
+                onCopy={onCopy}
+                placeholder="Enter password"
               />
             </Form.Item>
             <Form.Item
@@ -133,16 +126,9 @@ if(localStorage.getItem('token')){
               rules={confirmPassword}
             >
               <Input.Password
-               onPaste={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              onCopy={(e) => {
-                e.preventDefault();
-                return false;
-
-              }}
-              placeholder="Enter confirm password"
+                onPaste={onPaste}
+                onCopy={onCopy}
+                placeholder="Enter confirm password"
               />
             </Form.Item>
             <Form.Item
@@ -157,10 +143,10 @@ if(localStorage.getItem('token')){
             </Form.Item>
             <Form.Item label="Birthday" name="dob" rules={combine}>
               <DatePicker
-              format='YYYY-MM-DD'
-              disabledDate={disabledDate}
-              // defaultPickerValue={minDate}
-               />
+                format="YYYY-MM-DD"
+                disabledDate={disabledDate}
+                // defaultPickerValue={minDate}
+              />
             </Form.Item>
             <Form.Item label="Address" name="address" rules={combine}>
               <TextArea rows={4} />

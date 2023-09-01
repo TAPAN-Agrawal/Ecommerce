@@ -17,7 +17,8 @@
 
     background-repeat: no-repeat;
     background-size: cover;
-    h1{
+
+    h1 {
         color: $blue-color;
         font-family: $font-family;
         font-weight: 100;
@@ -27,7 +28,7 @@
     }
 
     .register-form-wrapper {
-     
+
 
         @include display;
         padding-top: 15px;
@@ -44,23 +45,27 @@
             // border: 2px solid black;
             width: 60%;
             height: 100%;
-        background: transparent;
-        backdrop-filter: blur(7px);
+            background: transparent;
+            backdrop-filter: blur(7px);
 
-            .ant-form-item-control-input{
+            .ant-form-item-control-input {
                 width: 370px;
-                .ant-input{
-                    
+
+                .ant-input {
+
                     background: transparent;
                 }
-                .ant-input-affix-wrapper{
+
+                .ant-input-affix-wrapper {
                     background: transparent;
 
                 }
             }
-            Button{
+
+            Button {
                 width: 100%;
             }
+
             // border: 2px solid purple;
         }
     }

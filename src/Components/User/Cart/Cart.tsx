@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import img from "../../../Assets/Images/emptycart-removebg-preview.png";
-import img2 from '../../../Assets/Images/minimal-shopping-cart-shopping-concept-orange-background-3d-rendering-removebg-preview.png'
+import img2 from "../../../Assets/Images/minimal-shopping-cart-shopping-concept-orange-background-3d-rendering-removebg-preview.png";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
@@ -27,20 +27,18 @@ function Cart() {
       quantity={item.quantity}
       totalQuantity={item.totalQuantity}
       product_id={item.product_id}
-    
     />
   ));
 
   const price = cartItem.map((item: any, key: any) => {
     return {
-      id:item.id,
+      id: item.id,
       item: item.product_name,
       price: item.price * item.quantity,
       quantity: item.quantity,
     };
   });
   const ckeckoutHandler = () => {
-    console.log(price[0].id);
     navigate("/checkout", {
       state: {
         p: price,
@@ -65,7 +63,6 @@ function Cart() {
   }, []);
   return (
     <div className="parent-cart">
-     
       <div className="Back-Front-btn">
         <Button type="text" onClick={backHandler}>
           Back
@@ -75,13 +72,13 @@ function Cart() {
         <div className="cart-wrapper">
           <div className="cart-wrapper-child">
             <div className="left-child">
-              <Card >
+              <Card>
                 <h2>Shopping Cart</h2>
-                <Divider/>
-                {cartItems}</Card>
+                <Divider />
+                {cartItems}
+              </Card>
             </div>
             <div className="right-child">
-         
               <CartPrice priceList={price} />
               <Button onClick={ckeckoutHandler}>Checkout</Button>
             </div>

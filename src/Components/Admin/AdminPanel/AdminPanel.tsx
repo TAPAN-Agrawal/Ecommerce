@@ -13,9 +13,6 @@ import AdminProtected from "../../AdminProtected/AdminProtected";
 import AdminList from "../AdminList/AdminList";
 
 function AdminPanel() {
-
-
-
   return (
     <div className="admin-wrapper-container">
       <Sidebar />
@@ -28,11 +25,11 @@ function AdminPanel() {
             <Route path="/user" element={<UserTable />} />
             <Route path="product" element={<ProductTable />} />
           </Route>
-          <Route element={<AdminProtected/>}>
-           <Route path="/addproduct" element={<AddProduct />}/>
-            <Route path="/updateproduct" element={<UpdateProduct />}/>
-            <Route path="/addAdmin" element={<AddAdmin />}/>
-            <Route path="/admin" element={<AdminList/>}/>
+          <Route element={<AdminProtected />}>
+            <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/updateproduct" element={<UpdateProduct />} />
+            <Route path="/addAdmin" element={<AddAdmin />} />
+            <Route path="/admin" element={<AdminList />} />
           </Route>
         </Routes>
       </div>

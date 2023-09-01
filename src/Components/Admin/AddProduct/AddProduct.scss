@@ -1,11 +1,12 @@
 @import '../../../Global/Variable.scss';
 
-@mixin display{
+@mixin display {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.addProduct-wrapper{
+
+.addProduct-wrapper {
     @include display;
     height: 100%;
     width: 100%;
@@ -14,22 +15,24 @@
     background-repeat: no-repeat;
     background-size: cover;
 
-    .addAdmin-Form{
+    .addAdmin-Form {
         background: transparent;
         backdrop-filter: blur(20px);
         box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
         // padding-left: 60px;
         padding: 20px;
         font-family: $font-family;
-        label{
-        font-family: $font-family;
+
+        label {
+            font-family: $font-family;
 
         }
     }
-    .item{
-        Button{
+
+    .item {
+        Button {
             width: 100%;
-            
+
         }
     }
 }

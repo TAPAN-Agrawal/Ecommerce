@@ -124,7 +124,7 @@ function ProductTable() {
     dispatch(cleanAllProduct());
   }, []);
   useEffect(() => {
-    dispatch(getAllProducts(page, 8));
+    dispatch(getAllProducts(page, 9));
   }, [page]);
 
   return (

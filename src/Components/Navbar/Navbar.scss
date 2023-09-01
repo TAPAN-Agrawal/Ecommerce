@@ -10,7 +10,8 @@
 
   // // position: fixed;
   // background: rgb(183,231,241);
-  background: linear-gradient(90deg, rgba(63,130,251,0.6811099439775911) 23%, rgba(193,200,237,0.42620798319327735) 100%);
+  background: linear-gradient(90deg, rgba(63, 130, 251, 0.6811099439775911) 23%, rgba(193, 200, 237, 0.42620798319327735) 100%);
+
   .nav-main-container {
     @include display;
     justify-content: space-around;
@@ -21,21 +22,24 @@
     font-family: $font-family;
     color: $tertiary-color;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    
+
     .nav-logo {
       @include display;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      .company-logo{
-        color:$blue-color;
+
+      .company-logo {
+        color: $blue-color;
         font-family: cursive;
         font-size: 20px;
         margin-left: 6rem;
       }
-      .company-logo:hover{
-       cursor: pointer;
+
+      .company-logo:hover {
+        cursor: pointer;
       }
+
       p {
         color: black;
         height: 10px;
@@ -43,9 +47,14 @@
         padding-left: 5rem;
         font-size: 15px;
         font-family: 'Courier New', Courier, monospace;
-        span{
+
+        span {
           font-size: 10px;
         }
+      }
+
+      p:hover {
+        cursor: pointer;
       }
 
       .nav-img {
@@ -57,17 +66,20 @@
       // border: $border;
 
       width: 30%;
-      .ant-input{
-        background-color: rgb(240,245,255);
+
+      .ant-input {
+        background-color: rgb(240, 245, 255);
         border: none;
       }
-      .ant-btn{
-        background-color: rgb(240,245,255);
+
+      .ant-btn {
+        background-color: rgb(240, 245, 255);
         border: none;
         height: 100%;
         font-size: $font-size - 1;
 
       }
+
       .ant-input:focus {
         border-color: white;
       }
@@ -108,7 +120,7 @@
     }
 
     .nav-cred {
-      Button{
+      Button {
         background: transparent;
         backdrop-filter: blur(20px);
         box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 5px 2px;
@@ -122,11 +134,13 @@
         color: black;
         text-decoration: none;
       }
-      .log-ava{
+
+      .log-ava {
         @include display;
         justify-content: space-between;
         width: 100%;
-        .avatar{
+
+        .avatar {
           @include display;
           margin: 1rem;
           font-size: $font-size;
@@ -134,12 +148,14 @@
           width: 35px;
           background-color: $blue-color;
         }
-        .avatar:hover{
+
+        .avatar:hover {
           cursor: pointer;
         }
-       .form{
-        border: 2px solid red;
-       }
+
+        .form {
+          border: 2px solid red;
+        }
 
 
       }

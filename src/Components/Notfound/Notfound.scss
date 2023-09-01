@@ -1,10 +1,11 @@
-.notfound-wrapper{
+.notfound-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: 2rem;
-    .sorry{
+
+    .sorry {
         font-size: 100px;
         font-family: cursive;
     }

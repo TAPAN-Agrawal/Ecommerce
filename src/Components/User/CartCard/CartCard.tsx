@@ -3,7 +3,10 @@ import "./CartCard.scss";
 import { Button, Card, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { deleteCartItems, updateQuantityCart } from "../../../Redux/Action/Action";
+import {
+  deleteCartItems,
+  updateQuantityCart,
+} from "../../../Redux/Action/Action";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +33,6 @@ function CartCard(Props: any) {
       };
       dispatch(updateQuantityCart(inc));
     } else {
-     
     }
   };
 
@@ -55,31 +57,22 @@ function CartCard(Props: any) {
   };
   const cancel = (e: React.MouseEvent<HTMLElement>) => {};
 
-  const detailPageHandler=()=>{
-    navigate('/detail', {
+  const detailPageHandler = () => {
+    navigate("/detail", {
       state: {
         id: Props.product_id,
       },
-    }
-    )
-  }
+    });
+  };
 
-
-  useEffect(()=>{
-    setCount(Props.quantity)
-  },[Props.quantity])
-
-
- 
- 
-  
+  useEffect(() => {
+    setCount(Props.quantity);
+  }, [Props.quantity]);
 
   return (
     <div className="CartCard-wrapper">
       <Card className="CartCard">
-        <div className="CartCart-left"
-         onClick={detailPageHandler}
-    >
+        <div className="CartCart-left" onClick={detailPageHandler}>
           <img
             src={`${process.env.REACT_APP_BASEURL}/${Props.img}`}
             alt=""
@@ -89,20 +82,25 @@ function CartCard(Props: any) {
         </div>
         <div className="CartCart-right">
           <h3 onClick={detailPageHandler}>{Props.title}</h3>
-          <p>{Props.description.slice(0,140)}</p>
+          <p>{Props.description.slice(0, 140)}</p>
           <h4>$ {Props.price}</h4>
 
           <div className="count-delete">
             <div>
-             {count < 2 ? <Popconfirm 
-              title="Delete this item"
-              description="Are you sure to delete this item from cart?"
-              onConfirm={() => confirm(Props.id)}
-              onCancel={() => cancel}
-              okText="Yes"
-              cancelText="No">
-             <Button onClick={decrement}>-</Button>
-             </Popconfirm>:<Button onClick={decrement}>-</Button>}
+              {count < 2 ? (
+                <Popconfirm
+                  title="Delete this item"
+                  description="Are you sure to delete this item from cart?"
+                  onConfirm={() => confirm(Props.id)}
+                  onCancel={() => cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button onClick={decrement}>-</Button>
+                </Popconfirm>
+              ) : (
+                <Button onClick={decrement}>-</Button>
+              )}
               {Props.quantity}
               <Button onClick={increment}>+</Button>
             </div>

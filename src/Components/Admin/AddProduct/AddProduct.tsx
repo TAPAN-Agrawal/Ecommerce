@@ -27,9 +27,9 @@ function AddProduct() {
   const onFinish = (values: AddProductInterface) => {
     const updatedValues = { ...values, file: selectedFile };
     dispatch(addProduct(updatedValues));
-    setTimeout(()=>{
+    setTimeout(() => {
       navigate("/adminpanel/product");
-    },1000)
+    }, 1000);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -83,7 +83,7 @@ function AddProduct() {
           className="item"
           initialValue={1}
         >
-          <InputNumber min={1}  />
+          <InputNumber min={1} />
         </Form.Item>
         <Form.Item
           label="Category"
@@ -103,7 +103,7 @@ function AddProduct() {
           className="item"
           initialValue={selectedFile}
         >
-          <input type="file" onChange={handleFileChange}  />
+          <input type="file" onChange={handleFileChange} />
         </Form.Item>
         <Form.Item className="item">
           <Button type="primary" htmlType="submit">

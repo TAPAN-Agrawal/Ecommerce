@@ -64,6 +64,12 @@ export const getSingleProduct = (id: number) => {
     payload: id,
   };
 };
+export const setSingleProductInitial=()=>{
+  return {
+    type: "SET_SINGLE_PRODUCTS_INITIAL",
+   
+  };
+}
 
 export const addProduct = (data: AddProductInterface) => {
   return {

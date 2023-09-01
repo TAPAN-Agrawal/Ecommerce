@@ -56,7 +56,6 @@ function Detail() {
     let temp = count - 1;
     if (temp < 1) {
       temp = 0;
-      // setCount(temp);
     } else {
       setCount(temp);
     }

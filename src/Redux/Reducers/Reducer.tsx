@@ -5,7 +5,7 @@ const initialState: any = {
   users: [],
   cartItems: [],
   totalCount: "",
-  singleProductFailed:false,
+  singleProductFailed: false,
   isRegistered: false,
   login: false,
   purchased: false,
@@ -53,16 +53,16 @@ export const ecommerce = (state: any = initialState, action: any) => {
           quantityInCart: action.payload.quantityInCart,
         },
       };
-      case 'SET_SINGLE_PRODUCTS_FAILED':
-        return{
-          ...state,
-          singleProductFailed:true,
-        }
-        case 'SET_SINGLE_PRODUCTS_INITIAL':
-          return{
-            ...state,
-            singleProductFailed:false
-          }
+    case "SET_SINGLE_PRODUCTS_FAILED":
+      return {
+        ...state,
+        singleProductFailed: true,
+      };
+    case "SET_SINGLE_PRODUCTS_INITIAL":
+      return {
+        ...state,
+        singleProductFailed: false,
+      };
     case "ADD_PRODUCT_REDUCER":
       return {
         ...state,

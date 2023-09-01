@@ -62,7 +62,10 @@ function AdminList() {
         setPage(page - 1);
       }
       else{
-        dispatch(getAllAdmin(page,12));
+        if(totalCount%12 === 1){
+
+          dispatch(getAllAdmin(page,12));
+        }
       }
     }, 1000);
     const pageCalculator = Math.ceil(totalCount / 12) * 10;

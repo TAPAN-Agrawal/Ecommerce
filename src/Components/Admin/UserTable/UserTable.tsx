@@ -5,6 +5,7 @@ import "./UserTable.scss";
 import { deleteUser, getAllUsers } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 interface DataType {
   key: string;
@@ -60,17 +61,23 @@ function UserTable() {
   ];
 
   const deleteHandler = (id: number) => {
-    dispatch(deleteUser(id));
-    setTimeout(() => {
-      if (users.length === 1 && page > 1) {
-        setPage(page - 1);
-      }
-      else{
-    dispatch(getAllUsers(page, 12));
+    let role = localStorage.getItem("role");
+    if (role !== "0") {
+      toast.error("You are not authorized");
+    } else {
+      dispatch(deleteUser(id));
+      setTimeout(() => {
+        if (users.length === 1 && page > 1) {
+          setPage(page - 1);
+        } else {
+          if(totalCount%12 === 1){
 
-      }
-    }, 1000);
-    const pageCalculator = Math.ceil(totalCount / 12) * 10;
+            dispatch(getAllUsers(page, 12));
+          }
+        }
+      }, 1000);
+      const pageCalculator = Math.ceil(totalCount / 12) * 10;
+    }
   };
   const pageHandler = (e: number) => {
     setPage(e);

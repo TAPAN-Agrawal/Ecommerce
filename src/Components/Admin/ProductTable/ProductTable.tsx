@@ -39,18 +39,30 @@ function ProductTable() {
   };
 
   const deleteHandler = (id: number) => {
-    dispatch(deleteProduct(id));
+    let role = localStorage.getItem("role");
+    if(role !== "0") {
+      toast.error("You are not authorized");
 
-    setTimeout(() => {
-      if (datas.length === 1 && page > 1) {
-        setPage(page - 1);
-      }
-      else{
-    dispatch(getAllProducts(page, 9));
+    }
+    else{
 
-      }
-    }, 1000);
-    const pageCalculator = Math.ceil(totalCount / 9) * 10;
+      dispatch(deleteProduct(id));
+  
+      setTimeout(() => {
+        if (datas.length === 1 && page > 1) {
+          setPage(page - 1);
+        }
+        else{
+          if(totalCount%9 === 1){
+
+            dispatch(getAllProducts(page, 9));
+          }
+  
+        }
+      }, 1000);
+      const pageCalculator = Math.ceil(totalCount / 9) * 10;
+    }
+
   };
 
   const updateHandler = (record: any) => {

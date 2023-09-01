@@ -10,7 +10,6 @@ import {
   getSingleProduct,
   setSingleProductInitial,
 } from "../../../Redux/Action/Action";
-import { RightOutlined } from "@ant-design/icons";
 
 function Home() {
   const navigate = useNavigate();

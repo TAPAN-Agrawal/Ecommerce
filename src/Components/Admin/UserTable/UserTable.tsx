@@ -66,7 +66,7 @@ function UserTable() {
         setPage(page - 1);
       }
     }, 1000);
-    const pageCalculator = Math.ceil(totalCount / 8) * 10;
+    const pageCalculator = Math.ceil(totalCount / 12) * 10;
   };
   const pageHandler = (e: number) => {
     setPage(e);

@@ -46,7 +46,7 @@ function ProductTable() {
         setPage(page - 1);
       }
     }, 1000);
-    const pageCalculator = Math.ceil(totalCount / 8) * 10;
+    const pageCalculator = Math.ceil(totalCount / 9) * 10;
   };
 
   const updateHandler = (record: any) => {
@@ -118,7 +118,7 @@ function ProductTable() {
     },
   ];
 
-  const pageCalculator = Math.ceil(totalCount / 8) * 10;
+  const pageCalculator = Math.ceil(totalCount / 9) * 10;
 
   useEffect(() => {
     dispatch(cleanAllProduct());

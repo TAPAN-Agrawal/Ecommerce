@@ -110,7 +110,7 @@ function AddProduct() {
             rules={validationErr}
             className="item"
           >
-            <Input />
+            <Input type="number"/>
           </Form.Item>
           <Form.Item
             label="Quantity"
@@ -119,7 +119,7 @@ function AddProduct() {
             rules={validationErr}
             className="item"
           >
-            <InputNumber min={1} />
+            <Input type="number" min={1} />
           </Form.Item>
           <Form.Item
             label="Category"

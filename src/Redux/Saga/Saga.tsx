@@ -131,7 +131,6 @@ export function* googlelogin(action: any) {
 export function* getAllProducts(action: ActionProductInterface) {
   try {
     let { page, limit, category, sort } = action.payload;
-    console.log(action.payload)
     const response: AxiosResponse<any> = yield call(() => {
       if (category === 0 || category === 1) {
         if (sort) {
@@ -213,7 +212,10 @@ export function* updateProducts(action: ActionAddProductInterface) {
     formData.append("quantity", d.quantity);
     formData.append("category", d.category);
     formData.append("description", d.description);
-    formData.append("product_img", d.file);
+    if(d.file){
+
+      formData.append("product_img", d.file);
+    }
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
       `/products/update_product/${id}`,

@@ -8,13 +8,12 @@
 
 .parent-cart {
     min-height: 900px;
-    background: $primary-color;
+    background: $quaternary-color;
 
     .Back-Front-btn {
         @include display;
         justify-content: space-between;
         width: 90%;
-        // border: 2px solid black;
         margin-left: auto;
         margin-right: auto;
 
@@ -41,7 +40,6 @@
             justify-content: center;
             align-items: center;
             align-items: flex-start;
-            // min-height:850px;
             width: 90vw;
             padding-top: 5px;
 
@@ -53,6 +51,7 @@
                 h2 {
                     margin: 0px !important;
                     font-family: $font-family;
+                    color: $primary-color;
                 }
             }
 

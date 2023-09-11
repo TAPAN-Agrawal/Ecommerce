@@ -5,6 +5,7 @@ import TextArea from "antd/es/input/TextArea";
 import { addProduct } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { formError } from "../../../constants/constant";
 
 export interface AddProductInterface {
   id?: number;
@@ -22,7 +23,7 @@ function AddProduct() {
 
   const [selectedFile, setSelectedFile] = useState<any>("");
 
-  const validationErr = [{ required: true, message: "Required" }];
+  const validationErr = [{ required: true, message: `${formError.requiredField}` }];
 
   const onFinish = (values: AddProductInterface) => {
     const updatedValues = { ...values, file: selectedFile };
@@ -74,7 +75,7 @@ function AddProduct() {
           rules={validationErr}
           className="item"
         >
-          <Input type="number"/>
+          <Input type="number" />
         </Form.Item>
         <Form.Item
           label="Quantity"

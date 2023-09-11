@@ -12,7 +12,6 @@
         @include display;
         justify-content: space-between;
         width: 90%;
-        // border: 2px solid black;
         margin-left: auto;
         margin-right: auto;
 
@@ -31,11 +30,9 @@
 
     .parentd {
 
-        // background: $quaternary-color;
 
         .detail-parent-wrapper {
             @include display;
-            // justify-content: flex-start;
             align-items: flex-start;
 
             .detail-wrapper {
@@ -45,29 +42,21 @@
 
                 .detail-product-image {
                     @include display;
-                    // border: 2px solid green;
                     flex-direction: column;
                     justify-content: space-around;
                     box-shadow: rgba(0, 0, 0, 0.1) 0.2px 1px 0px 0px;
                     height: 700px;
-                    // width: 50%;
 
                     .detail-image {
                         margin: 1rem;
                         padding: 10px;
-                        // height: 60%;
-                        // width: 80%;
                         box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-                        // border: 2px solid green;
                     }
 
                     .small-img {
                         @include display;
-                        // justify-content: space-between;
                         width: 12%;
-                        // border:2px solid green;
 
-                        // height: 30px;
                     }
 
                     .detail-buttons {
@@ -109,7 +98,6 @@
                     flex-direction: column;
                     justify-content: space-evenly;
                     align-items: flex-start;
-                    // border: 2px solid red;
                     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
                     height: 700px;
                     width: 50%;
@@ -123,6 +111,7 @@
                         padding-top: 11px;
                         font-size: $font-size + 4;
                         font-family: $font-family;
+                        color: $primary-color;
                     }
 
                     h3 {
@@ -134,18 +123,17 @@
                         font-size: $font-size - 5;
                         text-align: justify;
                         font-family: $font-family;
+                        color: $secondary-color;
                     }
 
                     .offer-img {
                         @include display;
                         width: 20%;
-                        // overflow: hidden;
                         justify-content: space-between;
 
                         .img-wrapper {
                             height: 20px;
                             width: 20px;
-                            // border: 2px solid green;
                             overflow: hidden;
 
                             .img-scroll {
@@ -164,13 +152,11 @@
 
                 p {
                     font-size: 20px;
-                    // margin: 1rem;
                 }
             }
         }
 
         h1 {
-            // text-align: center;
             margin-left: 30rem;
         }
 
@@ -180,13 +166,11 @@
             flex-wrap: wrap;
             height: 300px;
             overflow-y: auto;
-            // border: 2px solid purple;
             padding-top: 20px;
             padding-left: 10px;
 
             .home-card {
                 height: 300px;
-                // border: 2px solid red;
                 margin: 0.3rem;
             }
 

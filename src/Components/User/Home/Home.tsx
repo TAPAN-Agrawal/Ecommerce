@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
   getAllProducts,
-  getSingleProduct,
   setSingleProductInitial,
 } from "../../../Redux/Action/Action";
+import { carouselImg } from "../../../constants/constant";
 
 function Home() {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ function Home() {
     setPage(1);
     setSelectedButton(0);
     sessionStorage.setItem("selected", "0");
+    sessionStorage.setItem("page", "1");
     const menProducts = products.filter(
       (product: any) => product.category === 0
     );
@@ -42,6 +43,7 @@ function Home() {
     setPage(1);
     setSelectedButton(1);
     sessionStorage.setItem("selected", "1");
+    sessionStorage.setItem("page", "1");
 
     const womenProducts = products.filter(
       (product: any) => product.category === 1
@@ -51,6 +53,7 @@ function Home() {
   const allHandler = () => {
     setPage(1);
     sessionStorage.setItem("selected", "null");
+    sessionStorage.setItem("page", "1");
 
     setSelectedButton(null);
     setCategory(products);
@@ -113,28 +116,28 @@ function Home() {
             <Carousel autoplay>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  src={carouselImg}
                   alt=""
                   className="home-img"
                 />
               </div>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                   src={carouselImg}
                   alt=""
                   className="home-img"
                 />
               </div>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  src={carouselImg}
                   alt=""
                   className="home-img"
                 />
               </div>
               <div>
                 <img
-                  src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/AmazonPay/AugART/V6/GWeditorial_2300x646._CB599389263_.jpg"
+                  src={carouselImg}
                   alt=""
                   className="home-img"
                 />

@@ -13,21 +13,17 @@
         @include display;
         flex-direction: column;
         justify-content: flex-start;
-        // align-items: flex-end;
         min-height: 940px;
         width: 100vw;
-        background: $primary-color;
+        background: $quaternary-color;
         padding-bottom: 40px;
-        // border: 2px solid yellow;
 
         .front-btn {
             margin-left: 90%;
         }
 
         .home-slider {
-            // border: 2px solid yellow;
             margin-top: 1.5rem;
-            // margin-left: -15rem;
             width: 100%;
             height: auto;
 
@@ -39,18 +35,18 @@
 
         .home-wrapper-child {
             @include display;
-            // flex-direction: column;
             height: 95%;
             width: 95%;
-            // border: $border;
 
             .home-combine-section {
                 height: 100%;
                 width: 100%;
-                // border: $border;
                 box-shadow: rgba(50, 50, 93, 0.25) 0.5px 0px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 0px 0px;
                 margin-right: 1rem;
                 margin-left: 1rem;
+                h1{
+                    color: $primary-color;
+                }
 
                 .seperator {
                     @include display;
@@ -63,7 +59,6 @@
                         width: 17%;
 
                         .selected {
-                            // background-color: #b7d7d4;
                             color: rgb(73, 73, 243);
                             border-color: rgb(73, 73, 243);
                             font-size: $font-size - 5;
@@ -98,7 +93,6 @@
                     align-items: flex-start;
                     flex-wrap: wrap;
                     height: 100%;
-                    // border: 2px solid purple;
                     padding-top: 20px;
                     padding-left: 10px;
 
@@ -117,7 +111,6 @@
 
                 .home-women-section {
                     height: 500px;
-                    // border: 2px solid green;
                     @include display;
                     justify-content: flex-start;
                     flex-wrap: wrap;

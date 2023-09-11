@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Pagination, Popconfirm, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import "./AdminList.scss";
-import {
-  deleteUser,
-  getAllAdmin,
-  getAllUsers,
-} from "../../../Redux/Action/Action";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { deleteUser, getAllAdmin } from "../../../Redux/Action/Action";
+import { useDispatch,useSelector } from "react-redux";
 
 interface DataType {
   key: string;
@@ -57,18 +52,14 @@ function AdminList() {
   const deleteHandler = (id: number) => {
     dispatch(deleteUser(id));
     setTimeout(() => {
-      
       if (users.length === 1 && page > 1) {
         setPage(page - 1);
-      }
-      else{
-        if(totalCount%12 === 1){
-
-          dispatch(getAllAdmin(page,12));
+      } else {
+        if (totalCount % 12 === 1) {
+          dispatch(getAllAdmin(page, 12));
         }
       }
     }, 1000);
-    const pageCalculator = Math.ceil(totalCount / 12) * 10;
   };
   const pageHandler = (e: number) => {
     setPage(e);

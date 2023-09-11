@@ -10,11 +10,11 @@ import {
   cleanProfileDetails,
   googlelogin,
   login,
-  getProfileDetails,
   loginSetter,
 } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
+import { formError } from "../../constants/constant";
 
 export interface LoginInterface {
   email: string;
@@ -28,12 +28,12 @@ function Login() {
   const [flag, setFlag] = useState<any>(false);
 
   const emailValidate: any = [
-    { required: true, message: "Email required" },
-    { type: "email", message: "Please enter your valid email" },
+    { required: true, message: `${formError.email.emailRequired}` },
+    { type: "email", message: `${formError.email.validEmail}` },
   ];
   const passwordValidate = [
-    { required: true, message: "Password required" },
-    { min: 8, message: "Minimum length is 8 characters" },
+    { required: true, message: `${formError.password.passwordRequired}` },
+    { min: 8, message: `${formError.password.passwordLength}` },
   ];
   const onFinish = (values: LoginInterface) => {
     setFlag(true);
@@ -69,14 +69,14 @@ function Login() {
       }
     } catch (error: any) {}
   };
-  const onPaste=(e:any)=>{
+  const onPaste = (e: any) => {
     e.preventDefault();
     return false;
-  }
-  const onCopy = (e:any) => {
+  };
+  const onCopy = (e: any) => {
     e.preventDefault();
     return false;
-  }
+  };
 
   useEffect(() => {
     const response = window.location.search;
@@ -143,21 +143,12 @@ function Login() {
               <Button type="primary" onClick={googleHandler}>
                 google login
               </Button>
-              {/* <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
-                <FacebookFilled className="logo" />
-              </a> */}
-              {/* 
-              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
-               
-              </a>
-
-              <a href={`${process.env.REACT_APP_BASEURL}/auth/google`}>
-                <LinkedinFilled className="logo" />
-              </a> */}
+              
             </div>
             <br />
+            <p> Don't have account ?</p>
             <Link to="/register" className="link">
-              Don't have account register
+              register
             </Link>
           </Form>
         </div>

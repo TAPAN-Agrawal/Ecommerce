@@ -12,10 +12,8 @@
     .CartCard {
         height: 200px;
         width: 100%;
-        // border: 2px solid rgb(214, 11, 45);
         border: none;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 0px 0px;
-
         .ant-card-body {
             @include display;
             padding-top: 2px;
@@ -38,18 +36,18 @@
                 height: 150px;
                 width: 85%;
 
-                // border: 2px solid yellowgreen;
                 p {
-                    // background-color: green;
                     height: 20%;
                     font-size: $font-size - 4;
                     font-family: $font-family;
+                    color: $secondary-color;
                 }
 
                 h3 {
                     margin-top: 0rem;
                     font-size: $font-size - 4;
                     font-family: $font-family;
+                    color: $primary-color;
 
                 }
 

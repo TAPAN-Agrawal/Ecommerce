@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './DetailImage.scss'
+import "./DetailImage.scss";
 
 function DetailImage({
   img,

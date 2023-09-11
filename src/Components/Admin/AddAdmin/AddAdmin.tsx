@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./AddAdmin.scss";
 import { Button, DatePicker, Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -6,43 +6,43 @@ import { addAdmin } from "../../../Redux/Action/Action";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import {  formError} from "../../../constants/constant";
 
-export interface AddAdmin {
+export interface AddAdmins {
   username: string;
   password: string;
   email: string;
   dob: string;
   gender: number;
-  address: "string";
+  address: string;
 }
 
 function AddAdmin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const nameValidate = [
-    { required: true, message: " Username required" },
-    { min: 2, message: " At least 3 characters" },
+  const nameValidate:any = [
+    { required: true, message: `${formError.userRequired}` },
   ];
   const emailValidate: any = [
-    { required: true, message: "Email required" },
-    { type: "email", message: "Enter  valid email" },
+    { required: true, message: `${formError.email.emailRequired}`},
+    { type: `${formError.email.email}`, message: `${formError.email.validEmail}` },
   ];
   const passwordValidate: any = [
-    { required: true, message: "Password required" },
+    { required: true, message: `${formError.password.passwordRequired}` },
     {
       pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
-      message: "Create strong password",
+      message: `${formError.password.strongPassword}`,
     },
   ];
-  const combine = [{ required: true, message: "Please  fill required field" }];
+  const combine = [{ required: true, message:`${formError.requiredField}`}];
 
   const minDate: any = moment().subtract(18, "years");
   const disabledDate: any = (current: any) => {
     return current && current > minDate;
   };
 
-  const onFinish = (values: AddAdmin) => {
+  const onFinish = (values: AddAdmins) => {
     dispatch(addAdmin(values));
     setTimeout(() => {
       navigate("/adminpanel/admin");
@@ -50,14 +50,14 @@ function AddAdmin() {
   };
 
   const onFinishFailed = (errorInfo: any) => {};
-  const onPaste=(e:any)=>{
+  const onPaste = (e: any) => {
     e.preventDefault();
     return false;
-  }
-  const onCopy = (e:any) => {
+  };
+  const onCopy = (e: any) => {
     e.preventDefault();
     return false;
-  }
+  };
 
   return (
     <div className="addAdmin-wrapper">
@@ -85,15 +85,12 @@ function AddAdmin() {
         </Form.Item>
 
         <Form.Item label="Password" name="password" rules={passwordValidate}>
-          <Input.Password
-            onPaste={onPaste}
-            onCopy={onCopy}
-          />
+          <Input.Password onPaste={onPaste} onCopy={onCopy} />
         </Form.Item>
         <Form.Item
           label="Gender"
           name="gender"
-          rules={[{ required: true, message: "Please select your gender" }]}
+          rules={combine}
         >
           <Radio.Group>
             <Radio value={0}> Male </Radio>

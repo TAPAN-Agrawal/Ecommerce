@@ -1,10 +1,15 @@
 import React from "react";
 import "./CartPrice.scss";
 import { Card, Divider } from "antd";
-import { useNavigate } from "react-router-dom";
+
+interface Price{
+  id:string,
+  item: string,
+  price: string,
+  quantity:string,
+}
 
 function CartPrice({ priceList }: any) {
-  const navigate = useNavigate();
 
   const priceListMap = priceList.map((item: any, key: any) => (
     <div className="item" key={item.id}>
@@ -21,9 +26,7 @@ function CartPrice({ priceList }: any) {
     return t;
   });
 
-  const purchased = () => {
-    navigate("/checkout");
-  };
+ 
   return (
     <div className="CartPrice-wrapper">
       <Card className="CartPrice-Card">

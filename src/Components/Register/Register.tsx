@@ -8,6 +8,7 @@ import { afterRegister, register } from "../../Redux/Action/Action";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { formError} from "../../constants/constant";
 
 export interface RegisterInterface {
   username: string;
@@ -24,36 +25,36 @@ function Register() {
   const isRegister = useSelector((state: any) => state.ecommerce.isRegistered);
 
   const nameValidate = [
-    { required: true, message: "Please input your username!" },
-    { min: 2, message: "Must be at least 3 characters" },
+    { required: true, message: `${formError.userRequired}` },
+    { min: 2, message: `${formError.minLength}` },
   ];
 
   const emailValidate: any = [
-    { required: true, message: "Please input your email" },
-    { type: "email", message: "Please enter your valid email" },
+    { required: true, message: `${formError.email.emailRequired}` },
+    { type: "email", message: `${formError.email.validEmail}` },
   ];
 
   const passwordValidate = [
-    { required: true, message: "Please input your password!" },
+    { required: true, message: `${formError.password.passwordRequired}` },
     {
       pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$/,
-      message: "Create strong password",
+      message: `${formError.password.strongPassword}`,
     },
   ];
 
   const confirmPassword: any = [
-    { required: true, message: "Please enter confirmation password" },
+    { required: true, message: `${formError.password.confirmPasswordMsg}`},
     ({ getFieldValue }: any) => ({
       validator(_: any, value: any) {
         if (!value || getFieldValue("password") === value) {
           return Promise.resolve();
         }
-        return Promise.reject(new Error("Password not match!"));
+        return Promise.reject(new Error(`${formError.password.passwordNotMatching}`));
       },
     }),
   ];
 
-  const combine = [{ required: true, message: "Please  fill required field" }];
+  const combine = [{ required: true, message: `${formError.requiredField}` }];
 
   const onFinish = (values: RegisterInterface) => {
     dispatch(register(values));
@@ -63,14 +64,14 @@ function Register() {
   const disabledDate: any = (current: any) => {
     return current && current > minDate;
   };
-  const onPaste=(e:any)=>{
+  const onPaste = (e: any) => {
     e.preventDefault();
     return false;
-  }
-  const onCopy = (e:any) => {
+  };
+  const onCopy = (e: any) => {
     e.preventDefault();
     return false;
-  }
+  };
 
   useEffect(() => {
     let role = localStorage.getItem("role");
@@ -134,7 +135,7 @@ function Register() {
             <Form.Item
               label="Gender"
               name="gender"
-              rules={[{ required: true, message: "Please select your gender" }]}
+              rules={combine}
             >
               <Radio.Group>
                 <Radio value={0}> Male </Radio>
@@ -145,7 +146,6 @@ function Register() {
               <DatePicker
                 format="YYYY-MM-DD"
                 disabledDate={disabledDate}
-                // defaultPickerValue={minDate}
               />
             </Form.Item>
             <Form.Item label="Address" name="address" rules={combine}>

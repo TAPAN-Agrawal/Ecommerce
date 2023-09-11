@@ -12,6 +12,7 @@ import {
   getProfileDetails,
 } from "../../../Redux/Action/Action";
 import { useSelector } from "react-redux";
+import { formError } from "../../../constants/constant";
 
 export interface CheckoutInterface {
   address: string;
@@ -44,11 +45,11 @@ function Checkout() {
   const dispatch = useDispatch();
   const { state } = useLocation();
 
-  const required = [{ required: true, message: " required field" }];
+  const required = [{ required: true, message: `${formError.requiredField}` }];
 
   const email: any = [
-    { required: true, message: " required field" },
-    { type: "email", message: "enter valid email" },
+    { required: true, message: `${formError.email.emailRequired}` },
+    { type: "email", message: `${formError.email.validEmail}` },
   ];
 
   const onFinish = (values: CheckoutInterface) => {

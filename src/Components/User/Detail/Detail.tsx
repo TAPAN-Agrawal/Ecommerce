@@ -4,19 +4,18 @@ import { Button, Divider, Spin } from "antd";
 import { RocketOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import {
   addToCart,
   cleanSingleProduct,
   getSingleProduct,
   purchaseRemover,
-  setSingleProductInitial,
-  updateQuantityCart,
 } from "../../../Redux/Action/Action";
 import Offer from "../Offer/Offer";
 import Other from "../Other/Other";
 import { toast } from "react-toastify";
 import DetailImage from "../DetailImage/DetailImage";
+import {toastMsg } from "../../../constants/constant";
 
 export interface addToCartInterface {
   id: number | any;
@@ -25,7 +24,6 @@ export interface addToCartInterface {
 
 function Detail() {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const { singleProduct, singleProductFailed } = useSelector(
     (state: any) => state.ecommerce
@@ -87,18 +85,18 @@ function Detail() {
           dispatch(purchaseRemover());
         }
       } else {
-        toast.error("Only  user can add product to cart");
+        toast.error(`${toastMsg.userToast}`);
       }
     } else {
       // navigate("/login");
-      toast.error("Please login to add product in cart");
+      toast.error(`${toastMsg.loginAdd}`);
     }
   };
   const BuyHandler = () => {
     let token = localStorage.getItem("token");
     let role = localStorage.getItem("role");
     if (!token) {
-      toast.error("Please login to buy products");
+      toast.error(`${toastMsg.loginBuy}`);
       return;
     }
     if (role !== "2") {
@@ -125,14 +123,14 @@ function Detail() {
     navigate(-1);
   };
   useEffect(() => {
-    if(singleProductFailed === false){
-
+    if (singleProductFailed === false) {
       dispatch(cleanSingleProduct());
-      dispatch(getSingleProduct(Number(window.location.pathname.split("/")[2])));
+      dispatch(
+        getSingleProduct(Number(window.location.pathname.split("/")[2]))
+      );
       setDetailProduct(singleProduct);
-    }
-    else{
-      navigate('/')
+    } else {
+      navigate("/");
     }
   }, [singleProductFailed]);
 

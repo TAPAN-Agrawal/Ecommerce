@@ -3,7 +3,7 @@ import "./SearchedProduct.scss";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getSingleProduct, searchProduct } from "../../../Redux/Action/Action";
+import { searchProduct } from "../../../Redux/Action/Action";
 import ProductCard from "../../User/ProductCard/ProductCard";
 import { Button, Empty, Pagination } from "antd";
 

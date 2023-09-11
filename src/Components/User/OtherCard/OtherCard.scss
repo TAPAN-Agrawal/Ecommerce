@@ -1,16 +1,16 @@
-@mixin display{
+@mixin display {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.OtherCard-wrapper{
+
+.OtherCard-wrapper {
     @include display;
     flex-direction: column;
     height: 100px;
     width: 100px;
-    // border: 2px solid blue;
-   
-        a{
+
+    a {
         text-decoration: none;
         font-size: 13px;
         padding-left: 29px;

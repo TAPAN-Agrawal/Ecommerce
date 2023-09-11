@@ -12,7 +12,7 @@
         font-family: $font-family;
         margin: 0px;
         width: 80%;
-        color: $blue-color;
+        color: $primary-color;
         font-size: $font-size;
         margin: 0.2rem auto;
 
@@ -40,7 +40,8 @@
             right: 0;
             width: 5px;
             height: 100%;
-            background: rgb(61, 124, 207);
+            background: $primary-color;
+
             opacity: 0;
             transform: none !important;
         }
@@ -59,7 +60,7 @@
                 right: 0;
                 width: 5px;
                 height: 100%;
-                background: rgb(61, 124, 207);
+                background: $primary-color;
             }
         }
 

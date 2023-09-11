@@ -6,6 +6,7 @@ import { Button, Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
 import { toast } from "react-toastify";
+import { toastMsg } from "../../../constants/constant";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -56,7 +57,7 @@ function Sidebar() {
     if (e.key === "addAdmin") {
       let role = localStorage.getItem("role");
       if (role === "1") {
-        toast.error("You are not authorized");
+        toast.error(`${toastMsg.unauthorized}`);
       } else {
         navigate("/adminpanel/addAdmin");
       }
@@ -64,7 +65,7 @@ function Sidebar() {
     if (e.key === "admin") {
       let role = localStorage.getItem("role");
       if (role === "1") {
-        toast.error("You are not authorized");
+        toast.error(`${toastMsg.unauthorized}`);
       } else {
         navigate("/adminpanel/admin");
       }

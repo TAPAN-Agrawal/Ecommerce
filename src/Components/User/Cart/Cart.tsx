@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import img from "../../../Assets/Images/emptycart-removebg-preview.png";
-import img2 from "../../../Assets/Images/minimal-shopping-cart-shopping-concept-orange-background-3d-rendering-removebg-preview.png";
+import { toastMsg } from "../../../constants/constant";
 
 function Cart() {
   const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
@@ -55,7 +55,7 @@ function Cart() {
     let role = localStorage.getItem("role");
     if (role !== "2") {
       navigate("/login");
-      toast.error("You are not authorized");
+      toast.error(`${toastMsg.unauthorized}`);
       return;
     }
 

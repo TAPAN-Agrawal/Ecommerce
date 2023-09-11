@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import { toast } from "react-toastify";
 
 export const axiosInstance = axios.create({
@@ -42,6 +41,7 @@ axiosInstanceAuth.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 axiosInstanceAuth.interceptors.response.use(
   (config: any) => {
     if (config.data.message) {

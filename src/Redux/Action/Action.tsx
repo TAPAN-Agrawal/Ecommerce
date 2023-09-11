@@ -2,11 +2,10 @@ import { RegisterInterface } from "../../Components/Register/Register";
 import { LoginInterface } from "../../Components/Login/Login";
 import { AddProductInterface } from "../../Components/Admin/AddProduct/AddProduct";
 import {
-  CheckoutInterface,
   buyNowInterface,
   completePurchaseInterface,
 } from "../../Components/User/Checkout/Checkout";
-import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
+import { AddAdmins } from "../../Components/Admin/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/User/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
 import { Profile } from "../../Components/Navbar/Navbar";
@@ -64,12 +63,11 @@ export const getSingleProduct = (id: number) => {
     payload: id,
   };
 };
-export const setSingleProductInitial=()=>{
+export const setSingleProductInitial = () => {
   return {
     type: "SET_SINGLE_PRODUCTS_INITIAL",
-   
   };
-}
+};
 
 export const addProduct = (data: AddProductInterface) => {
   return {
@@ -110,7 +108,7 @@ export const searchProduct = (search: string, page: number, limit: number) => {
   };
 };
 
-export const addAdmin = (data: AddAdmin) => {
+export const addAdmin = (data: AddAdmins) => {
   return {
     type: "ADD_ADMIN",
     payload: data,

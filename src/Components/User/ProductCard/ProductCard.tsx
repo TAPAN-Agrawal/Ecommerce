@@ -2,7 +2,14 @@ import React from "react";
 import { Rate } from "antd";
 import "./ProductCard.scss";
 
-function ProductCard(Props: any) {
+interface Product{
+  img:string,
+  title:string,
+  price:string,
+  description:string,
+}
+
+function ProductCard(Props: Product) {
   return (
     <div className="product-card-wrapper">
       <div className="img-wrapper">

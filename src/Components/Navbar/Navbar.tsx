@@ -30,6 +30,7 @@ import { useSelector } from "react-redux";
 import TextArea from "antd/es/input/TextArea";
 import moment from "moment";
 import dayjs from "dayjs";
+import { toastMsg, formError } from "../../constants/constant";
 
 const { Search } = Input;
 
@@ -44,7 +45,6 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = useSelector((state: any) => state.ecommerce.login);
-  const cartItem = useSelector((state: any) => state.ecommerce.cartItems);
   const profileDetail = useSelector(
     (state: any) => state.ecommerce.profileDetails
   );
@@ -52,11 +52,10 @@ function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const nameValidate = [
-    { required: true, message: "Please input your username!" },
-    { min: 2, message: "Must be at least 3 characters" },
+    { required: true, message: `${formError.userRequired}` },
   ];
 
-  const combine = [{ required: true, message: "Please  fill required field" }];
+  const combine = [{ required: true, message: `${formError.requiredField}` }];
 
   const minDate: any = moment().subtract(18, "years");
 
@@ -69,12 +68,17 @@ function Navbar() {
     localStorage.removeItem("role");
     localStorage.removeItem("userId");
     sessionStorage.clear();
-    toast.success("Logout Successfully");
+    toast.success(`${toastMsg.logoutSuccess}`);
     navigate("/home");
     dispatch(logoutSetter());
   };
   const logoHandler = () => {
-    navigate("/");
+    let role = localStorage.getItem("role");
+    if (role === "0" || role === "1") {
+      navigate("/adminpanel");
+    } else {
+      navigate("/");
+    }
   };
 
   const handleSearch = (e: any) => {
@@ -97,7 +101,6 @@ function Navbar() {
   };
 
   const handleCancel = () => {
-    // dispatch(cleanProfileDetails());
     setIsModalOpen(false);
   };
 
@@ -148,22 +151,44 @@ function Navbar() {
             <Search placeholder="Search products ..." onChange={handleSearch} />
           ) : null}
         </div>
-        <div className="nav-nav-items">
-          <div className="nav-nav-items-child">
-            <HomeOutlined className="nav-nav-item-logo" />
-            <NavLink to="/home" className="item-link">
-              Home
-            </NavLink>
-          </div>
-          {window.location.pathname.split("/")[1] !== "adminpanel" ? (
-            <div className="nav-nav-items-child">
+        {window.location.pathname.split("/")[1] !== "adminpanel" ? (
+          <div className="nav-nav-items">
+            <div
+              className="nav-nav-items-child"
+              onClick={() => navigate("/home")}
+            >
+              <HomeOutlined className="nav-nav-item-logo" />
+              <NavLink
+                to="/home"
+                className={
+                  window.location.pathname.split("/")[1] === "" ||
+                  window.location.pathname.split("/")[1] === "home"
+                    ? "item-link-active"
+                    : "item-link"
+                }
+              >
+                Home
+              </NavLink>
+            </div>
+
+            <div
+              className="nav-nav-items-child"
+              onClick={() => navigate("/cart")}
+            >
               <ShoppingCartOutlined className="nav-nav-item-logo" />
-              <NavLink to="/cart" className="item-link">
+              <NavLink
+                to="/cart"
+                className={
+                  window.location.pathname.split("/")[1] !== "cart"
+                    ? "item-link"
+                    : "item-link-active"
+                }
+              >
                 Cart
               </NavLink>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
         <div className="nav-cred">
           {isLogin === false && (
             <NavLink to="/login" className="link">

@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { formError } from "../../../constants/constant";
 
 function AddProduct() {
   const dispatch = useDispatch();
@@ -21,16 +22,9 @@ function AddProduct() {
   const [selectedFile, setSelectedFile] = useState<any>("");
   const [visible, setVisible] = useState<boolean>(true);
 
-  const [product, setProduct] = useState<any>({
-    product_name: "",
-    description: "",
-    quantity: "",
-    price: "",
-    category: 0,
-    product_img: "",
-  });
 
-  const validationErr = [{ required: true, message: "Required" }];
+
+  const validationErr = [{ required: true, message: `${formError.requiredField}` }];
 
   const onFinish = (values: any) => {
     dispatch(cleanSingleProduct());
@@ -54,7 +48,6 @@ function AddProduct() {
   const fieldChangeHandler = () => {
     setVisible(false);
   };
-  
 
   useEffect(() => {
     setVisible(true);
@@ -68,9 +61,7 @@ function AddProduct() {
     }
   }, []);
 
-  useEffect(() => {
-    setProduct(singleProducts);
-  }, [singleProducts]);
+
 
   return (
     <div className="updateProduct-wrapper">
@@ -110,7 +101,7 @@ function AddProduct() {
             rules={validationErr}
             className="item"
           >
-            <Input type="number"/>
+            <Input type="number" />
           </Form.Item>
           <Form.Item
             label="Quantity"

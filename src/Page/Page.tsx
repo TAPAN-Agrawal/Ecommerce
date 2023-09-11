@@ -12,7 +12,6 @@ import Purchased from "../Components/User/Purchased/Purchased";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Protected from "../Components/Protected/Protected";
-import RoleProtected from "../Components/RoleProtected/RoleProtected";
 import SearchedProduct from "../Components/User/SearchedProduct/SearchedProduct";
 import Checkout from "../Components/User/Checkout/Checkout";
 import "./Page.scss";

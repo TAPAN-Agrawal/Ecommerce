@@ -1,7 +1,12 @@
 import React from "react";
 import "./OtherCard.scss";
 
-function OtherCard(Props: { img: string; description: string }) {
+interface Other{
+  img: string,
+  description: string
+}
+
+function OtherCard(Props: Other) {
   return (
     <div className="OtherCard-wrapper">
       <img src={Props.img} alt="" height="50" />

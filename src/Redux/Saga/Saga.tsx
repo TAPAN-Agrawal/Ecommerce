@@ -9,9 +9,10 @@ import {
   buyNowInterface,
   completePurchaseInterface,
 } from "../../Components/User/Checkout/Checkout";
-import { AddAdmin } from "../../Components/Admin/AddAdmin/AddAdmin";
+import { AddAdmins } from "../../Components/Admin/AddAdmin/AddAdmin";
 import { addToCartInterface } from "../../Components/User/Detail/Detail";
 import { updateQuantityCartInterface } from "../../Components/User/CartCard/CartCard";
+import { apiEndpoints } from "../../constants/constant";
 
 interface RegisterActionInterface {
   type: string;
@@ -54,7 +55,7 @@ interface ActionCheckoutInterface {
 
 interface ActionAddAdminInterface {
   type: string;
-  payload: AddAdmin;
+  payload: AddAdmins;
 }
 interface ActionAddToCartInterface {
   type: string;
@@ -90,7 +91,7 @@ export function* register(action: RegisterActionInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
-      "/auth/register",
+      `${apiEndpoints.register}`,
       temp
     );
 
@@ -107,11 +108,12 @@ export function* login(action: LoginActionInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.post,
-      "/auth/login",
+     `${apiEndpoints.login}`,
       temp
     );
     if (response) {
       localStorage.setItem("token", response.data.data.tokenResponse.token);
+      sessionStorage.clear();
       yield put({ type: "LOGIN_REDUCER" });
     }
   } catch (error: any) {}
@@ -121,7 +123,7 @@ export function* googlelogin(action: any) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.get,
-      "/auth/google"
+      `${apiEndpoints.google}`
     );
   } catch (error) {}
 }
@@ -133,21 +135,21 @@ export function* getAllProducts(action: ActionProductInterface) {
       if (category === 0 || category === 1) {
         if (sort) {
           return axiosInstanceAuth.get(
-            `/products/all?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
+            `${apiEndpoints.getAllProducts}?page=${page}&limit=${limit}&category=${category}&sortOrder=${sort}`
           );
         } else {
           return axiosInstanceAuth.get(
-            `/products/all?page=${page}&limit=${limit}&category=${category}`
+            `${apiEndpoints.getAllProducts}?page=${page}&limit=${limit}&category=${category}`
           );
         }
       } else {
         if (sort) {
           return axiosInstanceAuth.get(
-            `/products/all?page=${page}&limit=${limit}&sortOrder=${sort}`
+            `${apiEndpoints.getAllProducts}?page=${page}&limit=${limit}&sortOrder=${sort}`
           );
         } else {
           return axiosInstanceAuth.get(
-            `/products/all?page=${page}&limit=${limit}`
+            `${apiEndpoints.getAllProducts}?page=${page}&limit=${limit}`
           );
         }
       }
@@ -167,9 +169,9 @@ export function* getSingleProduct(action: ActionNumberInterface) {
   let userId = localStorage.getItem("userId");
   let url;
   if (userId) {
-    url = `/products/product_by_id/?id=${id}&userId=${userId}`;
+    url = `${apiEndpoints.getSingleProduct}/?id=${id}&userId=${userId}`;
   } else {
-    url = `/products/product_by_id/?id=${id}`;
+    url = `${apiEndpoints.getSingleProduct}/?id=${id}`;
   }
   try {
     const response: AxiosResponse<any> = yield call(axiosInstance.get, url);
@@ -193,7 +195,7 @@ export function* addProduct(action: ActionAddProductInterface) {
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
-      "/products/add_product",
+      `${apiEndpoints.addProduct}`,
       formData
     );
   } catch (error) {}
@@ -214,7 +216,7 @@ export function* updateProducts(action: ActionAddProductInterface) {
     }
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
-      `/products/update_product/${id}`,
+      `${apiEndpoints.updateProduct}${id}`,
       formData
     );
     if (response) {
@@ -228,7 +230,7 @@ export function* deleteProduct(action: ActionNumberInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.delete,
-      `/products/delete_product/${id}`
+      `${apiEndpoints.deleteProduct}${id}`
     );
 
     if (response) {
@@ -242,7 +244,7 @@ export function* searchProduct(action: any) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstance.get,
-      `/products/search_text/?search=${search}&page=${page}&limit=${limit}`
+      `${apiEndpoints.searchProduct}?search=${search}&page=${page}&limit=${limit}`
     );
     if (response.status === 200) {
       yield put({
@@ -261,7 +263,7 @@ export function* addAdmin(action: ActionAddAdminInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
-      `/auth/add_admin`,
+      `${apiEndpoints.addAdmin}`,
       temp
     );
   } catch (error) {}
@@ -272,7 +274,7 @@ export function* getAllUsers(action: UserActionInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
-      `/auth/users/?page=${page}&limit=${limit}`
+      `${apiEndpoints.getAllUsers}?page=${page}&limit=${limit}`
     );
     if (response) {
       let temp = {
@@ -288,7 +290,7 @@ export function* getAllAdmins(action: UserActionInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
-      `/auth/admins/?page=${page}&limit=${limit}`
+      `${apiEndpoints.getAllAdmins}?page=${page}&limit=${limit}`
     );
     if (response) {
       let temp = {
@@ -310,7 +312,7 @@ export function* addToCart(action: ActionAddToCartInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
-      `/products/add_to_cart/${id}`,
+      `${apiEndpoints.addToCart}${id}`,
       temp
     );
   } catch (error) {}
@@ -320,7 +322,7 @@ export function* getProductsInCarts() {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
-      `/products/carts`
+      `${apiEndpoints.getProductsInCarts}`
     );
     if (response) {
       yield put({
@@ -336,7 +338,7 @@ export function* deleteUser(action: ActionNumberInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.delete,
-      `/auth/remove_user/${id}`
+      `${apiEndpoints.deleteUser}${id}`
     );
     if (response) {
       yield put({ type: "DELETE_USER_REDUCER", payload: id });
@@ -349,7 +351,7 @@ export function* deleteCartItem(action: ActionNumberInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.delete,
-      `/products/remove_from_cart/${id}`
+      `${apiEndpoints.deleteCartItem}${id}`
     );
     if (response) {
       yield put({ type: "DELETE_CART_ITEM_REDUCER", payload: id });
@@ -366,7 +368,7 @@ export function* updateQuantityCart(action: ActionupdateQuantityCartInterface) {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
-      `/products/update_quantity/${id}`,
+      `${apiEndpoints.updateQuantityCart}${id}`,
       temp
     );
     if (response) {
@@ -384,7 +386,7 @@ export function* completePurchase(action: ActionCompletePurchaseInterface) {
     let temp = action.payload.values;
     let $isCalledFromCart = action.payload.isCalledFromCart;
 
-    let url = `/products/shipping_details`;
+    let url = `${apiEndpoints.completePurchase}`;
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.post,
@@ -407,7 +409,7 @@ export function* buyNow(action: ActionBuyNowInterface) {
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
-      `/products/buy_now/${id}`,
+      `${apiEndpoints.buyNow}${id}`,
       temp
     );
   } catch (error: any) {}
@@ -417,7 +419,7 @@ export function* getProfileDetails() {
   try {
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.get,
-      `/auth/user`
+      `${apiEndpoints.getProfileDetails}`
     );
 
     if (response) {
@@ -435,7 +437,7 @@ export function* updateProfileDetails(action: any) {
 
     const response: AxiosResponse<any> = yield call(
       axiosInstanceAuth.patch,
-      `/auth/update_user`,
+      `${apiEndpoints.updateProfileDetails}`,
       temp
     );
   } catch (error: any) {}

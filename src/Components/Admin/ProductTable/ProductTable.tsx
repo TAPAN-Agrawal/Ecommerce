@@ -12,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { toastMsg } from "../../../constants/constant";
 
 interface DataType {
   key: string;
@@ -32,7 +33,7 @@ function ProductTable() {
   const addHandler = () => {
     let role = localStorage.getItem("role");
     if (role !== "0") {
-      toast.error("You are not authorized");
+      toast.error(`${toastMsg.unauthorized}`);
     } else {
       navigate("/adminpanel/addproduct");
     }
@@ -40,35 +41,27 @@ function ProductTable() {
 
   const deleteHandler = (id: number) => {
     let role = localStorage.getItem("role");
-    if(role !== "0") {
-      toast.error("You are not authorized");
-
-    }
-    else{
-
+    if (role !== "0") {
+      toast.error(`${toastMsg.unauthorized}`);
+    } else {
       dispatch(deleteProduct(id));
-  
+
       setTimeout(() => {
         if (datas.length === 1 && page > 1) {
           setPage(page - 1);
-        }
-        else{
-          if(totalCount%9 === 1){
-
+        } else {
+          if (totalCount % 9 === 1) {
             dispatch(getAllProducts(page, 9));
           }
-  
         }
       }, 1000);
-      const pageCalculator = Math.ceil(totalCount / 9) * 10;
     }
-
   };
 
   const updateHandler = (record: any) => {
     let role = localStorage.getItem("role");
     if (role !== "0") {
-      toast.error("You are not authorized");
+      toast.error(`${toastMsg.unauthorized}`);
     } else {
       navigate("/adminpanel/updateproduct", {
         state: {

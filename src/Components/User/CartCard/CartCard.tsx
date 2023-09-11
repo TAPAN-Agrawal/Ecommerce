@@ -7,19 +7,30 @@ import {
   deleteCartItems,
   updateQuantityCart,
 } from "../../../Redux/Action/Action";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export interface updateQuantityCartInterface {
-  id: number;
+  id: number | string;
   count: number;
 }
 
-function CartCard(Props: any) {
+interface Cart{
+  key:string,
+  id:string,
+  img:string,
+  description:string,
+  title:string,
+  price:string,
+  quantity:string | any,
+  totalQuantity:string,
+  product_id:string,
+}
+
+function CartCard(Props: Cart) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [count, setCount] = useState<number>(Props.quantity || 0);
-  const [totalconst, settotalConst] = useState(Props.totalQuantity);
+  const [totalconst, settotalConst] = useState<any>(Props.totalQuantity);
 
   const increment = () => {
     let temp = count + 1;
@@ -48,7 +59,6 @@ function CartCard(Props: any) {
       };
       dispatch(updateQuantityCart(dec));
     } else {
-      // dispatch(deleteCartItems(Props.id));
     }
   };
 
@@ -58,7 +68,7 @@ function CartCard(Props: any) {
   const cancel = (e: React.MouseEvent<HTMLElement>) => {};
 
   const detailPageHandler = () => {
-    navigate("/detail", {
+    navigate(`/detail/${Props.product_id}`, {
       state: {
         id: Props.product_id,
       },
